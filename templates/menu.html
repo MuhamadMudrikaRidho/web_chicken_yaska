@@ -1,0 +1,73 @@
+{% extends "layouts/template.html" %}
+{% block title %}Menu{%endblock%}
+{% block navmenu %}active1{% endblock%}
+{% block breadcrumb %}
+<div class="page-path">
+  <div class="container">
+    <div class="breadcrumbs-inner">
+      <h1 class="path-title">Menu</h1>
+      <ul>
+        <li><a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a></li>
+        <li><a class="current-page" href="#">Menu</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="shop-product-topbar">
+        <span class="items-onlist">Showing 1-12 of 70 results</span>
+        <div class="filter-area">
+          <p class="select-area">
+            <select class="select">
+              <option value="*">Sort by average rating</option>
+              <option value=".popular">Sort by popularity</option>
+              <option value=".best-rate">Sort by latest</option>
+              <option value=".on-sale">Sort by price: low to high</option>
+              <option value=".featured">Sort by price: high to low</option>
+            </select>
+          </p>
+        </div>
+      </div>
+      <div class="products-area products-area3">
+        <div class="row justify-content-center">
+          {% for i in range(4) : %}
+          <div class="col-xl-3 col-md-4 col-sm-6">
+            <div class="product-item product-item2 element-item3">
+              <a href="product-details.html" class="product-image">
+                <img src="{{url_for('static', filename='assets/images/hand-picked/slider-img8_2.jpg')}}"
+                  alt="product-image">
+              </a>
+              <div class="bottom-content">
+                <a href="product-details.html" class="product-name">Men’s Canvas</a>
+                <div class="action-wrap">
+                  <span class="product-price">$310.00</span>
+                  <a href="cart.html" class="addto-cart"><i class="fal fa-shopping-cart"></i> Add To
+                    Cart</a>
+                </div>
+              </div>
+              <div class="product-actions">
+                <a href="wishlist.html" class="product-action"><i class="fal fa-heart"></i></a>
+                <button class="product-action product-details-popup-btn"><i class="fal fa-eye"></i></button>
+              </div>
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+      <div class="product-pagination-area mt--20">
+        <button class="prev"><i class="far fa-long-arrow-left"></i></button>
+        <button class="number active">01</button>
+        <button class="number">02</button>
+        <button class="skip-number">---</button>
+        <button class="number">07</button>
+        <button class="number">08</button>
+        <button class="next"><i class="far fa-long-arrow-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
