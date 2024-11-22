@@ -1,0 +1,79 @@
+{% extends "layouts/template.html" %} {% block title %}Login{%endblock%} {%
+block navlogin %}active1{% endblock%} {% block breadcrumb %}
+<div class="page-path">
+  <div class="container">
+    <div class="breadcrumbs-inner">
+      <h1 class="path-title">Log In</h1>
+      <ul>
+        <li>
+          <a class="home-page-link" href="index.html"
+            >Home <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
+        <li><a class="current-page" href="#">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block content %}
+<!--login-area start-->
+<div class="login-area">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-12">
+        <div class="login-form">
+          <div class="section-title">
+            <h2 class="title text-center">Login</h2>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <form>
+                <div class="form">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    placeholder="Username or email address*"
+                    required
+                  />
+                </div>
+                <div class="form">
+                  <div class="password-input">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      placeholder="Password*"
+                      required
+                    />
+                    <span class="show-password-input"></span>
+                  </div>
+                </div>
+                <div class="form">
+                  <input
+                    type="checkbox"
+                    class="form-check-input"
+                    id="remember"
+                  />
+                  <label for="remember" class="form-label">Remember Me</label>
+                </div>
+                <div class="form text-center">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <p class="text-center">
+                  <a class="fw-normal" href="#">Lupa password?</a>
+                </p>
+                <p class="text-center">
+                  Belum punya akun?
+                  <a class="fw-normal" href="/register">Daftar Di sini</a>
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--login-area end-->
+{% endblock %}
