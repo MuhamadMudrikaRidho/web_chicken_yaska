@@ -85,7 +85,7 @@
                   <span class="dot9"></span>
                 </a>
               </div>
-              <a href="index.html" class="logo"><img src="{{url_for('static', filename='assets/images/YASAKA.jpg')}}"
+              <a href="index.html" class="logo w-25"><img src="{{url_for('static', filename='assets/images/YASAKA.jpg')}}"
                   alt="YASAKA.jpg"></a>
             </div>
             <div class="rts-menu">
@@ -138,7 +138,7 @@
                 </div>
               </div>
               {% else %}
-              <a href="/login" class="menu-item">Login</i></a>
+              <a href="/login" class="menu-item {%block navlogin%}{%endblock%}">Login</i></a>
               {% endif %}
             </div>
           </div>
