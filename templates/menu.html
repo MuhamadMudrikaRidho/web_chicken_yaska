@@ -1,6 +1,6 @@
 {% extends "layouts/template.html" %}
-{% block title %}Menu{%endblock%}
-{% block navmenu %}active1{% endblock%}
+{% block title %}Menu{% endblock %}
+{% block navmenu %}active1{% endblock %}
 {% block breadcrumb %}
 <div class="page-path">
   <div class="container">
@@ -19,34 +19,32 @@
   <div class="row">
     <div class="col-xl-12">
       <div class="shop-product-topbar">
-        <span class="items-onlist">Showing 1-12 of 70 results</span>
+        <span class="items-onlist">Menampilkan 1-12 dari 50 hasil</span>
         <div class="filter-area">
           <p class="select-area">
             <select class="select">
-              <option value="*">Sort by average rating</option>
-              <option value=".popular">Sort by popularity</option>
-              <option value=".best-rate">Sort by latest</option>
-              <option value=".on-sale">Sort by price: low to high</option>
-              <option value=".featured">Sort by price: high to low</option>
+              <option value="*">Urutkan Berdasarkan Peringkat</option>
+              <option value=".popular">Urutkan berdasarkan Terfavorit</option>
+              <option value=".best-rate">Urutkan berdasarkan yang terbaru</option>
+              <option value=".on-sale">Urutkan berdasarkan harga: rendah ke tinggi</option>
+              <option value=".featured">Urutkan berdasarkan harga: tinggi ke rendah</option>
             </select>
           </p>
         </div>
       </div>
       <div class="products-area products-area3">
         <div class="row justify-content-center">
-          {% for i in range(4) : %}
+          {% for product in products %}
           <div class="col-xl-3 col-md-4 col-sm-6">
             <div class="product-item product-item2 element-item3">
               <a href="product-details.html" class="product-image">
-                <img src="{{url_for('static', filename='assets/images/hand-picked/slider-img8_2.jpg')}}"
-                  alt="product-image">
+                <img src="{{ url_for('static', filename=product.image) }}" alt="product-image">
               </a>
               <div class="bottom-content">
-                <a href="product-details.html" class="product-name">Men’s Canvas</a>
+                <a href="product-details.html" class="product-name">{{ product.name }}</a>
                 <div class="action-wrap">
-                  <span class="product-price">$310.00</span>
-                  <a href="cart.html" class="addto-cart"><i class="fal fa-shopping-cart"></i> Add To
-                    Cart</a>
+                  <span class="product-price">{{ product.price }}</span>
+                  <a href="cart.html" class="addto-cart"><i class="fal fa-shopping-cart"></i> Tambah ke Keranjang</a>
                 </div>
               </div>
               <div class="product-actions">
@@ -55,7 +53,7 @@
               </div>
             </div>
           </div>
-          {%endfor%}
+          {% endfor %}
         </div>
       </div>
       <div class="product-pagination-area mt--20">

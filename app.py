@@ -33,7 +33,20 @@ def home():
 
 @app.route("/menu")
 def menu():
-    return render_template('menu.html', login=False)
+    # Data produk yang akan dikirim ke template
+    products = [
+        {"image": "assets/images/hand-picked/favyasaka.jpg",
+            "name": "Ayam Bakar Crispy", "price": "Rp.15.000"},
+        {"image": "assets/images/hand-picked/chicken.jpg",
+            "name": "Chicken + Nasi", "price": "Rp.20.000"},
+        {"image": "assets/images/hand-picked/mentai.jpg",
+            "name": "Ayam Bakar Mentai + Nasi", "price": "Rp.15.000"},
+        {"image": "assets/images/hand-picked/geprek.jpg",
+            "name": "Ayam Geprek + Nasi", "price": "Rp.17.000"},
+    ]
+
+    # Kirim data produk ke template
+    return render_template('menu.html', login=False, products=products)
 
 
 @app.route('/about')
