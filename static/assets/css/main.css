@@ -10302,7 +10302,7 @@ tr:first-child {
   background-size: cover;
 }
 .banner .banner-single.bg-image-3-1 {
-  background-image: url("../images/banner/bg-pattern-1.jpg");
+  background-image: url("../images/banner/pedas.jpg");
   background-position: center center;
   background-size: cover;
   height: 575px;
@@ -10324,7 +10324,7 @@ tr:first-child {
   }
 }
 .banner .banner-single.bg-image-3-3 {
-  background-image: url("../images/banner/bg-pattern-2.jpg");
+  background-image: url("../images/banner/krispy.jpg");
   background-position: center center;
   background-size: cover;
   height: 575px;
@@ -10345,7 +10345,7 @@ tr:first-child {
   }
 }
 .banner .banner-single.bg-image-3-4 {
-  background-image: url("../images/banner/bg-pattern-3.jpg");
+  background-image: url("../images/banner/mix.jpg");
   background-position: center center;
   background-size: cover;
   height: 575px;
