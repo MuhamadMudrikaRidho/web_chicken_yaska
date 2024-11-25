@@ -59,12 +59,12 @@ def menu():
             "name": "Ayam Geprek + Nasi", "price": "Rp.17.000"},
     ]
 
-    return render_template('menu.html', login=False, products=products)
+    return render_template('menu.html', products=products)
 
 
 @app.route('/about')
 def about():
-    return render_template('about.html', login=False)
+    return render_template('about.html')
 
 
 @app.route('/login', methods=["POST", "GET"])
@@ -87,7 +87,7 @@ def login():
 
       return render_template('login.html', message={'info': "Invalid Email or Password", 'type': "danger"})
 
-    return render_template('login.html', login=False)
+    return render_template('login.html')
 
 
 @app.route('/register', methods=["POST", "GET"])
@@ -124,9 +124,10 @@ def register():
           db.users.insert_one(doc)
           return redirect(url_for('login'))
     
-    return render_template('register.html', login=False)
+    return render_template('register.html')
 
 @app.route('/logout')
+@redirect_if_logged_in
 def logout():
     session.clear()
     return redirect(url_for('login'))
