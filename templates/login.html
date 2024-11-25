@@ -6,9 +6,7 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
       <h1 class="path-title">Log In</h1>
       <ul>
         <li>
-          <a class="home-page-link" href="index.html"
-            >Home <i class="fal fa-angle-right"></i
-          ></a>
+          <a class="home-page-link" href="index.html">Home <i class="fal fa-angle-right"></i></a>
         </li>
         <li><a class="current-page" href="#">Login</a></li>
       </ul>
@@ -27,45 +25,28 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
           </div>
           <div class="card">
             <div class="card-body">
-              <form>
+              <form action="/login" method="POST">
                 <div class="form">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="username"
-                    placeholder="Username or email address*"
-                    required
-                  />
+                  <input type="text" class="form-control" id="email" placeholder="Email address*" name="email"
+                    required />
                 </div>
                 <div class="form">
                   <div class="password-input">
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="password"
-                      placeholder="Password*"
-                      required
-                    />
+                    <input type="password" class="form-control" id="password" placeholder="Password*" name="password"
+                      required />
                     <span class="show-password-input"></span>
                   </div>
                 </div>
                 <div class="form">
-                  <input
-                    type="checkbox"
-                    class="form-check-input"
-                    id="remember"
-                  />
+                  <input type="checkbox" class="form-check-input" id="remember" />
                   <label for="remember" class="form-label">Remember Me</label>
                 </div>
                 <div class="form text-center">
-                  <button type="submit" class="btn btn-primary">Login</button>
+                  <button type="submit" class="btn">Login</button>
                 </div>
                 <p class="text-center">
-                  <a class="fw-normal" href="#">Lupa password?</a>
-                </p>
-                <p class="text-center">
                   Belum punya akun?
-                  <a class="fw-normal" href="/register">Daftar Di sini</a>
+                  <a class="fw-normal" href="/register">Daftar di sini</a>
                 </p>
               </form>
             </div>

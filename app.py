@@ -1,18 +1,23 @@
 import os
 from os.path import join, dirname
-from dotenv import load_dotenv  # type: ignore
+from dotenv import load_dotenv
 
-from flask import (  # type: ignore
+from functools import wraps
+
+from flask import (
     Flask,
     request,
     render_template,
     redirect,
     url_for,
-    jsonify
+    jsonify,
+    session
 )
 
-from pymongo import MongoClient  # type: ignore
-from bson import ObjectId  # type: ignore
+import bcrypt
+
+from pymongo import MongoClient
+from bson import ObjectId
 
 dotenv_path = join(dirname(__file__), '.env')
 load_dotenv(dotenv_path)
@@ -24,16 +29,25 @@ client = MongoClient(MONGODB_URI)
 db = client[DB_NAME]
 
 app = Flask(__name__)
+app.secret_key = "chicken_yasaka"
 
+def is_logged_in():
+    return 'username' in session
+
+def redirect_if_logged_in(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if is_logged_in():
+            return redirect(url_for('home'))
+        return func(*args, **kwargs)
+    return decorated_function
 
 @app.route("/")
 def home():
     return render_template('index.html', login=False)
 
-
 @app.route("/menu")
 def menu():
-    # Data produk yang akan dikirim ke template
     products = [
         {"image": "assets/images/hand-picked/favyasaka.jpg",
             "name": "Ayam Bakar Crispy", "price": "Rp.15.000"},
@@ -45,7 +59,6 @@ def menu():
             "name": "Ayam Geprek + Nasi", "price": "Rp.17.000"},
     ]
 
-    # Kirim data produk ke template
     return render_template('menu.html', login=False, products=products)
 
 
@@ -54,13 +67,63 @@ def about():
     return render_template('about.html', login=False)
 
 
-@app.route('/login')
+@app.route('/login', methods=["POST", "GET"])
+@redirect_if_logged_in
 def login():
+    
+    if request.method == "POST" : 
+      email = request.form.get('email')
+      password = request.form.get('password')
+
+      if not email or not password:
+          return render_template('login.html', message={'info': "Please provide both email and password", 'type': "danger"})
+
+      login_user = db.users.find_one({'email': email})
+
+      if login_user: 
+          if bcrypt.checkpw(password.encode('utf-8'), login_user['password'].encode('utf-8')):
+              session['username'] = login_user['username']
+              return redirect(url_for('home'))
+
+      return render_template('login.html', message={'info': "Invalid Email or Password", 'type': "danger"})
+
     return render_template('login.html', login=False)
 
 
-@app.route('/register')
+@app.route('/register', methods=["POST", "GET"])
+@redirect_if_logged_in
 def register():
+    if request.method == "POST" :  
+      email = request.form.get('email')
+      username = request.form.get('username')
+      password = request.form.get('password')
+      name = request.form.get('name')
+
+      if not email or not password or not name or not username:
+          return "All fields are required!", 400
+
+      email = email.lower()
+      username = username.lower()
+      existing_user = db.users.find_one({"email": email})
+      existing_username = db.users.find_one({"username": username})
+
+      if existing_username :
+          return "That username already exists", 400
+      
+      if existing_user : 
+          return "That email already exists", 400
+
+      if existing_user is None and existing_username is None:
+          hashpass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+          doc = {
+              "name": name,
+              "username" : username,
+              "email": email,
+              "password": hashpass.decode('utf-8')
+          }
+          db.users.insert_one(doc)
+          return redirect(url_for('login'))
+    
     return render_template('register.html', login=False)
 
 

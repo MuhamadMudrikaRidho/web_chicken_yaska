@@ -38,7 +38,8 @@
   <!--================= Preloader Section Start Here =================-->
   <div id="weiboo-load">
     <div class="preloader-new">
-      <svg class="cart_preloader" role="img" aria-label="Shopping cart_preloader line animation" viewBox="0 0 128 128"
+      <img src="{{url_for('static', filename='assets/images/YASAKA.jpg')}}" style="border-radius: 9px;" alt="">
+      <!-- <svg class="cart_preloader" role="img" aria-label="Shopping cart_preloader line animation" viewBox="0 0 128 128"
         width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
         <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8">
           <g class="cart__track" stroke="hsla(0,10%,10%,0.1)">
@@ -59,7 +60,7 @@
             </g>
           </g>
         </g>
-      </svg>
+      </svg> -->
     </div>
   </div>
   <!--================= Preloader End Here =================-->
@@ -85,8 +86,8 @@
                   <span class="dot9"></span>
                 </a>
               </div>
-              <a href="index.html" class="logo w-25"><img src="{{url_for('static', filename='assets/images/YASAKA.jpg')}}"
-                  alt="YASAKA.jpg"></a>
+              <a href="index.html" class="logo w-25"><img
+                  src="{{url_for('static', filename='assets/images/YASAKA.jpg')}}" alt="YASAKA.jpg"></a>
             </div>
             <div class="rts-menu">
               <nav class="menus menu-toggle">
@@ -129,8 +130,8 @@
                   </div>
                 </div>
               </div>
-              {% if login %}
-              <a href="/login" class="account"><i class="rt-user-2"></i></a>
+              {% if 'username' in session %}
+              <a href="/account" class="account"><i class="rt-user-2"></i></a>
               <div class="cart action-item">
                 <div class="cart-nav">
                   <div class="cart-icon icon"><a href="#0"><i aria-hidden="true"
@@ -330,6 +331,14 @@
     {% block home %} {% endblock %}
 
   </header>
+  {% if message %}
+  <div class="container mt-3">
+    <div class="alert alert-{{message.type}} alert-dismissible fade show" role="alert">
+      {{ message.info }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  </div>
+  {% endif %}
   <!--================= Header Section End Here =================-->
 
   <!--================= Content Section Start Here =================-->
@@ -369,7 +378,8 @@
               </div>
               <div class="title">
                 <h1 class="box-title">Buka Setiap Hari: 11.00 - 21.00 WIB</h1>
-                <p>Bayangkan ayam crispy, nasi hangat, dan sambal pedas... masih tahan lapar? tunggu apalagi, tinggal pesan aja.</p>
+                <p>Bayangkan ayam crispy, nasi hangat, dan sambal pedas... masih tahan lapar? tunggu apalagi, tinggal
+                  pesan aja.</p>
               </div>
             </div>
           </div>
@@ -432,7 +442,7 @@
                   </div>
                   <div class="contact-info">
                     <span class="title">Setiap Hari: 11:00-21:00</span>
-                    <a href="tel:0020500" class="service-time info">CS: 0823-1044-7194</a>
+                    <a href="tel:082310447194" class="service-time info">CS: 0823-1044-7194</a>
                   </div>
                 </div>
                 <div class="email contact-item">
@@ -444,7 +454,7 @@
                   </div>
                   <div class="contact-info">
                     <span class="title">Tanya-tanya atau kirim saran? Hubungi kami di Email kami.</span>
-                    <a href="pnadya081@gmail.com" class="email-address info">pnadya081@gmail.com</a>
+                    <a href="mailto:pnadya081@gmail.com" class="email-address info">pnadya081@gmail.com</a>
                   </div>
                 </div>
               </div>
@@ -466,10 +476,13 @@
           <div class="col-xl-3 col-md-6 col-sm-6 box-widget-col2">
             <div class="footer-widget">
               <h3 class="footer-widget-title">Tentang YASAKA</h3>
-              <p class="widget-text">Selamat datang di Chicken Yasaka, tempat di mana kelezatan ayam goreng bertemu dengan rasa yang luar biasa! Kami menyajikan ayam goreng renyah di luar, juicy di dalam, dengan bumbu spesial yang menggoda selera.
-                
-                Di Chicken Yasaka, kami hanya menggunakan bahan berkualitas dan selalu siap memberikan pengalaman makan terbaik, baik dine-in, take-away, atau delivery.
-                
+              <p class="widget-text">Selamat datang di Chicken Yasaka, tempat di mana kelezatan ayam goreng bertemu
+                dengan rasa yang luar biasa! Kami menyajikan ayam goreng renyah di luar, juicy di dalam, dengan bumbu
+                spesial yang menggoda selera.
+
+                Di Chicken Yasaka, kami hanya menggunakan bahan berkualitas dan selalu siap memberikan pengalaman makan
+                terbaik, baik dine-in, take-away, atau delivery.
+
                 Nikmati kelezatan ayam terbaik, hanya di Chicken Yasaka!</p>
               <a href="#0" class="getin-touch">Hubungi Kami <i class="fal fa-long-arrow-right"></i></a>
             </div>
@@ -478,22 +491,17 @@
             <div class="footer-widget">
               <h3 class="footer-widget-title">Informasi</h3>
               <ul class="widget-items cata-widget">
-                <li class="widget-list-item"><a href="#0">About</a></li>
-                <li class="widget-list-item"><a href="#0">FAQ's</a></li>
-                <li class="widget-list-item"><a href="#0">Wishlist</a></li>
-                <li class="widget-list-item"><a href="#0">Keranjang</a></li>
-                <li class="widget-list-item"><a href="#0">Checkout</a></li>
+                <li class="widget-list-item"><a href="/about">About</a></li>
               </ul>
             </div>
           </div>
           <div class="col-lg-13 col-md-6 col-sm-6 no-gutters">
             <h3 class="footer-widget-title">Akun Saya</h3>
             <ul class="footer-widget">
-              <li class="widget-list-item"><a href="#0">Wishlist</a></li>
-              <li class="widget-list-item"><a href="#0">Cart</a></li>
-              <li class="widget-list-item"><a href="#0">Checkout</a></li>
-              <li class="widget-list-item"><a href="#0">My Account</a></li>
-              <li class="widget-list-item"><a href="#0">Shop</a></li>
+              <li class="widget-list-item"><a href="/favorites">Favorites</a></li>
+              <li class="widget-list-item"><a href="/cart">Cart</a></li>
+              <li class="widget-list-item"><a href="/account">My Account</a></li>
+              <li class="widget-list-item"><a href="/menu">Shop</a></li>
             </ul>
           </div>
           <div class="col-lg-25 col-md-6 col-sm-6">

@@ -6,9 +6,7 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
       <h1 class="path-title">Register</h1>
       <ul>
         <li>
-          <a class="home-page-link" href="index.html"
-            >Home <i class="fal fa-angle-right"></i
-          ></a>
+          <a class="home-page-link" href="index.html">Home <i class="fal fa-angle-right"></i></a>
         </li>
         <li><a class="current-page" href="#">Register</a></li>
       </ul>
@@ -27,40 +25,32 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
           </div>
           <div class="card">
             <div class="card-body">
-              <form>
+              <form action="/register" method="post">
                 <div class="form">
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="username"
-                    placeholder="Username or email address*"
-                    required
-                  />
+                  <input type="text" class="form-control" id="name" placeholder="Name*" name="name" required />
                 </div>
                 <div class="form">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="username"
-                    placeholder="Email address*"
-                    required
-                  />
+                  <input type="text" class="form-control" id="username" placeholder="Username*" name="username"
+                    required />
+                </div>
+                <div class="form">
+                  <input type="email" class="form-control" id="email" placeholder="Email address*" name="email"
+                    required />
                 </div>
                 <div class="form">
                   <div class="password-input">
-                    <input
-                      type="password"
-                      class="form-control"
-                      id="password"
-                      placeholder="Password*"
-                      required
-                    />
+                    <input type="password" class="form-control" id="password" placeholder="Password*" name="password"
+                      required />
                     <span class="show-password-input"></span>
                   </div>
                 </div>
                 <div class="form text-center">
                   <button type="submit" class="btn">Register</button>
                 </div>
+                <p class="text-center">
+                  Sudah punya akun?
+                  <a class="fw-normal" href="/login">Login</a>
+                </p>
               </form>
             </div>
           </div>
