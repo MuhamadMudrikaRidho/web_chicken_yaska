@@ -37,7 +37,7 @@
           {% for product in products %}
           <div class="col-xl-3 col-md-4 col-sm-6">
             <div class="product-item product-item2 element-item3">
-              <a href="product-details.html" class="product-image">
+              <a href="/menu/{{product._id}}" class="product-image">
                 <img src="{{ url_for('static', filename=product.image) }}" alt="product-image">
               </a>
               <div class="bottom-content">
