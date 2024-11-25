@@ -126,6 +126,10 @@ def register():
     
     return render_template('register.html', login=False)
 
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 port = 5000
 debug = True
