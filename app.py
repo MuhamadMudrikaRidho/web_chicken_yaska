@@ -42,6 +42,14 @@ def redirect_if_logged_in(func):
         return func(*args, **kwargs)
     return decorated_function
 
+def redirect_if_not_logged_in(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        if not is_logged_in():
+            return redirect(url_for('login'))
+        return func(*args, **kwargs)
+    return decorated_function
+
 @app.route("/")
 def home():
     return render_template('index.html', login=False)
@@ -127,10 +135,27 @@ def register():
     return render_template('register.html')
 
 @app.route('/logout')
-@redirect_if_logged_in
+@redirect_if_not_logged_in
 def logout():
     session.clear()
     return redirect(url_for('login'))
+
+@app.route('/cart')
+@redirect_if_not_logged_in
+def cart() :
+    carts = [
+        {"image": "assets/images/hand-picked/favyasaka.jpg",
+            "name": "Ayam Bakar Crispy", "price": "Rp.15.000", "category" : "Ayam"},
+        {"image": "assets/images/hand-picked/chicken.jpg",
+            "name": "Chicken + Nasi", "price": "Rp.20.000", "category" : "Ayam"},
+        {"image": "assets/images/hand-picked/mentai.jpg",
+            "name": "Ayam Bakar Mentai + Nasi", "price": "Rp.15.000", "category" : "Ayam"},
+        {"image": "assets/images/hand-picked/geprek.jpg",
+            "name": "Ayam Geprek + Nasi", "price": "Rp.17.000", "category" : "Ayam"},
+    ]
+
+    
+    return render_template('cart.html', carts=carts)
 
 port = 5000
 debug = True
