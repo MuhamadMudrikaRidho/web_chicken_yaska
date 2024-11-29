@@ -1,6 +1,9 @@
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
+from datetime import datetime
+
+
 
 from functools import wraps
 
@@ -49,6 +52,7 @@ def redirect_if_not_logged_in(func):
             return redirect(url_for('login'))
         return func(*args, **kwargs)
     return decorated_function
+
 
 @app.route("/")
 def home():
@@ -153,9 +157,19 @@ def cart() :
         {"image": "assets/images/hand-picked/geprek.jpg",
             "name": "Ayam Geprek + Nasi", "price": "Rp.17.000", "category" : "Ayam"},
     ]
-
-    
     return render_template('cart.html', carts=carts)
+
+@app.route('/account')
+@redirect_if_not_logged_in
+def account() :
+    username = session.get('username', 'Guest')
+    now = datetime.now().strftime('%Y-%m-%d')  
+    return render_template('account.html', username=username, now=now)
+
+@app.route('/wishlist')
+@redirect_if_not_logged_in  # Pastikan fungsi ini bekerja dengan benar
+def wishlist():
+    return render_template('wishlist.html')  # Tidak perlu cek kosong atau tidaknya wishlist
 
 port = 5000
 debug = True

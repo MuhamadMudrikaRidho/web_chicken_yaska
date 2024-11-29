@@ -1,0 +1,53 @@
+{% extends "layouts/template.html" %}
+{% block title %}Wishlist{% endblock %}
+{% block content %}
+<div class="rts-wishlist-section section-gap">
+    <div class="container">
+        <!-- Button untuk kembali ke My Account -->
+        <div class="wishlist-social">
+            <div class="text">
+                <a href="/account" class="btn btn-primary">Back to My Account</a>
+            </div>
+        </div>
+
+        <!-- Tabel Wishlist (Meskipun kosong, masih ditampilkan) -->
+        <table class="table table-bordered table-hover">
+            <tbody>
+                <tr class="heading">
+                    <th></th>
+                    <th>Product Name</th>
+                    <th>Unit Price</th>
+                    <th>Stock Status</th>
+                    <th></th>
+                </tr>
+                <tbody>
+                    <tr>
+                        <td class="first-td"><button class="remove-btn"><i class="fal fa-times"></i></button></td>
+                        <td class="first-child"><a href="product-details.html"><img src="assets/images/products/inner/cart/1.jpg" alt=""></a>
+                            <a href="product-details.html" class="pretitle">Travel Large Trifold Wallet</a>
+                        </td>
+                        <td><span class="product-price">$99.00</span></td>
+                        <td class="stock">In Stock</td>
+                        <td class="last-td"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To Cart</button></td>
+                    </tr>
+                    <!-- Item lainnya -->
+                </tbody>
+            </tbody>
+        </table>
+        <div class="wishlist-social">
+            <div class="text">
+                <a href="#">Share Now</a>
+            </div>
+            <div class="icon">
+                <ul>
+                    <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fab fa-behance"></i></a></li>
+                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
