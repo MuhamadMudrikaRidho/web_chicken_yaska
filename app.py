@@ -60,16 +60,10 @@ def home():
 
 @app.route("/menu")
 def menu():
-    products = [
-        {"image": "assets/images/hand-picked/favyasaka.jpg",
-            "name": "Ayam Bakar Crispy", "price": "Rp.15.000"},
-        {"image": "assets/images/hand-picked/chicken.jpg",
-            "name": "Chicken + Nasi", "price": "Rp.20.000"},
-        {"image": "assets/images/hand-picked/mentai.jpg",
-            "name": "Ayam Bakar Mentai + Nasi", "price": "Rp.15.000"},
-        {"image": "assets/images/hand-picked/geprek.jpg",
-            "name": "Ayam Geprek + Nasi", "price": "Rp.17.000"},
-    ]
+    products = list(db.menu.find({}))
+
+    for product in products:
+        product['_id'] = str(product['_id'])
 
     return render_template('menu.html', products=products)
 
@@ -167,9 +161,9 @@ def account() :
     return render_template('account.html', username=username, now=now)
 
 @app.route('/wishlist')
-@redirect_if_not_logged_in  # Pastikan fungsi ini bekerja dengan benar
+@redirect_if_not_logged_in
 def wishlist():
-    return render_template('wishlist.html')  # Tidak perlu cek kosong atau tidaknya wishlist
+    return render_template('wishlist.html')
 
 port = 5000
 debug = True
