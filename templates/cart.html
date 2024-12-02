@@ -24,50 +24,64 @@
             <thead class="thead-dark">
             </thead>
             <tbody>
+              {% if carts %}
               {% for cart in carts %}
               <tr>
                 <td>
-                  <div class="product-thumb"><img src="{{ url_for('static', filename=cart.image) }}" alt="product-thumb"
-                      style="width: 200px; height: 200px; border-radius: 7px;">
+                  <div class="product-thumb"><img src="{{ url_for('static', filename=cart.menu_image) }}"
+                      alt="product-thumb" style="width: 200px; height: 200px; border-radius: 7px;">
                   </div>
                 </td>
                 <td>
                   <div class="product-title-area">
-                    <span class="pretitle">{{cart.category}}</span>
-                    <h4 class="product-title">{{cart.name}}</h4>
+                    <span class="pretitle">{{ cart.menu_category }}</span>
+                    <h4 class="product-title">{{ cart.menu_name }}</h4>
                   </div>
                 </td>
-                <td><span class="product-price">Rp. {{cart.price | format_rupiah}}</span></td>
+                <td><span class="product-price">Rp. {{ cart.price | format_rupiah }}</span></td>
+                <td>
                 <td>
                   <div class="cart-edit">
                     <div class="quantity-edit">
-                      <button class="button"><i class="fal fa-minus minus"></i></button>
-                      <input type="text" class="input" value="3" />
-                      <button class="button plus">+<i class="fal fa-plus plus"></i></button>
+                      <button type="button" class="button minus" data-cart-id="{{ cart.id }}"
+                        data-price="{{ cart.price }}">
+                        <i class="fal fa-minus minus"></i>
+                      </button>
+                      <input type="number" class="input quantity" value="{{ cart.quantity }}"
+                        data-cart-id="{{ cart.id }}" data-price="{{ cart.price }}" min="1" />
+                      <button type="button" class="button plus" data-cart-id="{{ cart.id }}"
+                        data-price="{{ cart.price }}">
+                        <i class="fal fa-plus plus"></i>
+                      </button>
                     </div>
                   </div>
                 </td>
-                <td class="last-td"><button class="remove-btn">Remove</button></td>
+
+                </td>
+                <td class="last-td">
+                  <form action="{{ url_for('cart.destroy', cart_id=cart.id)}}" method="post">
+                    <button type="submit" class="remove-btn">Remove</button>
+                  </form>
+                </td>
               </tr>
               {% endfor %}
+              {% else %}
+              <p>Cart is empty, <a href="{{ url_for('menu.home') }}">Add Some</a></p>
+              {% endif %}
             </tbody>
           </table>
-          <div class="coupon-apply">
+          <!-- <div class="coupon-apply">
             <span class="coupon-text">Coupon Code:</span>
             <div class="apply-input">
               <input type="text" placeholder="Apply coupon here">
               <button type="submit" class="apply-btn">Apply </i></button>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="col-xl-4">
         <div class="checkout-box">
           <div class="checkout-box-inner">
-            <div class="subtotal-area">
-              <span class="title">Subtotal</span>
-              <span class="subtotal-price">$364.00</span>
-            </div>
             <div class="shipping-check">
               <span class="title">Shipping</span>
               <div class="check-options">
@@ -89,7 +103,7 @@
             </div>
             <div class="total-area">
               <span class="title">Total</span>
-              <span class="total-price">$364.00</span>
+              <span class="total-price" id="total-price">Rp. {{ total | format_rupiah }}</span>
             </div>
           </div>
           <a href="/order" class="procced-btn">Procced To Checkout</a>

@@ -13,9 +13,10 @@ if ENV == "development":
 client = MongoClient(app.config['MONGODB_URI'])
 db = client[app.config['DB_NAME']]
 
-print("run migration...")
+print("run menu migration...")
 
 db.menu.drop()
+db.carts.drop()
 
 doc = [
   {"image": "assets/images/hand-picked/favyasaka.jpg",

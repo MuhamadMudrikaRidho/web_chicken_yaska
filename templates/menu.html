@@ -44,7 +44,11 @@
                 <a href="/menu/{{menu._id}}" class="product-name">{{ menu.name }}</a>
                 <div class="action-wrap">
                   <span class="product-price">Rp. {{ menu.price | format_rupiah }}</span>
-                  <a href="/cart" class="addto-cart"><i class="fal fa-shopping-cart"></i> Tambah ke Keranjang</a>
+                  <form action="{{ url_for('cart.store', menu_id=menu._id) }}" method="POST">
+                    <input type="number" name="quantity" value="1" min="1" hidden />
+                    <button type="submit" class="addto-cart"><i class="fal fa-shopping-cart"></i> Tambah ke
+                      Keranjang</button>
+                  </form>
                 </div>
               </div>
               <div class="product-actions">
