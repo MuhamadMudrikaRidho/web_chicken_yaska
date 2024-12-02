@@ -3,8 +3,6 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 from datetime import datetime
 
-
-
 from functools import wraps
 
 from flask import (
