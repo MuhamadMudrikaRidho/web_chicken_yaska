@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, session, request, current_app
 import bcrypt
-from bson import ObjectId
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
 

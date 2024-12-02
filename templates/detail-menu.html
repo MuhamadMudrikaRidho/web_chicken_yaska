@@ -53,8 +53,11 @@
               <button class="button plus">+<i class="fal fa-plus plus"></i></button>
             </div>
           </div>
-          <a href="/cart" class="addto-cart-btn action-item"><i class="rt-basket-shopping"></i> Add To
-            Cart</a>
+          <form action="{{ url_for('cart.store', menu_id=menu._id) }}" method="POST">
+            <input type="number" name="quantity" value="1" min="1" hidden />
+            <button type="submit" class="addto-cart-btn action-item"><i class="fal fa-shopping-cart"></i> Tambah ke
+              Keranjang</button>
+          </form>
           <a href="/wishlist" class="wishlist-btn action-item"><i class="rt-heart"></i></a>
         </div>
       </div>
