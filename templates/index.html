@@ -1,5 +1,5 @@
 {% extends "layouts/template.html" %}
-{% block title %}Homepage{%endblock%}
+{% block title %}Home{%endblock%}
 {% block navhome %}active1{% endblock%}
 {% block home %}
 <div class="banner banner-1 bg-image">
@@ -12,11 +12,11 @@
               <h2 class="widget-title">All Categories <i class="rt-angle-down"></i></h2>
               <nav>
                 <ul>
-                  <li><a href="shop.html">Ayam Fillet <i class="rt rt-arrow-right-long"></i></a></li>
-                  <li><a href="shop.html">Ayam Juicy <i class="rt rt-arrow-right-long"></i></a></li>
-                  <li><a href="shop.html">Ayam Spicy <i class="rt rt-arrow-right-long"></i></a></li>
-                  <li><a href="shop.html">Paket Hemat <i class="rt rt-arrow-right-long"></i></a></li>
-                  <li><a href="shop.html">Minuman Segar <i class="rt rt-arrow-right-long"></i></a></li>
+                  <li><a href="{{ url_for('menu.home') }}">Ayam Fillet <i class="rt rt-arrow-right-long"></i></a></li>
+                  <li><a href="{{ url_for('menu.home') }}">Ayam Juicy <i class="rt rt-arrow-right-long"></i></a></li>
+                  <li><a href="{{ url_for('menu.home') }}">Ayam Spicy <i class="rt rt-arrow-right-long"></i></a></li>
+                  <li><a href="{{ url_for('menu.home') }}">Paket Hemat <i class="rt rt-arrow-right-long"></i></a></li>
+                  <li><a href="{{ url_for('menu.home') }}">Minuman Segar <i class="rt rt-arrow-right-long"></i></a></li>
 
                 </ul>
               </nav>

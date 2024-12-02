@@ -1,5 +1,5 @@
 {% extends "layouts/template.html" %}
-{% block title %}Menu - {{menu.name}}{% endblock %}
+{% block title %}{{menu.name}}{% endblock %}
 {% block navmenu %}active1{% endblock %}
 {% block breadcrumb %}
 <div class="page-path">
@@ -30,7 +30,7 @@
       </div>
       <div class="contents">
         <div class="product-status">
-          <span class="product-catagory">Paket Hemat</span>
+          <span class="product-catagory">{{menu.category}}</span>
           <div class="rating-stars-group">
             <div class="rating-star"><i class="fas fa-star"></i></div>
             <div class="rating-star"><i class="fas fa-star"></i></div>
@@ -38,15 +38,12 @@
             <span>10 Reviews</span>
           </div>
         </div>
-        <h2 class="product-title">{{menu.name}} <span class="stock">In Stock</span></h2>
+        <h2 class="product-title">{{menu.name}} <!-- <span class="stock">In Stock</span> --></h2>
         <span class="product-price">
           <span class="old-price">Rp. {{ count_price | format_rupiah }}</span> Rp. {{ menu.price | format_rupiah}}
         </span>
         <p>
           {{menu.description}}
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut perspiciatis sint libero doloremque ea ab.
-          Distinctio, quasi repellendus assumenda nobis quia esse perferendis doloribus non eius excepturi natus ea?
-          Similique, ipsam. Ab harum facilis cum quod velit consectetur enim illo.
         </p>
         <div class="product-bottom-action">
           <div class="cart-edit">
