@@ -1,15 +1,17 @@
-import os
-from os.path import join, dirname
-from dotenv import load_dotenv
+from config import DevelopmentConfig
+from flask import Flask
 from pymongo import MongoClient
-dotenv_path = join(dirname(__file__), '.env')
-load_dotenv(dotenv_path)
+import os
 
-MONGODB_URI = os.environ.get("MONGODB_URI")
-DB_NAME = os.environ.get("DB_NAME")
+app = Flask(__name__)
 
-client = MongoClient(MONGODB_URI)
-db = client[DB_NAME]
+ENV = os.getenv("FLASK_ENV", "development")
+
+if ENV == "development":
+    app.config.from_object(DevelopmentConfig)
+
+client = MongoClient(app.config['MONGODB_URI'])
+db = client[app.config['DB_NAME']]
 
 print("run migration...")
 
@@ -17,13 +19,13 @@ db.menu.drop()
 
 doc = [
   {"image": "assets/images/hand-picked/favyasaka.jpg",
-    "name": "Ayam Bakar Crispy", "price": "Rp.15.000"},
+    "name": "Ayam Bakar Crispy", "price": 15000},
   {"image": "assets/images/hand-picked/chicken.jpg",
-    "name": "Chicken + Nasi", "price": "Rp.20.000"},
+    "name": "Chicken + Nasi", "price": 20000},
   {"image": "assets/images/hand-picked/mentai.jpg",
-    "name": "Ayam Bakar Mentai + Nasi", "price": "Rp.15.000"},
+    "name": "Ayam Bakar Mentai + Nasi", "price": 15000},
   {"image": "assets/images/hand-picked/geprek.jpg",
-    "name": "Ayam Geprek + Nasi", "price": "Rp.17.000"}
+    "name": "Ayam Geprek + Nasi", "price": 17000}
 ]
 
 db.menu.insert_many(doc)

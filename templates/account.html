@@ -1,9 +1,37 @@
 {% extends "layouts/template.html" %}
 {% block title %}account{% endblock %}
 
+{% block breadcrumb %}
+<div class="page-path">
+    <div class="container">
+        <div class="breadcrumbs-inner">
+            <h1 class="path-title">Account</h1>
+            <ul>
+                <li><a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a></li>
+                <li><a class="current-page" href="#">Account</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
 {% block content %}
 <div class="rts-account-section section-gap">
     <div class="container">
+
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+
         <div class="account-inner">
             <div class="account-side-navigation">
                 <button class="filter-btn active" data-show=".dashboard"><i class="fal fa-chart-bar"></i>
@@ -13,10 +41,10 @@
                     Address</button>
                 <button class="filter-btn" data-show=".accountdtls"><i class="fal fa-user"></i> Account
                     Details</button>
-                <a href="{{ url_for('wishlist') }}" class="filter-btn" data-show=".dashboard"><i
+                <a href="{{ url_for('wishlist.home') }}" class="filter-btn" data-show=".dashboard"><i
                         class="fal fa-shopping-basket"></i>
                     Wishlist</a>
-                <a href="{{ url_for('logout') }}" class="filter-btn" data-show=".dashboard"><i
+                <a href="{{ url_for('auth.logout') }}" class="filter-btn" data-show=".dashboard"><i
                         class="fal fa-long-arrow-left"></i>
                     Logout</a>
             </div>
@@ -25,7 +53,8 @@
                     <div class="account-profile-area">
                         <div class="profile-dp"><img src="assets/images/blog/img-3.jpg" alt="profile-dp"></div>
                         <div class="d-block">
-                            <span class="profile-name"><span>Hi,</span> {{ user_data['username'] }} </span>  <!-- Gunakan user_data['username'] -->
+                            <span class="profile-name"><span>Hi,</span> {{ user_data['username'] }} </span>
+                            <!-- Gunakan user_data['username'] -->
                             <span class="profile-date d-block">{{ now }}</span>
                         </div>
                     </div>
@@ -48,49 +77,51 @@
                             <span class="title">Account Details</span>
                             <span class="value">33</span>
                         </div>
-                        
-                        <a href="{{ url_for('logout') }}" class="activity-item">
+
+                        <a href="{{ url_for('auth.logout') }}" class="activity-item">
                             <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
                             <span class="title">Logout</span>
                         </a>
                     </div>
                 </div>
                 <div class="account-main orders filterd-items hide">
-                    <h2 class="mb--30">Pesanan Saya</h2>
-                    <table class="table">
-                        <thead>
-                            <tr class="top-tr">
-                                <th>Order</th>
-                                <th>Date</th>
-                                <th>Status</th>
-                                <th>Total</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>#1357</td>
-                                <td>March 45, 2020</td>
-                                <td>Processing</td>
-                                <td>$125.00 for 2 item</td>
-                                <td><a href="#" class="btn-small d-block">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>#2468</td>
-                                <td>June 29, 2020</td>
-                                <td>Completed</td>
-                                <td>$364.00 for 5 item</td>
-                                <td><a href="#" class="btn-small d-block">View</a></td>
-                            </tr>
-                            <tr>
-                                <td>#2366</td>
-                                <td>August 02, 2020</td>
-                                <td>Completed</td>
-                                <td>$280.00 for 3 item</td>
-                                <td><a href="#" class="btn-small d-block">View</a></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="row">
+                        <h2 class="mb--30">Pesanan Saya</h2>
+                        <table class="table">
+                            <thead>
+                                <tr class="top-tr">
+                                    <th>Order</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Total</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#1357</td>
+                                    <td>March 45, 2020</td>
+                                    <td>Processing</td>
+                                    <td>$125.00 for 2 item</td>
+                                    <td><a href="#" class="btn-small d-block">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#2468</td>
+                                    <td>June 29, 2020</td>
+                                    <td>Completed</td>
+                                    <td>$364.00 for 5 item</td>
+                                    <td><a href="#" class="btn-small d-block">View</a></td>
+                                </tr>
+                                <tr>
+                                    <td>#2366</td>
+                                    <td>August 02, 2020</td>
+                                    <td>Completed</td>
+                                    <td>$280.00 for 3 item</td>
+                                    <td><a href="#" class="btn-small d-block">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <div class="account-main address filterd-items hide">
                     <div class="row">
@@ -110,51 +141,55 @@
                             <div class="shipping-address">
                                 <h4 class="mb--30">Alamat Pengiriman</h4>
                                 {% if shipping_address %}
-                                    <address>
-                                        {{ shipping_address['name'] }}<br>
-                                        {{ shipping_address['address'] }}<br>
-                                        {{ shipping_address['city'] }}, {{ shipping_address['country'] }}<br>
-                                        Phone: {{ shipping_address['phone'] }}
-                                    </address>
-                                    <button class="btn-small btn-edit-red" onclick="toggleEditForm()">Edit</button>
+                                <address>
+                                    {{ shipping_address['name'] }}<br>
+                                    {{ shipping_address['address'] }}<br>
+                                    {{ shipping_address['city'] }}, {{ shipping_address['country'] }}<br>
+                                    Phone: {{ shipping_address['phone'] }}
+                                </address>
+                                <button class="btn-small btn-edit-red" onclick="toggleEditForm()">Edit</button>
 
                                 {% else %}
-                                    <p>Tidak ditemukan alamat pengiriman. Harap tambahkan alamat.</p>
-                                    <button class="btn-small" onclick="toggleEditForm()">Tambahkan Alamat</button>
+                                <p>Tidak ditemukan alamat pengiriman. Harap tambahkan alamat.</p>
+                                <button class="btn-small" onclick="toggleEditForm()">Tambahkan Alamat</button>
                                 {% endif %}
-                                
+
                                 <!-- Form untuk edit/tambah alamat -->
-                                <form id="edit-address-form" method="POST" class="{% if not shipping_address %}show{% else %}hide{% endif %}">
+                                <form id="edit-address-form" method="POST"
+                                    class="{% if not shipping_address %}show{% else %}hide{% endif %}">
                                     <div>
                                         <label for="name">Nama:</label>
-                                        <input type="text" name="name" id="name" 
-                                               value="{{ shipping_address['name'] if shipping_address else '' }}" required>
+                                        <input type="text" name="name" id="name"
+                                            value="{{ shipping_address['name'] if shipping_address else '' }}" required>
                                     </div>
                                     <div>
                                         <label for="address">Alamat:</label>
-                                        <input type="text" name="address" id="address" 
-                                               value="{{ shipping_address['address'] if shipping_address else '' }}" required>
+                                        <input type="text" name="address" id="address"
+                                            value="{{ shipping_address['address'] if shipping_address else '' }}"
+                                            required>
                                     </div>
                                     <div>
                                         <label for="city">Kota:</label>
-                                        <input type="text" name="city" id="city" 
-                                               value="{{ shipping_address['city'] if shipping_address else '' }}" required>
+                                        <input type="text" name="city" id="city"
+                                            value="{{ shipping_address['city'] if shipping_address else '' }}" required>
                                     </div>
                                     <div>
                                         <label for="country">Negara:</label>
-                                        <input type="text" name="country" id="country" 
-                                               value="{{ shipping_address['country'] if shipping_address else '' }}" required>
+                                        <input type="text" name="country" id="country"
+                                            value="{{ shipping_address['country'] if shipping_address else '' }}"
+                                            required>
                                     </div>
                                     <div>
                                         <label for="phone">No Hp:</label>
-                                        <input type="text" name="phone" id="phone" 
-                                               value="{{ shipping_address['phone'] if shipping_address else '' }}" required>
+                                        <input type="text" name="phone" id="phone"
+                                            value="{{ shipping_address['phone'] if shipping_address else '' }}"
+                                            required>
                                     </div>
                                     <button type="submit" class="btn-small btn-red">Simpan Alamat</button>
                                     <button type="button" class="btn-small" onclick="toggleEditForm()">Batalkan</button>
                                 </form>
                             </div>
-                            
+
                             <script>
                                 // Script untuk toggle form edit/tambah alamat
                                 function toggleEditForm() {
@@ -162,87 +197,98 @@
                                     form.classList.toggle('hide');
                                 }
                             </script>
-                            
+
                             <style>
                                 .hide {
                                     display: none;
                                 }
+
                                 .show {
                                     display: block;
                                 }
 
                                 .btn-red {
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+                                    background-color: red;
+                                    color: white;
+                                    border: none;
+                                    padding: 5px 10px;
+                                    border-radius: 4px;
+                                    cursor: pointer;
+                                    font-size: 14px;
+                                }
 
-    .btn-red:hover {
-        background-color: darkred;
-    }
+                                .btn-red:hover {
+                                    background-color: darkred;
+                                }
 
-    .btn-edit-red {
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+                                .btn-edit-red {
+                                    background-color: red;
+                                    color: white;
+                                    border: none;
+                                    padding: 5px 10px;
+                                    border-radius: 4px;
+                                    cursor: pointer;
+                                    font-size: 14px;
+                                }
 
-    .btn-edit-red:hover {
-        background-color: darkred;
-    }
+                                .btn-edit-red:hover {
+                                    background-color: darkred;
+                                }
                             </style>
-                            
-                            
+
+
                         </div>
                     </div>
                 </div>
-                <div class="account-main accountdtls">
-                    <div class="section-title">
-                        <h2>Account Details</h2>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <!-- Menampilkan Data Pengguna -->
-                            <div class="form">
-                                <label class="form-label">Full Name</label>
-                                <p class="form-value">{{ user_data['name'] if user_data else 'No data available' }}</p>
-                            </div>
-                            <div class="form">
-                                <label class="form-label">Username</label>
-                                <p class="form-value">{{ user_data['username'] if user_data else 'No data available' }}</p>
-                            </div>
-                            <div class="form">
-                                <label class="form-label">Email</label>
-                                <p class="form-value">{{ user_data['email'] if user_data else 'No data available' }}</p>
-                            </div>
-                
-                            <!-- Form untuk Mengubah Password -->
-                            <form method="POST">
+                <div class="account-main accountdtls filterd-items hide">
+                    <div class="row">
+                        <div class="section-title">
+                            <h2>Account Details</h2>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Menampilkan Data Pengguna -->
                                 <div class="form">
-                                    <label class="form-label">Current Password</label>
-                                    <input type="password" class="form-control" name="old_password" placeholder="Enter your current password" required>
+                                    <label class="form-label">Full Name</label>
+                                    <p class="form-value">{{ user_data['name'] if user_data else 'No data available'
+                                        }}
+                                    </p>
                                 </div>
                                 <div class="form">
-                                    <label class="form-label">New Password</label>
-                                    <input type="password" class="form-control" name="new_password" placeholder="Enter your new password" required>
+                                    <label class="form-label">Username</label>
+                                    <p class="form-value">{{ user_data['username'] if user_data else 'No data
+                                        available'
+                                        }}
+                                    </p>
                                 </div>
                                 <div class="form">
-                                    <button type="submit" class="btn btn-danger">Update Password</button>
+                                    <label class="form-label">Email</label>
+                                    <p class="form-value">{{ user_data['email'] if user_data else 'No data
+                                        available' }}
+                                    </p>
                                 </div>
-                            </form>
+
+                                <!-- Form untuk Mengubah Password -->
+                                <form method="POST" action="/account">
+                                    <div class="form">
+                                        <label class="form-label">Current Password</label>
+                                        <input type="password" class="form-control" name="old_password"
+                                            placeholder="Enter your current password" required>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label">New Password</label>
+                                        <input type="password" class="form-control" name="new_password"
+                                            placeholder="Enter your new password" required>
+                                    </div>
+                                    <div class="form mt--10">
+                                        <button type="submit" class="btn btn-danger">Update Password</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-                               
             </div>
         </div>
     </div>

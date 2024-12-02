@@ -1,0 +1,130 @@
+{% extends "layouts/template.html" %}
+{% block title %}Menu - {{menu.name}}{% endblock %}
+{% block navmenu %}active1{% endblock %}
+{% block breadcrumb %}
+<div class="page-path">
+  <div class="container">
+    <div class="breadcrumbs-inner">
+      <h1 class="path-title">Menu</h1>
+      <ul>
+        <li><a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a></li>
+        <li><a class="home-page-link" href="/menu">Menu <i class="fal fa-angle-right"></i></a></li>
+        <li><a class="current-page" href="#">{{menu.name}}</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="rts-product-details-section section-gap">
+  <div class="container">
+    <div class="details-product-area mb--70">
+      <div class="product-thumb-area">
+        <div class="cursor"></div>
+        <div class="thumb-wrapper one filterd-items figure">
+          <div class="product-thumb">
+            <img src="{{ url_for('static', filename=menu.image) }}" alt="product-thumb"
+              style="width: 400px; height: 500px; object-fit: cover;">
+          </div>
+        </div>
+      </div>
+      <div class="contents">
+        <div class="product-status">
+          <span class="product-catagory">Paket Hemat</span>
+          <div class="rating-stars-group">
+            <div class="rating-star"><i class="fas fa-star"></i></div>
+            <div class="rating-star"><i class="fas fa-star"></i></div>
+            <div class="rating-star"><i class="fas fa-star-half-alt"></i></div>
+            <span>10 Reviews</span>
+          </div>
+        </div>
+        <h2 class="product-title">{{menu.name}} <span class="stock">In Stock</span></h2>
+        <span class="product-price">
+          <span class="old-price">Rp. {{ count_price | format_rupiah }}</span> Rp. {{ menu.price | format_rupiah}}
+        </span>
+        <p>
+          {{menu.description}}
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut perspiciatis sint libero doloremque ea ab.
+          Distinctio, quasi repellendus assumenda nobis quia esse perferendis doloribus non eius excepturi natus ea?
+          Similique, ipsam. Ab harum facilis cum quod velit consectetur enim illo.
+        </p>
+        <div class="product-bottom-action">
+          <div class="cart-edit">
+            <div class="quantity-edit action-item">
+              <button class="button"><i class="fal fa-minus minus"></i></button>
+              <input type="text" class="input" value="01" />
+              <button class="button plus">+<i class="fal fa-plus plus"></i></button>
+            </div>
+          </div>
+          <a href="/cart" class="addto-cart-btn action-item"><i class="rt-basket-shopping"></i> Add To
+            Cart</a>
+          <a href="/wishlist" class="wishlist-btn action-item"><i class="rt-heart"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="product-full-details-area">
+      <div class="details-filter-bar2">
+        <p class="details-filter filter-btn active">Reviews (0)</p>
+      </div>
+      <div class="full-details dls-three filterd-items">
+        <div class="full-details-inner">
+          <p>There are no reviews yet.</p>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 mr-10">
+              <div class="reveiw-form">
+                <h2 class="section-title">
+                  Be the first to review <strong> <a href="/menu/{{menu._id}}">"{{menu.name}}"</a></strong>
+                </h2>
+                <h4 class="sect-title">Your email address will not be published. Required fields are marked* </h4>
+                <div class="reveiw-form-main mb-10">
+                  <div class="contact-form">
+                    <div class="row">
+                      <div class="col-lg-6 col-sm-12">
+                        <div class="input-box text-input mb-20">
+                          <textarea name="Message" id="validationDefault01" cols="30" rows="10"
+                            placeholder="Your Review*" required></textarea>
+                        </div>
+                      </div>
+                      <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-12">
+                          <div class="input-box mb-20">
+                            <input type="text" id="validationDefault02" placeholder="Name*" required>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="input-box mail-input mb-20">
+                            <input type="text" id="validationDefault03" placeholder="E-mail*" required>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <div class="rating">
+                            <p>Your Rating :</p>
+                            <div class="rating-icon">
+                              <span class="one"><a href="#"> <i class="fal fa-star"></i></a></span>
+                              <span class="two"><a href="#"> <i class="fal fa-star"></i></a></span>
+                              <span class="three"><a href="#"> <i class="fal fa-star"></i></a></span>
+                              <span class="four"><a href="#"> <i class="fal fa-star"></i></a></span>
+                              <span class="five"><a href="#"> <i class="fal fa-star"></i></a></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 mb-15">
+                          <button class="form-btn form-btn4">
+                            Submit <i class="fal fa-long-arrow-right"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rts-account-section"></div>
+{% endblock %}

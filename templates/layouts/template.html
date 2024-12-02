@@ -86,15 +86,15 @@
                   <span class="dot9"></span>
                 </a>
               </div>
-              <a href="index.html" class="logo w-25"><img
-                  src="{{url_for('static', filename='assets/images/YASAKA.jpg')}}" alt="YASAKA.jpg"></a>
+              <a href="/" class="logo w-25"><img src="{{url_for('static', filename='assets/images/YASAKA.jpg')}}"
+                  alt="YASAKA.jpg"></a>
             </div>
             <div class="rts-menu">
               <nav class="menus menu-toggle">
                 <ul class="nav__menu">
                   <li><a class="menu-item {%block navhome%}{%endblock%}" href="/">Home</a>
                   </li>
-                  <li><a class="menu-item {%block navmenu%}{%endblock%}" href="/menu">Menu</a>
+                  <li><a class="menu-item {%block navmenu%}{%endblock%}" href="{{ url_for('menu.home') }}">Menu</a>
                   </li>
                   <li><a class="menu-item {%block navabout%}{%endblock%}" href="/about">About</a>
                   </li>
@@ -139,7 +139,7 @@
                 </div>
               </div>
               {% else %}
-              <a href="/login" class="menu-item {%block navlogin%}{%endblock%}">Login</i></a>
+              <a href="{{ url_for('auth.login') }}" class="menu-item {%block navlogin%}{%endblock%}">Login</i></a>
               {% endif %}
             </div>
           </div>
@@ -445,7 +445,7 @@
           <div class="col-lg-13 col-md-6 col-sm-6 no-gutters">
             <h3 class="footer-widget-title">Akun Saya</h3>
             <ul class="footer-widget">
-              <li class="widget-list-item"><a href="/favorites">Favorites</a></li>
+              <li class="widget-list-item"><a href="/wishlist">Wishlist</a></li>
               <li class="widget-list-item"><a href="/cart">Cart</a></li>
               <li class="widget-list-item"><a href="/account">My Account</a></li>
               <li class="widget-list-item"><a href="/menu">Shop</a></li>
@@ -476,14 +476,14 @@
         </div>
       </div>
     </div>
-    <div class="footer-bottom-area">
+    <!-- <div class="footer-bottom-area">
       <div class="container">
         <div class="footer-bottom-inner">
           <span class="copyright">Copyright & Design By <a href="http://reacthemes.com/" class="brand"
               target="_blank">Seagate</a>-2024</span>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
   <!--================= Footer End Here =================-->
 

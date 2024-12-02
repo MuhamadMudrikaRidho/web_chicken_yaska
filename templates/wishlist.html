@@ -1,37 +1,45 @@
 {% extends "layouts/template.html" %}
 {% block title %}Wishlist{% endblock %}
+{% block breadcrumb %}
+<div class="page-path">
+    <div class="container">
+        <div class="breadcrumbs-inner">
+            <h1 class="path-title">Wishlist</h1>
+            <ul>
+                <li><a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a></li>
+                <li><a class="current-page" href="#">Wishlist</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
 {% block content %}
 <div class="rts-wishlist-section section-gap">
     <div class="container">
-        <!-- Button untuk kembali ke My Account -->
-        <div class="wishlist-social">
-            <div class="text">
-                <a href="/account" class="btn btn-primary">Back to My Account</a>
-            </div>
-        </div>
-
         <!-- Tabel Wishlist (Meskipun kosong, masih ditampilkan) -->
         <table class="table table-bordered table-hover">
             <tbody>
                 <tr class="heading">
                     <th></th>
-                    <th>Product Name</th>
-                    <th>Unit Price</th>
-                    <th>Stock Status</th>
+                    <th>Menu Name</th>
+                    <th>Price</th>
                     <th></th>
                 </tr>
-                <tbody>
-                    <tr>
-                        <td class="first-td"><button class="remove-btn"><i class="fal fa-times"></i></button></td>
-                        <td class="first-child"><a href="product-details.html"><img src="assets/images/products/inner/cart/1.jpg" alt=""></a>
-                            <a href="product-details.html" class="pretitle">Travel Large Trifold Wallet</a>
-                        </td>
-                        <td><span class="product-price">$99.00</span></td>
-                        <td class="stock">In Stock</td>
-                        <td class="last-td"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To Cart</button></td>
-                    </tr>
-                    <!-- Item lainnya -->
-                </tbody>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td class="first-td"><button class="remove-btn"><i class="fal fa-times"></i></button></td>
+                    <td class="first-child"><a href="/menu"><img src="{{ url_for('static', filename=product.image) }}"
+                                style="height: 100px; width: 100px;" alt=""></a>
+                        <a href="/menu" class="pretitle">{{product.name}}</a>
+                    </td>
+                    <td><span class="product-price">Rp. {{product.price | format_rupiah}}</span></td>
+                    <td class="last-td"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To Cart</button>
+                    </td>
+                </tr>
+                {% endfor %}
+                <!-- Item lainnya -->
+            </tbody>
             </tbody>
         </table>
         <div class="wishlist-social">
