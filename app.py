@@ -12,7 +12,8 @@ from flask import (
     redirect,
     url_for,
     jsonify,
-    session
+    session,
+    flash
 )
 
 import bcrypt
@@ -151,12 +152,41 @@ def cart() :
     ]
     return render_template('cart.html', carts=carts)
 
-@app.route('/account')
+@app.route('/account', methods=["GET", "POST"])
 @redirect_if_not_logged_in
-def account() :
-    username = session.get('username', 'Guest')
-    now = datetime.now().strftime('%Y-%m-%d')  
-    return render_template('account.html', username=username, now=now)
+def account():
+    username = session.get('username')  # Langsung ambil username dari session
+    now = datetime.now().strftime('%Y-%m-%d')
+
+    # Ambil data pengguna dari koleksi 'users' berdasarkan username
+    user_data = db.users.find_one({"username": username})
+
+    # Jika method POST (untuk mengubah data, misalnya password)
+    if request.method == "POST":
+        # Untuk mengubah password
+        if 'old_password' in request.form and 'new_password' in request.form:
+            old_password = request.form.get('old_password')
+            new_password = request.form.get('new_password')
+
+            # Verifikasi apakah password lama sesuai dengan yang ada di database
+            if bcrypt.checkpw(old_password.encode('utf-8'), user_data['password'].encode('utf-8')):
+                # Jika password lama benar, lakukan pembaruan password
+                hashed_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
+                db.users.update_one(
+                    {"username": username},
+                    {"$set": {"password": hashed_new_password.decode('utf-8')}}
+                )
+                flash("Password updated successfully!", "success")
+            else:
+                flash("Old password is incorrect.", "danger")
+
+        return redirect(url_for('account'))
+
+    return render_template('account.html', 
+                           user_data=user_data,  # Kirim data pengguna
+                           now=now)
+
+
 
 @app.route('/wishlist')
 @redirect_if_not_logged_in
