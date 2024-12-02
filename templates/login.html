@@ -46,7 +46,7 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
                 </div>
                 <p class="text-center">
                   Belum punya akun?
-                  <a class="fw-normal" href="/register">Daftar di sini</a>
+                  <a class="fw-normal" href="{{ url_for('auth.register') }}">Daftar di sini</a>
                 </p>
               </form>
             </div>

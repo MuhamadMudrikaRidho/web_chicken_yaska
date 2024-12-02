@@ -30,6 +30,6 @@ def home():
             flash("Password updated successfully!", "success")
         else:
             flash("Old password is incorrect.", "danger")
-        return redirect(url_for('user.account'))
+        return redirect(url_for('user.home'))
 
     return render_template('account.html', user_data=user_data, now=now)
