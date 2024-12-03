@@ -50,7 +50,7 @@ def store(menu_id) :
             'user' : user
         })
 
-    return redirect(url_for('cart.home'))
+    return jsonify({"message": "Menu Successfully added to cart!"})
 
 @cart_bp.route('/update_quantity', methods=["POST"])
 def update_quantity():
