@@ -23,11 +23,10 @@
         <div class="filter-area">
           <p class="select-area">
             <select class="select">
-              <option value="*">Urutkan Berdasarkan Peringkat</option>
-              <option value=".popular">Urutkan berdasarkan Terfavorit</option>
-              <option value=".best-rate">Urutkan berdasarkan yang terbaru</option>
-              <option value=".on-sale">Urutkan berdasarkan harga: rendah ke tinggi</option>
-              <option value=".featured">Urutkan berdasarkan harga: tinggi ke rendah</option>
+              <option value="default" selected disabled>Sort</option>
+              <option value=".newest">Menu Terbaru</option>
+              <option value=".price_asc">Urutkan berdasarkan harga: rendah ke tinggi</option>
+              <option value=".price_desc">Urutkan berdasarkan harga: tinggi ke rendah</option>
             </select>
           </p>
         </div>
@@ -44,11 +43,9 @@
                 <a href="/menu/{{menu._id}}" class="product-name">{{ menu.name }}</a>
                 <div class="action-wrap">
                   <span class="product-price">Rp. {{ menu.price | format_rupiah }}</span>
-                  <form action="{{ url_for('cart.store', menu_id=menu._id) }}" method="POST">
-                    <input type="number" name="quantity" value="1" min="1" hidden />
-                    <button type="submit" class="addto-cart"><i class="fal fa-shopping-cart"></i> Tambah ke
-                      Keranjang</button>
-                  </form>
+                  <button onclick="addToCart('{{menu._id}}')" class="addto-cart"><i class="fal fa-shopping-cart"></i>
+                    Tambah ke
+                    Keranjang</button>
                 </div>
               </div>
               <div class="product-actions">

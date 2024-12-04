@@ -107,7 +107,7 @@
                                 <input type="checkbox" id="fltrt2">
                                 <label class="check-title" for="fltrt2">Gratis Ongkir</label>
                             </div>
-                            
+
                         </form>
                     </div>
                     <div class="action-bottom">
@@ -118,22 +118,25 @@
                 <div class="action-item m-0">
                     <div class="payment-options checkout-options">
                         <form>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <input type="checkbox" id="drbank">
-                                <label class="check-title" for="drbank">Bayar Melalui Transfer Bank</label>
+                                <label class="check-title" for="drbank">Direct bank transfer</label>
                             </div>
                             <div class="form-group">
                                 <input type="checkbox" id="freetrans">
                                 <label class="check-title" for="freetrans">Bayar Ditempat</label>
                             </div>
-                            
+                            <div class="form-group last-child">
+                                <input type="checkbox" id="paypl">
+                                <label class="check-title" for="paypl">PayPal <a href="news-details.html">What is PayPal?</a></label>
+                            </div>
                         </form>
                     </div>
                 </div>
                 <a href="{{ url_for('order.greating') }}" class="place-order-btn">Pembayaran</a>
-                <!-- <a href="thank-you.html" class="place-order-btn">Place Order</a> -->
+                <!--<a href="thank-you.html" class="place-order-btn">Place Order</a> -->
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-{% endblock %}
+        {% endblock %}

@@ -35,6 +35,18 @@
 </head>
 
 <body>
+
+  <!--================= Toast Start Here =================-->
+
+  <div aria-live="polite" aria-atomic="true" class="position-fixed bottom-0 end-0 p-3" style="z-index: 1050;">
+    <div id="toast-container" class="toast-container">
+      <!--================= Toast Content Here =================-->
+    </div>
+  </div>
+
+
+  <!--================= Toast End Here =================-->
+
   <!--================= Preloader Section Start Here =================-->
   <div id="weiboo-load">
     <div class="preloader-new">
@@ -135,7 +147,8 @@
               <div class="cart action-item">
                 <div class="cart-nav">
                   <div class="cart-icon icon"><a href="#0"><i aria-hidden="true"
-                        class="fas fa-shopping-basket"></i></a><span class="wishlist-dot icon-dot">3</span></div>
+                        class="fas fa-shopping-basket"></i></a><span class="wishlist-dot icon-dot"
+                      id="cart-items-total-global">3</span></div>
                 </div>
               </div>
               {% else %}
@@ -148,51 +161,16 @@
     </div>
     <div class="cart-bar">
       <div class="cart-header">
-        <h3 class="cart-heading">MY CART (3 ITEMS)</h3>
+        <h3 class="cart-heading" id="total-items-global"></h3>
         <div class="close-cart"><i class="fal fa-times"></i></div>
       </div>
-      <div class="product-area">
-        {% for cart in carts %}
-        <div class="product-item">
-          <div class="product-detail">
-            <div class="product-thumb"><img src="{{ url_for('static', filename=cart.menu_image) }}" alt="product-thumb">
-            </div>
-            <div class="item-wrapper">
-              <span class="product-name">{{cart.menu_name}}</span>
-              <div class="item-wrapper">
-              </div>
-              <div class="item-wrapper">
-                <span class="product-qnty">{{cart.quantity}} ×</span>
-                <span class="product-price">{{cart.price}}</span>
-              </div>
-            </div>
-          </div>
-          <div class="cart-edit">
-            <div class="quantity-edit">
-              <button type="button" class="button minus" data-cart-id="{{ cart.id }}" data-price="{{ cart.price }}">
-                <i class="fal fa-minus minus"></i>
-              </button>
-              <input type="number" class="input quantity" value="{{ cart.quantity }}" data-cart-id="{{ cart.id }}"
-                data-price="{{ cart.price }}" min="1" />
-              <button type="button" class="button plus" data-cart-id="{{ cart.id }}" data-price="{{ cart.price }}">
-                <i class="fal fa-plus plus"></i>
-              </button>
-            </div>
-            <div class="item-wrapper d-flex mr--5 align-items-center">
-              <form action="{{ url_for('cart.destroy', cart_id=cart.id)}}" method="post">
-                <button type="submit" class="delete-cart"><i class="fal fa-times"></i></button>
-                <!-- <button type="submit" class="remove-btn">Remove</button> -->
-              </form>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
+      <div class="product-area" id="cart-data-global">
+
       </div>
       <div class="cart-bottom-area">
         <!-- <span class="spend-shipping"><i class="fal fa-truck"></i> SPENT <span class="amount">$199.00</span> MORE
           FOR FREE SHIPPING</span> -->
-        <span class="total-price" id="total-price">TOTAL: <span class="price">Rp. {{ total | format_rupiah
-            }}</span></span>
+        <span class="total-price" id="total-price-global">TOTAL: <span class="price">Rp. 0</span></span>
         <a href="/order" class="checkout-btn cart-btn">PROCEED TO CHECKOUT</a>
         <a href="/cart" class="view-btn cart-btn">VIEW CART</a>
       </div>
@@ -523,6 +501,7 @@
   <script src="{{url_for('static', filename='assets/js/vendors/jquery.magnific-popup.min.js')}}"></script>
   <!--================= Main Script =================-->
   <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/js/fetch.js')}}"></script>
 
 </body>
 
