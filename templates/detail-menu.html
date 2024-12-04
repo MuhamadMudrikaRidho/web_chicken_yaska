@@ -49,15 +49,13 @@
           <div class="cart-edit">
             <div class="quantity-edit action-item">
               <button class="button"><i class="fal fa-minus minus"></i></button>
-              <input type="text" class="input" value="01" />
+              <input type="text" class="input" value="1" id="qty-{{menu._id}}" />
               <button class="button plus">+<i class="fal fa-plus plus"></i></button>
             </div>
           </div>
-          <form action="{{ url_for('cart.store', menu_id=menu._id) }}" method="POST">
-            <input type="number" name="quantity" value="1" min="1" hidden />
-            <button type="submit" class="addto-cart-btn action-item"><i class="fal fa-shopping-cart"></i> Tambah ke
-              Keranjang</button>
-          </form>
+          <button onclick="addToCart('{{menu._id}}')" class="addto-cart-btn action-item"><i
+              class="fal fa-shopping-cart"></i> Tambah ke
+            Keranjang</button>
           <a href="/wishlist" class="wishlist-btn action-item"><i class="rt-heart"></i></a>
         </div>
       </div>

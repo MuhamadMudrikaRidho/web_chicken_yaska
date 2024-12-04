@@ -17,6 +17,7 @@ print("run menu migration...")
 
 db.menu.drop()
 db.carts.drop()
+db.wishlists.drop()
 
 doc = [
   {"image": "assets/images/hand-picked/favyasaka.jpg",

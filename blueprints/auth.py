@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session, request, current_app
+from flask import Blueprint, render_template, redirect, url_for, session, request, current_app, jsonify
 import bcrypt
 
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
@@ -64,3 +64,11 @@ def register():
 def logout():
     session.clear()
     return redirect(url_for('auth.login'))
+
+@auth_bp.route('/check-login')
+def isLogin():
+    
+    if is_logged_in() :
+        return jsonify({"isLoggedIn" : True})
+    
+    return jsonify({"isLoggedIn" : False})

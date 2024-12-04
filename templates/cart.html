@@ -23,51 +23,8 @@
           <table class="table table-bordered table-hover">
             <thead class="thead-dark">
             </thead>
-            <tbody>
-              {% if carts %}
-              {% for cart in carts %}
-              <tr>
-                <td>
-                  <div class="product-thumb"><img src="{{ url_for('static', filename=cart.menu_image) }}"
-                      alt="product-thumb" style="width: 200px; height: 200px; border-radius: 7px;">
-                  </div>
-                </td>
-                <td>
-                  <div class="product-title-area">
-                    <span class="pretitle">{{ cart.menu_category }}</span>
-                    <h4 class="product-title">{{ cart.menu_name }}</h4>
-                  </div>
-                </td>
-                <td><span class="product-price">Rp. {{ cart.price | format_rupiah }}</span></td>
-                <td>
-                <td>
-                  <div class="cart-edit">
-                    <div class="quantity-edit">
-                      <button type="button" class="button minus" data-cart-id="{{ cart.id }}"
-                        data-price="{{ cart.price }}">
-                        <i class="fal fa-minus minus"></i>
-                      </button>
-                      <input type="number" class="input quantity" value="{{ cart.quantity }}"
-                        data-cart-id="{{ cart.id }}" data-price="{{ cart.price }}" min="1" />
-                      <button type="button" class="button plus" data-cart-id="{{ cart.id }}"
-                        data-price="{{ cart.price }}">
-                        <i class="fal fa-plus plus"></i>
-                      </button>
-                    </div>
-                  </div>
-                </td>
+            <tbody id="cart-data-page">
 
-                </td>
-                <td class="last-td">
-                  <form action="{{ url_for('cart.destroy', cart_id=cart.id)}}" method="post">
-                    <button type="submit" class="remove-btn">Remove</button>
-                  </form>
-                </td>
-              </tr>
-              {% endfor %}
-              {% else %}
-              <p>Cart is empty, <a href="{{ url_for('menu.home') }}">Add Some</a></p>
-              {% endif %}
             </tbody>
           </table>
           <!-- <div class="coupon-apply">
@@ -103,10 +60,10 @@
             </div>
             <div class="total-area">
               <span class="title">Total</span>
-              <span class="total-price" id="total-price">Rp. {{ total | format_rupiah }}</span>
+              <span class="total-price" id="total-price">Rp. 0</span>
             </div>
           </div>
-          <a href="/checkout" class="procced-btn">Procced To Checkout</a>
+          <a href="/order" class="procced-btn">Procced To Checkout</a>
           <a href="{{ url_for('menu.home') }}" class="continue-shopping"><i class="fal fa-long-arrow-left"></i> Continue
             Shopping</a>
         </div>
