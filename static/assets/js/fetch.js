@@ -91,7 +91,7 @@ const incQtyGlobal = (id) => {
   if (isNaN(currentQtyGlobal) || currentQtyGlobal < 1) currentQtyGlobal = 1;
   qtyGlobal.val(currentQtyGlobal + 1)
   productQty.text(`${currentQtyGlobal + 1} ×`)
-  updateTotalPrice();
+  updateTotalPriceGlobal();
   updateCartInDB(id, currentQtyGlobal + 1);
 }
 
@@ -121,12 +121,11 @@ const decQtyGlobal = (id) => {
   }
 
   updateCartInDB(id, currentQtyGlobal - 1);
-  updateTotalPrice();
+  updateTotalPriceGlobal();
 }
 
 const updateTotalPrice = () => {
   const totalPrice = $('#total-price');
-  const totalPriceGlobal = $('#total-price-global');
   let total = 0;
 
   $('.cart-qty').each(function () {
@@ -139,8 +138,22 @@ const updateTotalPrice = () => {
   });
 
   totalPrice.text(`Rp. ${formatRupiah(total)}`);
-  totalPriceGlobal.text(`Rp. ${formatRupiah(total)}`);
 };
+
+const updateTotalPriceGlobal = () => {
+  const totalPriceGlobal = $('#total-price-global');
+  let total = 0;
+
+  $('.cart-qty-global').each(function () {
+    const qty = parseInt($(this).val());
+    const price = parseFloat($(this).data('price'));
+
+    if (!isNaN(qty)) {
+      total += qty * price;
+    }
+  });
+  totalPriceGlobal.text(`Rp. ${formatRupiah(total)}`);
+}
 
 // Fetching Cart Start
 const getCartData = async () => {
@@ -201,7 +214,7 @@ const getCartData = async () => {
                 <button type="button" onclick="decQtyGlobal('${id}')" class="button minus">
                   <i class="fal fa-minus minus"></i>
                 </button>
-                <input id="cart-qty-global-${id}" class="cart-qty" data-price="${price}" type="number" value="${qty}" disabled>
+                <input id="cart-qty-global-${id}" class="cart-qty-global" data-price="${price}" type="number" value="${qty}" disabled>
                 <button type="button" onclick="incQtyGlobal('${id}')" class="button plus">
                   <i class="fal fa-plus plus"></i>
                 </button>
