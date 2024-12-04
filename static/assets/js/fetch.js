@@ -85,7 +85,7 @@ const incQty = (id) => {
 };
 
 const incQtyGlobal = (id) => {
-  const productQty = $('.product-qnty')
+  const productQty = $(`#product-qnty-${id}`)
   const qtyGlobal = $(`#cart-qty-global-${id}`)
   let currentQtyGlobal = parseInt(qtyGlobal.val());
   if (isNaN(currentQtyGlobal) || currentQtyGlobal < 1) currentQtyGlobal = 1;
@@ -110,7 +110,7 @@ const decQty = (id) => {
 };
 
 const decQtyGlobal = (id) => {
-  const productQty = $('.product-qnty')
+  const productQty = $(`#product-qnty-${id}`)
   const qtyGlobal = $(`#cart-qty-global-${id}`)
   let currentQtyGlobal = parseInt(qtyGlobal.val());
   if (isNaN(currentQtyGlobal) || currentQtyGlobal <= 1) currentQtyGlobal = 1;
@@ -191,7 +191,7 @@ const getCartData = async () => {
                 <div class="item-wrapper">
                 </div>
                 <div class="item-wrapper">
-                  <span class="product-qnty">${qty} ×</span>
+                  <span class="product-qnty" id="product-qnty-${id}">${qty} ×</span>
                   <span class="product-price">${price}</span>
                 </div>
               </div>
