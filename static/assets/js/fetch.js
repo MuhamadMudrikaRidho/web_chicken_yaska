@@ -346,7 +346,7 @@ const getWishlistData = () => {
                     <a href="/menu/${id}" class="pretitle">${name}</a>
                 </td>
                 <td><span class="product-price">Rp. ${formatRupiah(price)}</span></td>
-                <td class="last-td"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To Cart</button>
+                <td class="last-td"><button onclick="addToCart('${id}')" class="cart-btn"><i class="rt-basket-shopping"></i> Add To Cart</button>
                 </td>
             </tr>
           `
