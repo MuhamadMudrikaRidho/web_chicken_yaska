@@ -29,7 +29,15 @@ doc = [
   {"image": "assets/images/hand-picked/geprek.jpg",
     "name": "Ayam Geprek + Nasi", "price": 17000, "category" : "Paket Hemat", "description" : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe similique consectetur nihil aspernatur nesciunt possimus corrupti totam minus quod qui? Fugiat accusantium quasi, nostrum nam repellat quae aliquam perferendis corporis?"},
   {"image": "assets/images/hand-picked/selimut.jpg",
-    "name": "Ayam Geprek + Nasi", "price": 18000, "category" : "Paket Hemat", "description" : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe similique consectetur nihil aspernatur nesciunt possimus corrupti totam minus quod qui? Fugiat accusantium quasi, nostrum nam repellat quae aliquam perferendis corporis?"}
+    "name": "Ayam Selimut + Nasi", "price": 18000, "category" : "Paket Hemat", "description" : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe similique consectetur nihil aspernatur nesciunt possimus corrupti totam minus quod qui? Fugiat accusantium quasi, nostrum nam repellat quae aliquam perferendis corporis?"},
+  {"image": "assets/images/hand-picked/paket.jpg",
+    "name": "Paket Extra Puas", "price": 17000, "category" : "Paket Hemat", "description" : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe similique consectetur nihil aspernatur nesciunt possimus corrupti totam minus quod qui? Fugiat accusantium quasi, nostrum nam repellat quae aliquam perferendis corporis?"},
+  {"image": "assets/images/hand-picked/big.jpg",
+    "name": "Chicken Big", "price": 65000, "category" : "Paket Hemat", "description" : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe similique consectetur nihil aspernatur nesciunt possimus corrupti totam minus quod qui? Fugiat accusantium quasi, nostrum nam repellat quae aliquam perferendis corporis?"},
+  {"image": "assets/images/hand-picked/mala.jpg",
+    "name": "Ayam Bakar Mala", "price": 20000, "category" : "Paket Hemat", "description" : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe similique consectetur nihil aspernatur nesciunt possimus corrupti totam minus quod qui? Fugiat accusantium quasi, nostrum nam repellat quae aliquam perferendis corporis?"},
+  {"image": "assets/images/hand-picked/sayap.jpg",
+    "name": "Paket Winger", "price": 7500, "category" : "Paket Hemat", "description" : "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Saepe similique consectetur nihil aspernatur nesciunt possimus corrupti totam minus quod qui? Fugiat accusantium quasi, nostrum nam repellat quae aliquam perferendis corporis?"}
 ]
 
 db.menu.insert_many(doc)
