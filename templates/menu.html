@@ -22,11 +22,10 @@
         <span class="items-onlist">Menampilkan 1-12 dari 50 hasil</span>
         <div class="filter-area">
           <p class="select-area">
-            <select class="select">
-              <option value="default" selected disabled>Sort</option>
-              <option value=".newest">Menu Terbaru</option>
-              <option value=".price_asc">Urutkan berdasarkan harga: rendah ke tinggi</option>
-              <option value=".price_desc">Urutkan berdasarkan harga: tinggi ke rendah</option>
+            <select class="select" onchange="window.location.href='?sort=' + this.value;">
+              <option value="default" {% if current_sort == 'default' %}selected{% endif %}>Sort</option>
+              <option value="price_asc" {% if current_sort == 'price_asc' %}selected{% endif %}>Urutkan berdasarkan harga: rendah ke tinggi</option>
+              <option value="price_desc" {% if current_sort == 'price_desc' %}selected{% endif %}>Urutkan berdasarkan harga: tinggi ke rendah</option>
             </select>
           </p>
         </div>
@@ -49,7 +48,8 @@
                 </div>
               </div>
               <div class="product-actions">
-                <a href="/wishlist" class="product-action"><i class="fal fa-heart"></i></a>
+                <button onclick="addWishlistData('{{menu._id}}')" class="product-action"><i
+                    class="fal fa-heart"></i></button>
               </div>
             </div>
           </div>

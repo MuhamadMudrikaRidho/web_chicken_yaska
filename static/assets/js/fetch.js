@@ -1,5 +1,6 @@
 $(document).ready(() => {
   getCartData();
+  getWishlistData();
 });
 
 function formatRupiah(number) {
@@ -313,3 +314,81 @@ const removeFromCart = async (cart_id) => {
   })
 }
 // Fetching Cart End
+
+// Fetching Wishlist Start
+
+const getWishlistData = () => {
+
+  const wishlistBox = $('#wishlist-box');
+  wishlistBox.html('<td></td><td>Loading...</td>');
+
+  $.ajax({
+    type: "GET",
+    url: "/wishlist/all",
+    data: {},
+    success: res => {
+
+      wishlistBox.empty();
+      const wishlists = res.data;
+
+      if (wishlists.length) {
+        wishlists.forEach((wishlist) => {
+          const name = wishlist.menu_name;
+          const image = wishlist.menu_image;
+          const price = wishlist.price;
+          const id = wishlist.menu_id
+
+          const temp_html = `
+            <tr>
+                <td class="first-td"><button onclick="deleteWishlistData('${id}')" class="remove-btn"><i class="fal fa-times"></i></button></td>
+                <td class="first-child"><a href="/menu/${id}"><img src="/static/${image}"
+                            style="height: 100px; width: 100px;" alt=""></a>
+                    <a href="/menu/${id}" class="pretitle">${name}</a>
+                </td>
+                <td><span class="product-price">Rp. ${formatRupiah(price)}</span></td>
+                <td class="last-td"><button class="cart-btn"><i class="rt-basket-shopping"></i> Add To Cart</button>
+                </td>
+            </tr>
+          `
+          wishlistBox.append(temp_html)
+        });
+      } else {
+        wishlistBox.append("<td></td><td>You haven't added any menus to your wishlist,<a href='/menu'>Add Some</a></p></td>")
+      }
+
+      console.log(res.message)
+    }
+  });
+}
+
+const addWishlistData = (menu_id) => {
+  $.ajax({
+    type: "POST",
+    url: `/wishlist/${menu_id}`,
+    data: {},
+    success: res => {
+
+      if (res.status == 'danger') {
+        showToast("can't added to wishlist", `${res.message}`, 3000, res.status, '/wishlist', 'go to wishlist &nbsp; <i class="fal fa-long-arrow-right"></i>');
+      } else {
+        showToast("added to wishlist", `${res.message}`, 3000, res.status, '/wishlist', 'go to wishlist &nbsp; <i class="fal fa-long-arrow-right"></i>');
+      }
+
+      getWishlistData();
+    }
+  })
+}
+
+const deleteWishlistData = (menu_id) => {
+  $.ajax({
+    type: "post",
+    url: `/wishlist/${menu_id}/destroy`,
+    data: {},
+    success: res => {
+      showToast("deleted from wishlist", res.message, 2000, res.status);
+      getWishlistData();
+    }
+  })
+}
+
+// Fetching Wishlist End

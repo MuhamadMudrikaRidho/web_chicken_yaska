@@ -34,7 +34,8 @@ def index():
         total += (menu['price'] * item['quantity'])
     
     data = {
-        "message" : "Get Cart Data",
+        "stats" : "success",
+        "message" : "get your cart data",
         "data" : items,
         "total" : total
     }

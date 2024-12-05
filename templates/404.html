@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" class="darkmode" data-theme="light">
+<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}{% endblock %} - Chicken Yasaka</title>
+  <!--================= Favicon =================-->
+  <link rel="apple-touch-icon" href="{{url_for('static', filename='assets/images/fav.png')}}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static', filename='assets/images/fav.png')}}">
+  <!--================= Bootstrap V5 CSS =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
+  <!--================= Font Awesome 5 CSS =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/all.min.css')}}">
+  <!--================= RT Icons CSS =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/rt-icons.css')}}">
+  <!--================= Animate css =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/animate.min.css')}}">
+  <!--================= Magnific popup Plugin =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/magnific-popup.css')}}">
+  <!--================= Swiper Slider Plugin =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/swiper-bundle.min.css')}}">
+  <!--================= Mobile Menu CSS =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/metisMenu.css')}}">
+  <!--================= Main Menu CSS =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/rtsmenu.css')}}">
+  <!--================= Preloader CSS =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/preloader.css')}}">
+  <!--================= Main Stylesheet =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/variables/variable1.css')}}">
+  <!--================= Main Stylesheet =================-->
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/main.css')}}">
+</head>
+
+<body>
+  <div class="error-area">
+    <div class="content-area">
+      <div class="container">
+        <div class="error-404">
+          <div class="section-inner">
+            <div class="error-img">
+              <img src="{{ url_for('static', filename='assets/images/error/404-1.png') }}" alt="error-img">
+            </div>
+            <div class="title">
+              <h2 class="sub-title">Page not found</h2>
+              <h3 class="sect-title">Sorry, we couldn't find the page you where looking for. We suggest <br> that you
+                return to homepage.</h3>
+            </div>
+            <div class="section-button">
+              <a href="/"><i class="fal fa-long-arrow-left"></i> Go To Homepage</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--================= Jquery latest version =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/jquery-3.6.0.min.js')}}"></script>
+  <!--================= Bootstrap latest version =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/bootstrap.min.js')}}"></script>
+  <!--================= Wow.js =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/wow.min.js')}}"></script>
+  <!--================= Swiper Slider =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/swiper-bundle.min.js')}}"></script>
+  <!--================= Nice Select =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/jquery.nice-select.js')}}"></script>
+  <!--================= Zoom Plugin =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/zoom.js')}}"></script>
+  <!--================= metisMenu Plugin =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/metisMenu.min.js')}}"></script>
+  <!--================= Main Menu Plugin =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/rtsmenu.js')}}"></script>
+  <!--================= Magnefic Popup Plugin =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/isotope.pkgd.min.js')}}"></script>
+  <!--================= Magnefic Popup Plugin =================-->
+  <script src="{{url_for('static', filename='assets/js/vendors/jquery.magnific-popup.min.js')}}"></script>
+  <!--================= Main Script =================-->
+  <script src="{{url_for('static', filename='assets/js/main.js')}}"></script>
+  <script src="{{url_for('static', filename='assets/js/fetch.js')}}"></script>
+
+</body>
+
+</html>

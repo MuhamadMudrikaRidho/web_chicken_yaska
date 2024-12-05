@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, session, redirect, url_for, current_app
+from flask import Blueprint, render_template, session, redirect, url_for, current_app, jsonify
+from bson import ObjectId
 
 wishlist_bp = Blueprint("wishlist", __name__, url_prefix="/wishlist")
 
@@ -7,15 +8,76 @@ def home():
     if 'username' not in session:
         return redirect(url_for('auth.login'))
 
-    products = [
-        {"image": "assets/images/hand-picked/favyasaka.jpg",
-         "name": "Ayam Bakar Crispy", "price": 15000},
-        {"image": "assets/images/hand-picked/chicken.jpg",
-         "name": "Chicken + Nasi", "price": 20000},
-        {"image": "assets/images/hand-picked/mentai.jpg",
-         "name": "Ayam Bakar Mentai + Nasi", "price": 15000},
-        {"image": "assets/images/hand-picked/geprek.jpg",
-         "name": "Ayam Geprek + Nasi", "price": 17000},
-    ]
+    return render_template('wishlist.html')
 
-    return render_template('wishlist.html', products=products)
+@wishlist_bp.route('/all')
+def index() :
+    if 'username' not in session:
+        return redirect(url_for('auth.login'))
+    
+    user = session['username']
+    db = current_app.config['DB']
+
+    wishlist_items = db.wishlists.find({'user': user})
+    items = []
+    for item in wishlist_items:
+        menu = db.menu.find_one({'_id': ObjectId(item['menu_id'])})
+        items.append({
+            'id' : str(item['_id']),
+            'menu_id' : str(menu['_id']),
+            'menu_name': menu['name'],
+            'menu_image' : menu['image'],
+            'price': menu['price'],
+        })
+
+    data = {
+        "status" : "success",
+        "message" : "get your wishlist data",
+        "data" : items
+    }
+    
+    return jsonify(data)
+
+@wishlist_bp.route('/<menu_id>', methods=["POST"])
+def store(menu_id) : 
+    if 'username' not in session:
+        return redirect(url_for('auth.login'))
+    
+    user = session['username']
+    db = current_app.config['DB']
+    
+    wishlist = db.wishlists.find_one({'menu_id': ObjectId(menu_id), "user" : user})
+    data = {
+        "status" : "success",
+        "message" : "menu successfully added to your wishlist"
+    }
+
+    if wishlist:
+        data = {
+            "status" : "danger",
+            "message" : "this menu has added to your wishlist"
+        }
+    else:
+        db.wishlists.insert_one({
+            'menu_id': ObjectId(menu_id),
+            'user' : user
+        })
+
+    
+    return jsonify(data)
+
+@wishlist_bp.route('/<menu_id>/destroy', methods=["post"])
+def destroy(menu_id) : 
+    if 'username' not in session:
+        return redirect(url_for('auth.login'))
+    
+    user = session['username']
+    db = current_app.config['DB']
+    db.wishlists.delete_one({'menu_id': ObjectId(menu_id), "user" : user})
+    
+    data = {
+        "status" : "success",
+        "message" : "menu successfully deleted from your wishlist"
+    }
+
+    return jsonify(data)
