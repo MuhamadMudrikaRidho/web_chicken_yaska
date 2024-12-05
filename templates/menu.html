@@ -19,13 +19,25 @@
   <div class="row">
     <div class="col-xl-12">
       <div class="shop-product-topbar">
-        <span class="items-onlist">Menampilkan 1-12 dari 50 hasil</span>
+        <span class="items-onlist">
+          {% if current_sort=='default' %}
+          Menampilkan semua menu
+          {% elif current_sort=='price_asc' %}
+          Menampilkan semua menu berdasarkan harga terendah
+          {% elif current_sort=='price_desc' %}
+          Menampilkan semua menu berdasarkan harga tertinggi
+          {% else %}
+          ???
+          {% endif %}
+        </span>
         <div class="filter-area">
           <p class="select-area">
             <select class="select" onchange="window.location.href='?sort=' + this.value;">
-              <option value="default" {% if current_sort == 'default' %}selected{% endif %}>Sort</option>
-              <option value="price_asc" {% if current_sort == 'price_asc' %}selected{% endif %}>Urutkan berdasarkan harga: rendah ke tinggi</option>
-              <option value="price_desc" {% if current_sort == 'price_desc' %}selected{% endif %}>Urutkan berdasarkan harga: tinggi ke rendah</option>
+              <option value="default" {% if current_sort=='default' %}selected{% endif %}>Sort</option>
+              <option value="price_asc" {% if current_sort=='price_asc' %}selected{% endif %}>Urutkan berdasarkan harga:
+                rendah ke tinggi</option>
+              <option value="price_desc" {% if current_sort=='price_desc' %}selected{% endif %}>Urutkan berdasarkan
+                harga: tinggi ke rendah</option>
             </select>
           </p>
         </div>
