@@ -320,6 +320,7 @@ const removeFromCart = async (cart_id) => {
 const getWishlistData = () => {
 
   const wishlistBox = $('#wishlist-box');
+  const wishlistItemsTotal = $('#wishlist-items-total');
   wishlistBox.html('<td></td><td>Loading...</td>');
 
   $.ajax({
@@ -330,13 +331,16 @@ const getWishlistData = () => {
 
       wishlistBox.empty();
       const wishlists = res.data;
+      const totalItems = res.data.length;
+
+      wishlistItemsTotal.text(totalItems)
 
       if (wishlists.length) {
         wishlists.forEach((wishlist) => {
           const name = wishlist.menu_name;
           const image = wishlist.menu_image;
           const price = wishlist.price;
-          const id = wishlist.menu_id
+          const id = wishlist.menu_id;
 
           const temp_html = `
             <tr>
