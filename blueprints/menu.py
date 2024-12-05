@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, current_app
+from flask import Blueprint, render_template, current_app, session
 from bson import ObjectId
 
 menu_bp = Blueprint("menu", __name__, url_prefix="/menu")
@@ -8,10 +8,15 @@ def home():
     db = current_app.config['DB']
     menus = list(db.menu.find({}))
 
+    user = session['username']
+    isWishlisted = False
+
     for menu in menus:
         menu['_id'] = str(menu['_id'])
+        if db.wishlists.find_one({'menu_id' : ObjectId(menu['_id']), 'user' : user}) : 
+            isWishlisted = True
 
-    return render_template("menu.html", menus=menus)
+    return render_template("menu.html", menus=menus, isWishlisted=isWishlisted)
 
 @menu_bp.route("/<id>")
 def detail(id):
