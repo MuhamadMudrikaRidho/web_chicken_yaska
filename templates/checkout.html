@@ -1,142 +1,110 @@
-{% extends "layouts/template.html" %}
-{% block title %}Checkout{% endblock %}
-
-{% block content %}
+{% extends "layouts/template.html" %} {% block title %}Checkout{% endblock %} {%
+block content %}
 <div class="rts-checkout-section">
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-xl-8">
-                <div class="coupon-area">
-                    <div class="coupon-ask">
-                        <span>Have a coupon?</span>
-                        <button class="coupon-click">Click here to enter your code</button>
-                    </div>
-                    <div class="coupon-input-area">
-                        <input type="text" placeholder="Enter Coupon Code...">
-                        <button type="submit" class="apply-btn">Apply Coupon</button>
-                    </div>
-                </div>
-                <form class="checkout-form">
-                    <div class="row">
-                        <div class="col-xl-6  col-md-6">
-                            <div class="input-div"><input type="text" placeholder="Nama Depan"></div>
-                        </div>
-                        <div class="col-xl-6  col-md-6">
-                            <div class="input-div"><input type="text" placeholder="Nama Belakang"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-6  col-md-6">
-                            <select>
-                                <option value="us">Negara</option>
-                                <option value="us">Indonesia</option>
-                            </select>
-                        </div>
-                        <div class="col-xl-6 col-md-6">
-                            <div class="input-div"><input type="text" placeholder="Provinsi"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6">
-                            <div class="input-div"><input type="text" placeholder="Kota/Kabupaten"></div>
-                        </div>
-                        <div class="col-xl-6 col-md-6">
-                            <div class="input-div"><input type="text" placeholder="Kode Pos"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6">
-                            <div class="input-div"><input type="text" placeholder="Alamat Jalan"></div>
-                        </div>
-                        <div class="col-xl-6 col-md-6">
-                            <div class="input-div"><input type="text"
-                                    placeholder="Appartment, Hotel, Rumah, Kantor, dll (opsional)"></div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-6 col-md-6">
-                            <div class="input-div"><input type="text" placeholder="Nomor HP"></div>
-                        </div>
-                        <div class="col-xl-6 col-md-6">
-                            <div class="input-div"><input type="email" placeholder="Alamat Email"></div>
-                        </div>
-                    </div>
-
-                    <textarea id="orderNotes" cols="80" rows="4" placeholder="Order notes (optional)"></textarea>
-                </form>
+  <div class="container">
+    <div class="row justify-content-between mb-20">
+      <div class="col-xl-8">
+        <form class="checkout-form mb-5">
+          <div class="row">
+            <div class="col-xl-12 col-md-12">
+              <div class="input-div">
+                <input type="text" placeholder="Nama" />
+              </div>
             </div>
-            <div class="col-xl-4">
-                <div class="action-item">
-                    <div class="action-top">
-                        <span class="action-title">Produk</span>
-                        <span class="subtotal">Subtotal</span>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-item-inner">
-                            <div class="category-title-area">
-                                <span class="category-title">Preschool Flex Runner × 1</span>
-                            </div>
-                            <div class="price">$69.00</div>
-                        </div>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-item-inner">
-                            <div class="category-title-area">
-                                <span class="category-title">Hiking Boots × 1
-                                </span>
-                            </div>
-                            <div class="price">$220.00</div>
-                        </div>
-                    </div>
-                    <div class="category-item">
-                        <div class="category-item-inner">
-                            <div class="category-title-area">
-                                <span class="category-title">Tiktok Tshirt × 1</span>
-                            </div>
-                            <div class="price">$75.00</div>
-                        </div>
-                    </div>
-                    <div class="action-middle">
-                        <span class="subtotal">Subtotal</span>
-                        <span class="total-price">$364.00</span>
-                    </div>
-                    <div class="shipping-options checkout-options">
-                        <span class="shipping">Pengiriman</span>
-                        <form>
-                            <div class="form-group">
-                                <input type="checkbox" id="fltrt2">
-                                <label class="check-title" for="fltrt2">Gratis Ongkir</label>
-                            </div>
-
-                        </form>
-                    </div>
-                    <div class="action-bottom">
-                        <span class="total">Total</span>
-                        <span class="total-price">$364.00</span>
-                    </div>
-                </div>
-                <div class="action-item m-0">
-                    <div class="payment-options checkout-options">
-                        <form>
-                            <!-- <div class="form-group">
-                                <input type="checkbox" id="drbank">
-                                <label class="check-title" for="drbank">Direct bank transfer</label>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" id="freetrans">
-                                <label class="check-title" for="freetrans">Bayar Ditempat</label>
-                            </div>
-                            <div class="form-group last-child">
-                                <input type="checkbox" id="paypl">
-                                <label class="check-title" for="paypl">PayPal <a href="news-details.html">What is PayPal?</a></label>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <a href="{{ url_for('order.greating') }}" class="place-order-btn">Pembayaran</a>
-                <!--<a href="thank-you.html" class="place-order-btn">Place Order</a> -->
-                    </div>
-                </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 col-md-6">
+              <div class="input-div">
+                <input type="text" placeholder="Alamat Jalan" />
+              </div>
             </div>
+            <div class="col-xl-6 col-md-6">
+              <div class="input-div">
+                <input
+                  type="text"
+                  placeholder="Apartemen, Hotel, Rumah, Kantor 
+                                    (opsional)"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-6 col-md-6">
+              <div class="input-div">
+                <input type="text" placeholder="Nomor HP" />
+              </div>
+            </div>
+            <div class="col-xl-6 col-md-6">
+              <div class="input-div">
+                <input type="email" placeholder="Alamat Email" />
+              </div>
+            </div>
+          </div>
+
+          <textarea
+            id="orderNotes"
+            cols="80"
+            rows="4"
+            placeholder="Order notes (optional)"
+          ></textarea>
+        </form>
+      </div>
+      <div class="col-xl-4">
+        <div class="action-item">
+          <div class="action-top">
+            <span class="action-title">Produk</span>
+            <span class="subtotal">Subtotal</span>
+          </div>
+          <div class="category-item">
+            <div class="category-item-inner">
+              <div class="category-title-area">
+                <span class="category-title">Preschool Flex Runner × 1</span>
+              </div>
+              <div class="price">Rp. 69.00</div>
+            </div>
+          </div>
+          <div class="category-item">
+            <div class="category-item-inner">
+              <div class="category-title-area">
+                <span class="category-title">Hiking Boots × 1 </span>
+              </div>
+              <div class="price">Rp. 220.00</div>
+            </div>
+          </div>
+          <div class="category-item">
+            <div class="category-item-inner">
+              <div class="category-title-area">
+                <span class="category-title">Tiktok Tshirt × 1</span>
+              </div>
+              <div class="price">Rp. 5.00</div>
+            </div>
+          </div>
+
+          <div class="action-bottom">
+            <span class="total">Total</span>
+            <span class="total-price">Rp. 364.00</span>
+          </div>
         </div>
-        {% endblock %}
+        <div class="action-item m-0">
+          <div class="payment-options checkout-options">
+            <form>
+              <div class="form-group">
+                <input type="checkbox" id="drbank" />
+                <label class="check-title" for="drbank">QRIS</label>
+              </div>
+              <div class="form-group">
+                <input type="checkbox" id="freetrans" />
+                <label class="check-title" for="freetrans"
+                  >COD(Cash on Delivery)</label
+                >
+              </div>
+            </form>
+          </div>
+        </div>
+        <a href="" class="place-order-btn">Pembayaran</a>
+        <a href="/order/thankyou" class="place-order-btn">Place Order</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
