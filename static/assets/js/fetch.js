@@ -76,14 +76,29 @@ const updateCartInDB = (cartId, quantity) => {
 
 const incQty = (id) => {
   const qty = $(`#cart-qty-${id}`);
+  const qtyCheckout = $(`#qty-checkout-${id}`);
   let currentQty = parseInt(qty.val());
+  const subTotal = $(`#sub-total-${id}`);
+  const productPrice = ($(`#product-price-${id}`)).data('price');
+
+  // Pastikan currentQty tidak NaN atau kurang dari 1
   if (isNaN(currentQty) || currentQty < 1) currentQty = 1;
 
-  qty.val(currentQty + 1);
+  // Tambahkan 1 ke qty
+  const newQty = currentQty + 1;
 
+  // Perbarui nilai qty dan qtyCheckout menjadi nilai baru
+  qty.val(newQty);
+  qtyCheckout.text(newQty);
+  subTotal.text(`Rp. ${formatRupiah(newQty * productPrice)}`);
+
+  // Perbarui total harga
   updateTotalPrice();
-  updateCartInDB(id, currentQty + 1);
+
+  // Perbarui database dengan qty baru
+  updateCartInDB(id, newQty);
 };
+
 
 const incQtyGlobal = (id) => {
   const productQty = $(`#product-qnty-${id}`)
@@ -98,16 +113,29 @@ const incQtyGlobal = (id) => {
 
 const decQty = (id) => {
   const qty = $(`#cart-qty-${id}`);
+  const qtyCheckout = $(`#qty-checkout-${id}`);
   let currentQty = parseInt(qty.val());
+  const subTotal = $(`#sub-total-${id}`);
+  const productPrice = ($(`#product-price-${id}`)).data('price');
+
+  // Pastikan currentQty tidak NaN atau kurang dari 1
   if (isNaN(currentQty) || currentQty <= 1) currentQty = 1;
 
+  // Jika currentQty lebih besar dari 1, kurangi 1
   if (currentQty > 1) {
-    qty.val(currentQty - 1);
-    updateCartInDB(id, currentQty - 1);
-  }
+    const newQty = currentQty - 1;
 
-  updateCartInDB(id, currentQty - 1);
-  updateTotalPrice();
+    // Perbarui nilai qty dan qtyCheckout
+    qty.val(newQty);
+    qtyCheckout.text(newQty);
+    subTotal.text(`Rp. ${formatRupiah(newQty * productPrice)}`);
+
+    // Perbarui database dengan qty baru
+    updateCartInDB(id, newQty);
+
+    // Perbarui total harga
+    updateTotalPrice();
+  }
 };
 
 const decQtyGlobal = (id) => {
@@ -160,6 +188,7 @@ const updateTotalPriceGlobal = () => {
 const getCartData = async () => {
 
   const cartBox = $('#cart-data-page');
+  const itemCheckout = $('#item-checkout');
   const cartBoxGlobal = $('#cart-data-global')
   const totalPrice = $('#total-price');
   const totalPriceGlobal = $('#total-price-global');
@@ -167,6 +196,7 @@ const getCartData = async () => {
   const cartItemsTotal = $('#cart-items-total-global');
   cartBox.html('<p>Loading...</p>');
   cartBoxGlobal.html('<p>Loading...</p>');
+  itemCheckout.empty();
 
   $.ajax({
     type: "GET",
@@ -240,7 +270,7 @@ const getCartData = async () => {
                     <h4 class="product-title">${name}</h4>
                   </div>
                 </td>
-                <td><span class="product-price">Rp. ${formatRupiah(price)}</span></td>
+                <td><span class="product-price" id="product-price-${id}" data-price="${price}">Rp. ${formatRupiah(price)}</span></td>
                 <td>
                 <td>
                   <div class="cart-edit">
@@ -259,8 +289,27 @@ const getCartData = async () => {
               </tr>
               `
 
+          const temp_html_checkout = `
+          <div class="category-item mb-2">
+                  <div
+                    class="category-item-inner"
+                    style="
+                      display: flex;
+                      justify-content: space-between;
+                      align-items: center;
+                    "
+                  >
+                    <div class="category-title-area">
+                      <span class="pretitle"> ${name} × <span id="qty-checkout-${id}">${qty}</span></span>
+                    </div>
+                    <div id="sub-total-${id}" class="price" style="text-align: right">Rp. ${formatRupiah(price * qty)}</div>
+                  </div>
+                </div>
+          `
+
           cartBox.append(temp_html_page)
           cartBoxGlobal.append(temp_html_global)
+          itemCheckout.append(temp_html_checkout)
         });
       } else {
         cartBox.html('<p>Cart is empty,<a href="/menu">Add Some</a></p>')

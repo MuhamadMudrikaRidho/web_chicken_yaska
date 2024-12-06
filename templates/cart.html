@@ -1,19 +1,21 @@
-{% extends "layouts/template.html" %}
-{% block title %}Cart{% endblock %}
-{% block breadcrumb %}
+{% extends "layouts/template.html" %} {% block title %}Cart{% endblock %} {%
+block breadcrumb %}
 <div class="page-path">
   <div class="container">
     <div class="breadcrumbs-inner">
       <h1 class="path-title">Cart</h1>
       <ul>
-        <li><a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a></li>
+        <li>
+          <a class="home-page-link" href="/"
+            >Home <i class="fal fa-angle-right"></i
+          ></a>
+        </li>
         <li><a class="current-page" href="#">Cart</a></li>
       </ul>
     </div>
   </div>
 </div>
-{% endblock %}
-{% block content %}
+{% endblock %} {% block content %}
 <div class="rts-cart-section">
   <div class="container">
     <h4 class="section-title">Product List</h4>
@@ -21,11 +23,8 @@
       <div class="col-xl-7">
         <div class="cart-table-area">
           <table class="table table-bordered table-hover">
-            <thead class="thead-dark">
-            </thead>
-            <tbody id="cart-data-page">
-
-            </tbody>
+            <thead class="thead-dark"></thead>
+            <tbody id="cart-data-page"></tbody>
           </table>
           <!-- <div class="coupon-apply">
             <span class="coupon-text">Coupon Code:</span>
@@ -39,33 +38,31 @@
       <div class="col-xl-4">
         <div class="checkout-box">
           <div class="checkout-box-inner">
-            <div class="shipping-check">
-              <span class="title">Shipping</span>
-              <div class="check-options">
-                <form>
-                  <div class="form-group">
-                    <input type="checkbox" id="fltrt">
-                    <label class="check-title" for="fltrt">Flat rate</label>
-                  </div>
-                  <div class="form-group">
-                    <input type="checkbox" id="frsh">
-                    <label class="check-title" for="frsh">Free shipping</label>
-                  </div>
-                </form>
+            <div class="action-item">
+              <div
+                class="action-top mb-2"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  font-weight: bold;
+                "
+              >
+                <span class="action-title">Produk</span>
+                <span class="subtotal">Subtotal</span>
               </div>
-            </div>
-            <div class="shipping-location">
-              <span class="shipping-to">Shipping to <span>NY.</span></span>
-              <span class="change-address"><i class="fal fa-map-marker-alt mr--5"></i>Change address</span>
-            </div>
-            <div class="total-area">
-              <span class="title">Total</span>
-              <span class="total-price" id="total-price">Rp. 0</span>
+              <div id="item-checkout"></div>
+
+              <div class="total-area mt-3">
+                <span class="title">Total</span>
+                <span class="total-price" id="total-price">Rp. 0</span>
+              </div>
             </div>
           </div>
           <a href="/order" class="procced-btn">Procced To Checkout</a>
-          <a href="{{ url_for('menu.home') }}" class="continue-shopping"><i class="fal fa-long-arrow-left"></i> Continue
-            Shopping</a>
+          <a href="{{ url_for('menu.home') }}" class="continue-shopping"
+            ><i class="fal fa-long-arrow-left"></i> Continue Shopping</a
+          >
         </div>
       </div>
     </div>
