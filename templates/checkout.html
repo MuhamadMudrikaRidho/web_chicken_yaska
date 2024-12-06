@@ -50,6 +50,7 @@ block content %}
         </form>
       </div>
       <div class="col-xl-4">
+        {% comment %} harga {% endcomment %}
         <div class="action-item">
           <div class="action-top">
             <span class="action-title">Produk</span>
@@ -85,12 +86,15 @@ block content %}
             <span class="total-price">Rp. 364.00</span>
           </div>
         </div>
+        {% comment %} harga end {% endcomment %}
         <div class="action-item m-0">
           <div class="payment-options checkout-options">
             <form>
               <div class="form-group">
                 <input type="checkbox" id="drbank" />
-                <label class="check-title" for="drbank">QRIS</label>
+                <label class="check-title" for="drbank"
+                  >Bayar dan Ambil Di Outlet Terdekat</label
+                >
               </div>
               <div class="form-group">
                 <input type="checkbox" id="freetrans" />
