@@ -365,7 +365,13 @@ const getWishlistData = () => {
   });
 }
 
-const addWishlistData = (menu_id) => {
+const addWishlistData = async (menu_id) => {
+  const isLoggedIn = await checkLogin();
+  if (!isLoggedIn) {
+    window.location.href = "/auth/login";
+    return;
+  }
+
   $.ajax({
     type: "POST",
     url: `/wishlist/${menu_id}`,
@@ -383,7 +389,14 @@ const addWishlistData = (menu_id) => {
   })
 }
 
-const deleteWishlistData = (menu_id) => {
+const deleteWishlistData = async (menu_id) => {
+
+  const isLoggedIn = await checkLogin();
+  if (!isLoggedIn) {
+    window.location.href = "/auth/login";
+    return;
+  }
+
   $.ajax({
     type: "post",
     url: `/wishlist/${menu_id}/destroy`,

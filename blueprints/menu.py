@@ -16,7 +16,9 @@ def home():
     else:
         menus = list(db.menu.find({})) 
 
-    user = session['username']
+    user = "hehe"
+    if 'username' in session : 
+        user = session['username']
     isWishlisted = False
 
     for menu in menus:
