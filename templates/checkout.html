@@ -3,112 +3,96 @@ block content %}
 <div class="rts-checkout-section">
   <div class="container">
     <div class="row justify-content-between mb-20">
-      <div class="col-xl-8">
-        <form class="checkout-form mb-5">
-          <div class="row">
-            <div class="col-xl-12 col-md-12">
-              <div class="input-div">
-                <input type="text" placeholder="Nama" />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-6 col-md-6">
-              <div class="input-div">
-                <input type="text" placeholder="Alamat Jalan" />
-              </div>
-            </div>
-            <div class="col-xl-6 col-md-6">
-              <div class="input-div">
-                <input
-                  type="text"
-                  placeholder="Apartemen, Hotel, Rumah, Kantor 
-                                    (opsional)"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xl-6 col-md-6">
-              <div class="input-div">
-                <input type="text" placeholder="Nomor HP" />
-              </div>
-            </div>
-            <div class="col-xl-6 col-md-6">
-              <div class="input-div">
-                <input type="email" placeholder="Alamat Email" />
-              </div>
-            </div>
-          </div>
+      <div class="col-xl-12">
+        <!-- Container Pembayaran -->
+        <div class="card-container" style="
+              border: 1px solid #ddd;
+              padding: 35px;
+              border-radius: 8px;
+              margin-bottom: 30px;
+            ">
+          <div class="checkout-box-inner">
+            <p style="font-weight: bold; font-size: 16px; margin-bottom: 15px">
+              Pilih Pembayaran
+            </p>
 
-          <textarea
-            id="orderNotes"
-            cols="80"
-            rows="4"
-            placeholder="Order notes (optional)"
-          ></textarea>
-        </form>
-      </div>
-      <div class="col-xl-4">
-        {% comment %} harga {% endcomment %}
-        <div class="action-item">
-          <div class="action-top">
-            <span class="action-title">Produk</span>
-            <span class="subtotal">Subtotal</span>
-          </div>
-          <div class="category-item">
-            <div class="category-item-inner">
-              <div class="category-title-area">
-                <span class="category-title">Preschool Flex Runner × 1</span>
-              </div>
-              <div class="price">Rp. 69.00</div>
-            </div>
-          </div>
-          <div class="category-item">
-            <div class="category-item-inner">
-              <div class="category-title-area">
-                <span class="category-title">Hiking Boots × 1 </span>
-              </div>
-              <div class="price">Rp. 220.00</div>
-            </div>
-          </div>
-          <div class="category-item">
-            <div class="category-item-inner">
-              <div class="category-title-area">
-                <span class="category-title">Tiktok Tshirt × 1</span>
-              </div>
-              <div class="price">Rp. 5.00</div>
-            </div>
-          </div>
-
-          <div class="action-bottom">
-            <span class="total">Total</span>
-            <span class="total-price">Rp. 364.00</span>
-          </div>
-        </div>
-        {% comment %} harga end {% endcomment %}
-        <div class="action-item m-0">
-          <div class="payment-options checkout-options">
+            <!-- Metode Pembayaran -->
             <form>
-              <div class="form-group">
-                <input type="checkbox" id="drbank" />
-                <label class="check-title" for="drbank"
-                  >Bayar dan Ambil Di Outlet Terdekat</label
-                >
+              <div class="form-group" style="margin-bottom: 15px">
+                <input type="radio" id="drbank" name="paymentMethod" />
+                <label class="check-title" for="drbank">Bayar dan Ambil Di Outlet Terdekat</label>
               </div>
               <div class="form-group">
-                <input type="checkbox" id="freetrans" />
-                <label class="check-title" for="freetrans"
-                  >COD(Cash on Delivery)</label
-                >
+                <input type="radio" id="freetrans" name="paymentMethod" />
+                <label class="check-title" for="freetrans">COD (Cash on Delivery)</label>
               </div>
             </form>
           </div>
         </div>
-        <a href="" class="place-order-btn">Pembayaran</a>
-        <a href="/order/thankyou" class="place-order-btn">Place Order</a>
+
+        <!-- Container Alamat (Hanya tampil jika memilih COD) -->
+        <div id="addressContainer" class="address-container" style="display: none">
+          <form id="addressForm" class="checkout-form">
+            <div class="row">
+              <div class="col-xl-12 col-md-12">
+                <div class="input-div">
+                  <input type="text" placeholder="Nama" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-md-6">
+                <div class="input-div">
+                  <input type="text" placeholder="Alamat Jalan" />
+                </div>
+              </div>
+              <div class="col-xl-6 col-md-6">
+                <div class="input-div">
+                  <input type="text" placeholder="Apartemen, Hotel, Rumah, Kantor (opsional)" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-6 col-md-6">
+                <div class="input-div">
+                  <input type="text" placeholder="Nomor HP" />
+                </div>
+              </div>
+              <div class="col-xl-6 col-md-6">
+                <div class="input-div">
+                  <input type="email" placeholder="Alamat Email" />
+                </div>
+              </div>
+            </div>
+            <textarea id="orderNotes" cols="80" rows="4" placeholder="Order notes (optional)"></textarea>
+          </form>
+        </div>
+
+        <!-- Container untuk Menampilkan Jumlah dan Total -->
+        <div class="card-container">
+          <div class="checkout-box-inner">
+            <div class="action-item">
+              <div class="action-top mb-2" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    font-weight: bold;
+                  ">
+                <span class="action-title">Produk</span>
+                <span class="subtotal">Subtotal</span>
+              </div>
+              <div id="item-checkout"></div>
+              <div class="total-area mt-3">
+                <span class="title">Total</span>
+                <span class="total-price" id="total-price">Rp. 0</span>
+              </div>
+            </div>
+          </div>
+          <a href="/order/thankyou" class="place-order-btn">Place Order</a>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
 {% endblock %}
