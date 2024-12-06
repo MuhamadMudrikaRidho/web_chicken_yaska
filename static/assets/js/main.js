@@ -1477,3 +1477,17 @@ if (nstSlider.length) {
     }
   });
 }
+
+
+// handle alamat di halaman checkout
+$('input[name="paymentMethod"]').on("change", function () {
+  const selectedMethod = $(this).attr("id");
+
+  if (selectedMethod === "freetrans") {
+    // Jika memilih COD, tampilkan form alamat
+    $("#addressContainer").slideDown();
+  } else {
+    // Jika memilih Bayar di Outlet, sembunyikan form alamat
+    $("#addressContainer").slideUp();
+  }
+});
