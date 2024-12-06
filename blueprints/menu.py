@@ -32,8 +32,10 @@ def home():
 def detail(id):
     db = current_app.config['DB']
     menu = db.menu.find_one({"_id": ObjectId(id)})
-    user = session['username']
-
+    user = "hehe"
+    if 'username' in session : 
+        user = session['username']
+    
     isWishlisted = False
 
     if db.wishlists.find_one({'menu_id' : menu['_id'], 'user' : user}) : 
