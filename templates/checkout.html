@@ -31,42 +31,43 @@ block content %}
         </div>
 
         <!-- Container Alamat (Hanya tampil jika memilih COD) -->
-        <div id="addressContainer" class="address-container" style="display: none">
-          <form id="addressForm" class="checkout-form">
-            <div class="row">
-              <div class="col-xl-12 col-md-12">
-                <div class="input-div">
-                  <input type="text" placeholder="Nama" />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xl-6 col-md-6">
-                <div class="input-div">
-                  <input type="text" placeholder="Alamat Jalan" />
-                </div>
-              </div>
-              <div class="col-xl-6 col-md-6">
-                <div class="input-div">
-                  <input type="text" placeholder="Apartemen, Hotel, Rumah, Kantor (opsional)" />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xl-6 col-md-6">
-                <div class="input-div">
-                  <input type="text" placeholder="Nomor HP" />
-                </div>
-              </div>
-              <div class="col-xl-6 col-md-6">
-                <div class="input-div">
-                  <input type="email" placeholder="Alamat Email" />
-                </div>
-              </div>
-            </div>
-            <textarea id="orderNotes" cols="80" rows="4" placeholder="Order notes (optional)"></textarea>
-          </form>
+        <!-- Container Alamat (Hanya tampil jika memilih COD) -->
+<div id="addressContainer" class="address-container" style="display: none">
+  <form id="addressForm" class="checkout-form">
+    <div class="row">
+      <div class="col-xl-12 col-md-12">
+        <div class="input-div">
+          <input type="text" id="name" name="name" placeholder="Nama" value="{{ shipping_address.name if shipping_address else '' }}" />
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-md-6">
+        <div class="input-div">
+          <input type="text" id="address" name="address" placeholder="Alamat Jalan" value="{{ shipping_address.address if shipping_address else '' }}" />
+        </div>
+      </div>
+      <div class="col-xl-6 col-md-6">
+        <div class="input-div">
+          <input type="text" id="placeType" name="place_type" placeholder="Apartemen, Hotel, Rumah, Kantor (opsional)" value="{{ shipping_address.place_type if shipping_address else '' }}" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-md-6">
+        <div class="input-div">
+          <input type="text" id="phone" name="phone" placeholder="Nomor HP" value="{{ shipping_address.phone if shipping_address else '' }}" />
+        </div>
+      </div>
+      <div class="col-xl-6 col-md-6">
+        <div class="input-div">
+          <input type="email" id="email" name="email" placeholder="Alamat Email" value="{{ shipping_address.email if shipping_address else '' }}" />
+        </div>
+      </div>
+    </div>
+    <textarea id="orderNotes" name="order_notes" cols="80" rows="4" placeholder="Order notes (optional)"></textarea>
+  </form>
+</div>
 
         <!-- Container untuk Menampilkan Jumlah dan Total -->
         <div class="card-container">
