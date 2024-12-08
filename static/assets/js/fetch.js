@@ -599,12 +599,41 @@ const deleteWishlistData = async (menu_id) => {
 // Fetching Orders Start
 
 const getOrdersData = (username) => {
+
+  const ordersData = $('#orders-data')
+
   $.ajax({
     type: "GET",
     url: `/order/all/${username}`,
     data: {},
     success: res => {
-      console.log(res.data);
+
+      ordersData.empty();
+
+      if (res.data) {
+
+        const orders = res.data;
+        orders.forEach(order => {
+          const id = order._id;
+          const totalItems = order.items.length;
+          const totalPrice = order.total_price;
+          const status = order.status;
+          const date = order.date;
+
+          const temp_html = `
+            <tr>
+                <td>#${id}</td>
+                <td>${date}</td>
+                <td>${status}</td>
+                <td>Rp. ${formatRupiah(totalPrice)} for ${totalItems} menu</td>
+                <td><a href="#" class="btn-small d-block">View</a></td>
+            </tr>
+          `
+          ordersData.append(temp_html);
+        });
+      } else {
+        $('#orders-page').html(res.message)
+      }
     },
     error: err => {
       console.log("Something Wrong while fetching orders data");
@@ -632,7 +661,7 @@ const checkout = () => {
     },
     error: err => {
       if (err.responseJSON.info == "!login") {
-        showToast("error", `${err.responseJSON.message}`, 3000, err.responseJSON.status, '/login', `go to cart &nbsp; <i class="fal fa-long-arrow-right"></i>`);
+        showToast("error", `${err.responseJSON.message}`, 3000, err.responseJSON.status, '/auth/login', `go to login page &nbsp; <i class="fal fa-long-arrow-right"></i>`);
       } else if (err.responseJSON.info == "!paymentMethod") {
         showToast("error", `${err.responseJSON.message}`, 3000, err.responseJSON.status);
       } else if (err.responseJSON.info == "!cart") {

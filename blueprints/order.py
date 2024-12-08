@@ -48,7 +48,7 @@ def show(username):
     orders = list(db.orders.find({"user": user}))
 
     if not orders:
-        return jsonify({"status": "success", "message": "User belum melakukan order apapun", "info": "!order"})
+        return jsonify({"status": "success", "message": "User belum melakukan order", "info": "!order"})
 
     # for order in orders:
     #     order['_id'] = str(order['_id'])
