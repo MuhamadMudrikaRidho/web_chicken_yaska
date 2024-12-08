@@ -50,8 +50,8 @@ def store(menu_id) :
     user = session['username']
     db = current_app.config['DB']
     quantity = request.form.get('quantity')
-    
-    cart = db.carts.find_one({'menu_id': ObjectId(menu_id), "user" : user})
+    menu = db.menu.find_one({'_id' : ObjectId(menu_id)})
+    cart = db.carts.find_one({'menu_id': menu['_id'], "user" : user})
     if cart:
         db.carts.update_one(
             {'_id': cart['_id']},
@@ -60,6 +60,7 @@ def store(menu_id) :
     else:
         db.carts.insert_one({
             'menu_id': ObjectId(menu_id),
+            'price' : menu['price'],
             'quantity': int(quantity),
             'user' : user
         })

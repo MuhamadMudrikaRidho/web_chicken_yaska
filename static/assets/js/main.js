@@ -1483,7 +1483,7 @@ if (nstSlider.length) {
 $('input[name="paymentMethod"]').on("change", function () {
   const selectedMethod = $(this).attr("id");
 
-  if (selectedMethod === "freetrans") {
+  if (selectedMethod === "cod") {
     // Jika memilih COD, tampilkan form alamat
     $("#addressContainer").slideDown();
   } else {

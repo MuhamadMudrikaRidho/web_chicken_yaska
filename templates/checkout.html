@@ -17,14 +17,14 @@ block content %}
             </p>
 
             <!-- Metode Pembayaran -->
-            <form>
+            <form id="payment-method-form">
               <div class="form-group" style="margin-bottom: 15px">
-                <input type="radio" id="drbank" name="paymentMethod" />
-                <label class="check-title" for="drbank">Bayar dan Ambil Di Outlet Terdekat</label>
+                <input type="radio" id="takeToOutlet" name="paymentMethod" value="Bayar dan Ambil Di Outlet" />
+                <label class="check-title" for="takeToOutlet">Bayar dan Ambil Di Outlet Terdekat</label>
               </div>
               <div class="form-group">
-                <input type="radio" id="freetrans" name="paymentMethod" />
-                <label class="check-title" for="freetrans">COD (Cash on Delivery)</label>
+                <input type="radio" id="cod" name="paymentMethod" value="COD" />
+                <label class="check-title" for="cod">COD (Cash on Delivery)</label>
               </div>
             </form>
           </div>
@@ -88,7 +88,7 @@ block content %}
               </div>
             </div>
           </div>
-          <a href="/order/thankyou" class="place-order-btn">Place Order</a>
+          <button onclick='checkout()' class="place-order-btn">Place Order</button>
         </div>
       </div>
     </div>

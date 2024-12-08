@@ -54,7 +54,7 @@
                         <div class="profile-dp"><img src="assets/images/blog/img-3.jpg" alt="profile-dp"></div>
                         <div class="d-block">
                             <span class="profile-name"><span>Hi,</span> {{ user_data['username'] }} </span>
-                            <!-- Gunakan user_data['username'] -->
+                            <input id="username-info" type="hidden" name="username" value="{{user_data['username']}}">
                             <span class="profile-date d-block">{{ now }}</span>
                         </div>
                     </div>

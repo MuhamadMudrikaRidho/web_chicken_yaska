@@ -6,9 +6,7 @@ block breadcrumb %}
       <h1 class="path-title">Cart</h1>
       <ul>
         <li>
-          <a class="home-page-link" href="/"
-            >Home <i class="fal fa-angle-right"></i
-          ></a>
+          <a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a>
         </li>
         <li><a class="current-page" href="#">Cart</a></li>
       </ul>
@@ -39,15 +37,12 @@ block breadcrumb %}
         <div class="checkout-box">
           <div class="checkout-box-inner">
             <div class="action-item">
-              <div
-                class="action-top mb-2"
-                style="
+              <div class="action-top mb-2" style="
                   display: flex;
                   justify-content: space-between;
                   align-items: center;
                   font-weight: bold;
-                "
-              >
+                ">
                 <span class="action-title">Produk</span>
                 <span class="subtotal">Subtotal</span>
               </div>
@@ -59,10 +54,9 @@ block breadcrumb %}
               </div>
             </div>
           </div>
-          <a href="/order" class="procced-btn">Procced To Checkout</a>
-          <a href="{{ url_for('menu.home') }}" class="continue-shopping"
-            ><i class="fal fa-long-arrow-left"></i> Continue Shopping</a
-          >
+          <a href="/order" id="order-btn" class="procced-btn">Order Now</a>
+          <a href="{{ url_for('menu.home') }}" class="continue-shopping"><i class="fal fa-long-arrow-left"></i> Continue
+            Shopping</a>
         </div>
       </div>
     </div>

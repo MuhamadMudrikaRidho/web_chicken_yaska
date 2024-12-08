@@ -1,6 +1,10 @@
 $(document).ready(() => {
+
+  const username = $('#username-info').val();
+
   getCartData();
   getWishlistData();
+  getOrdersData(username);
 });
 
 function formatRupiah(number) {
@@ -185,8 +189,139 @@ const updateTotalPriceGlobal = () => {
 }
 
 // Fetching Cart Start
-const getCartData = async () => {
+// const getCartData = async () => {
 
+//   const cartBox = $('#cart-data-page');
+//   const itemCheckout = $('#item-checkout');
+//   const cartBoxGlobal = $('#cart-data-global')
+//   const totalPrice = $('#total-price');
+//   const totalPriceGlobal = $('#total-price-global');
+//   const totalItems = $('#total-items-global');
+//   const cartItemsTotal = $('#cart-items-total-global');
+//   cartBox.html('<p>Loading...</p>');
+//   cartBoxGlobal.html('<p>Loading...</p>');
+//   itemCheckout.empty();
+//   cartBox.empty();
+//   cartBoxGlobal.empty();
+
+//   $.ajax({
+//     type: "GET",
+//     url: "/cart/all",
+//     data: {},
+//     success: res => {
+
+//       const carts = res.data;
+//       const total = res.total;
+
+//       totalPrice.text(`Rp. ${formatRupiah(total)}`);
+//       totalPriceGlobal.text(`Rp. ${formatRupiah(total)}`);
+//       totalItems.text(`MY CART (${res.data.length} ITEMS)`);
+//       cartItemsTotal.text(res.data.length);
+
+//       if (carts.length) {
+//         carts.forEach(cart => {
+
+//           const id = cart.id;
+//           const name = cart.menu_name;
+//           const category = cart.menu_category;
+//           const image = cart.menu_image;
+//           const qty = cart.quantity;
+//           const price = cart.price;
+
+//           const temp_html_global = `
+//             <div class="product-item">
+//             <div class="product-detail">
+//               <div class="product-thumb"><img src="/static/${image}" alt="product-thumb">
+//               </div>
+//               <div class="item-wrapper">
+//                 <span class="product-name">${name}</span>
+//                 <div class="item-wrapper">
+//                 </div>
+//                 <div class="item-wrapper">
+//                   <span class="product-qnty" id="product-qnty-${id}">${qty} ×</span>
+//                   <span class="product-price">${price}</span>
+//                 </div>
+//               </div>
+//             </div>
+//             <div class="cart-edit">
+//               <div class="quantity-edit">
+//                 <button type="button" onclick="decQtyGlobal('${id}')" class="button minus">
+//                   <i class="fal fa-minus minus"></i>
+//                 </button>
+//                 <input id="cart-qty-global-${id}" class="cart-qty-global" data-price="${price}" type="number" value="${qty}" disabled>
+//                 <button type="button" onclick="incQtyGlobal('${id}')" class="button plus">
+//                   <i class="fal fa-plus plus"></i>
+//                 </button>
+//               </div>
+//               <div class="item-wrapper d-flex mr--5 align-items-center">
+//                 <button onclick="removeFromCart('${id}')" class="delete-cart"><i class="fal fa-times"></i></button>
+//               </div>
+//             </div>
+//           </div>
+//           `
+
+//           const temp_html_page = `
+//               <tr>
+//                 <td>
+//                   <div class="product-thumb"><img src="/static/${image}"
+//                       alt="product-thumb" style="width: 200px; height: 200px; border-radius: 7px;">
+//                   </div>
+//                 </td>
+//                 <td>
+//                   <div class="product-title-area">
+//                     <span class="pretitle">${category}</span>
+//                     <h4 class="product-title">${name}</h4>
+//                   </div>
+//                 </td>
+//                 <td><span class="product-price" id="product-price-${id}" data-price="${price}">Rp. ${formatRupiah(price)}</span></td>
+//                 <td>
+//                 <td>
+//                   <div class="cart-edit">
+//                     <div class="quantity-edit">
+//                         <button onclick="decQty('${id}')" class="button"><i class="fal fa-minus minus"></i></button>
+//                         <input id="cart-qty-${id}" class="cart-qty" data-price="${price}" type="number" value="${qty}" disabled>
+//                         <button onclick="incQty('${id}')" class="button plus">+<i class="fal fa-plus plus"></i></button>
+//                     </div>
+//                   </div>
+//                 </td>
+
+//                 </td>
+//                 <td class="last-td">
+//                   <button onclick="removeFromCart('${id}')" class="remove-btn">Remove</button>
+//                 </td>
+//               </tr>
+//               `
+
+//           const temp_html_checkout = `
+//           <div class="category-item mb-2">
+//                   <div
+//                     class="category-item-inner"
+//                     style="
+//                       display: flex;
+//                       justify-content: space-between;
+//                       align-items: center;
+//                     "
+//                   >
+//                     <div class="category-title-area">
+//                       <span class="pretitle"> ${name} × <span id="qty-checkout-${id}">${qty}</span></span>
+//                     </div>
+//                     <div id="sub-total-${id}" class="price" style="text-align: right">Rp. ${formatRupiah(price * qty)}</div>
+//                   </div>
+//                 </div>
+//           `
+
+//           cartBox.append(temp_html_page)
+//           cartBoxGlobal.append(temp_html_global)
+//           itemCheckout.append(temp_html_checkout)
+//         });
+//       } else {
+//         cartBox.html('<p>Cart is empty,<a href="/menu">Add Some</a></p>')
+//       }
+//     }
+//   })
+// }
+
+const getCartData = async () => {
   const cartBox = $('#cart-data-page');
   const itemCheckout = $('#item-checkout');
   const cartBoxGlobal = $('#cart-data-global')
@@ -194,19 +329,20 @@ const getCartData = async () => {
   const totalPriceGlobal = $('#total-price-global');
   const totalItems = $('#total-items-global');
   const cartItemsTotal = $('#cart-items-total-global');
+  const orderButton = $('#order-btn');
+  const orderButtonGlobal = $('#order-btn-global');
+
   cartBox.html('<p>Loading...</p>');
   cartBoxGlobal.html('<p>Loading...</p>');
   itemCheckout.empty();
+  cartBox.empty();
+  cartBoxGlobal.empty();
 
   $.ajax({
     type: "GET",
     url: "/cart/all",
     data: {},
     success: res => {
-
-      cartBox.empty();
-      cartBoxGlobal.empty();
-
       const carts = res.data;
       const total = res.total;
 
@@ -217,7 +353,6 @@ const getCartData = async () => {
 
       if (carts.length) {
         carts.forEach(cart => {
-
           const id = cart.id;
           const name = cart.menu_name;
           const category = cart.menu_category;
@@ -255,7 +390,7 @@ const getCartData = async () => {
               </div>
             </div>
           </div>
-          `
+          `;
 
           const temp_html_page = `
               <tr>
@@ -287,17 +422,13 @@ const getCartData = async () => {
                   <button onclick="removeFromCart('${id}')" class="remove-btn">Remove</button>
                 </td>
               </tr>
-              `
+              `;
 
           const temp_html_checkout = `
           <div class="category-item mb-2">
                   <div
                     class="category-item-inner"
-                    style="
-                      display: flex;
-                      justify-content: space-between;
-                      align-items: center;
-                    "
+                    style="display: flex; justify-content: space-between; align-items: center;"
                   >
                     <div class="category-title-area">
                       <span class="pretitle"> ${name} × <span id="qty-checkout-${id}">${qty}</span></span>
@@ -305,18 +436,24 @@ const getCartData = async () => {
                     <div id="sub-total-${id}" class="price" style="text-align: right">Rp. ${formatRupiah(price * qty)}</div>
                   </div>
                 </div>
-          `
+          `;
 
-          cartBox.append(temp_html_page)
-          cartBoxGlobal.append(temp_html_global)
-          itemCheckout.append(temp_html_checkout)
+          cartBox.append(temp_html_page);
+          cartBoxGlobal.append(temp_html_global);
+          itemCheckout.append(temp_html_checkout);
+          orderButton.attr({ 'href': '/order', 'class': 'procced-btn' })
+          orderButtonGlobal.attr({ 'href': '/order', 'class': 'checkout-btn cart-btn' })
         });
+
       } else {
-        cartBox.html('<p>Cart is empty,<a href="/menu">Add Some</a></p>')
+        cartBox.html('<p>Cart is empty,<a href="/menu">Add Some</a></p>');
+        orderButton.attr({ 'href': '/menu', "class": "procced-btn" });
+        orderButtonGlobal.attr({ 'href': '/menu', "class": 'checkout-btn cart-btn' })
       }
     }
-  })
-}
+  });
+};
+
 
 const addToCart = async (menu_id) => {
 
@@ -458,3 +595,52 @@ const deleteWishlistData = async (menu_id) => {
 }
 
 // Fetching Wishlist End
+
+// Fetching Orders Start
+
+const getOrdersData = (username) => {
+  $.ajax({
+    type: "GET",
+    url: `/order/all/${username}`,
+    data: {},
+    success: res => {
+      console.log(res.data);
+    },
+    error: err => {
+      console.log("Something Wrong while fetching orders data");
+    }
+  })
+}
+
+const checkout = () => {
+
+  const selectedPaymentMethod = $('input[name="paymentMethod"]:checked').val();
+
+  if (!selectedPaymentMethod) {
+    alert("Pilih metode pembayaran terlebih dahulu!");
+    return;
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/order/checkout",
+    data: JSON.stringify({ paymentMethod: selectedPaymentMethod }),
+    contentType: "application/json",
+    success: res => {
+      alert(res.message);
+      window.location.href = '/order/thankyou'
+    },
+    error: err => {
+      if (err.responseJSON.info == "!login") {
+        showToast("error", `${err.responseJSON.message}`, 3000, err.responseJSON.status, '/login', `go to cart &nbsp; <i class="fal fa-long-arrow-right"></i>`);
+      } else if (err.responseJSON.info == "!paymentMethod") {
+        showToast("error", `${err.responseJSON.message}`, 3000, err.responseJSON.status);
+      } else if (err.responseJSON.info == "!cart") {
+        showToast("error", `${err.responseJSON.message}`, 3000, err.responseJSON.status, '/menu', `add some menu &nbsp; <i class="fal fa-long-arrow-right"></i>`);
+      } else {
+        showToast("500", `Something Wrong`, 3000, "danger", '/', `go to homepage &nbsp; <i class="fal fa-long-arrow-right"></i>`);
+      }
+    }
+  });
+};
+
