@@ -35,7 +35,7 @@ def index():
     
     data = {
         "stats" : "success",
-        "message" : "get your cart data",
+        "message" : "Dapatkan data keranjang Anda",
         "data" : items,
         "total" : total
     }
@@ -68,7 +68,7 @@ def store(menu_id) :
 
     data = {
         "status" : "success",
-        "message" : "Menu Successfully added to cart!"
+        "message" : "Menu Berhasil ditambahkan ke keranjang!"
     }
 
     return jsonify(data)
@@ -96,7 +96,7 @@ def update_cart():
             {"$set": {"quantity": quantity}}
         )
 
-        return jsonify({"message": "quantity updated"})
+        return jsonify({"message": "kuantitas diperbarui"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -111,6 +111,6 @@ def destroy(cart_id) :
 
     data = {
         "status" : "success",
-        "message" : "menu deleted from cart"
+        "message" : "Menu dihapus dari Keranjang"
     }
     return jsonify(data)

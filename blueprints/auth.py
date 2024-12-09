@@ -24,7 +24,7 @@ def login():
         if login_user and bcrypt.checkpw(password.encode('utf-8'), login_user['password'].encode('utf-8')):
             session['username'] = login_user['username']
             return redirect(url_for('menu.home')) 
-        return render_template('login.html', message={'info': "Invalid Email or Password", 'type': "danger"})
+        return render_template('login.html', message={'info': "Email atau Kata Sandi Tidak Valid", 'type': "danger"})
     return render_template('login.html')
 
 @auth_bp.route('/register', methods=["POST", "GET"])
@@ -41,24 +41,24 @@ def register():
         name = request.form.get('name')
 
         if not email or not password or not name or not username:
-            return "All fields are required!", 400
+            return "Semua kolom wajib diisi!", 400
 
         if len(name) < 2 or not re.match(r"^[a-zA-Z\s]+$", name):
-            return "Name must be at least 2 characters and only contain letters and spaces.", 400
+            return "Nama harus minimal 2 karakter dan hanya mengandung huruf dan spasi.", 400
 
         if len(username) < 3 or not re.match(r"^[a-zA-Z0-9_]+$", username):
-            return "Username must be at least 3 characters and can only contain letters, numbers, and underscores.", 400
+            return "Nama pengguna harus minimal 3 karakter dan hanya boleh berisi huruf, angka, dan garis bawah.", 400
 
         email = email.lower()
         email_regex = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         if not re.match(email_regex, email):
-            return "Invalid email format.", 400
+            return "Format email tidak valid.", 400
 
         password_regex = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
         if not re.match(password_regex, password):
             return (
-                "Password must be at least 8 characters long and contain at least one uppercase letter, "
-                "one lowercase letter, and one number.",
+                "Kata sandi harus minimal 8 karakter dan mengandung setidaknya satu huruf kapital, "
+                "satu huruf kecil, dan satu angka.",
                 400
             )
 

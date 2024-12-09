@@ -49,13 +49,13 @@ def store(menu_id) :
     wishlist = db.wishlists.find_one({'menu_id': ObjectId(menu_id), "user" : user})
     data = {
         "status" : "success",
-        "message" : "menu successfully added to your wishlist"
+        "message" : "menu berhasil ditambahkan ke list keinginan Anda"
     }
 
     if wishlist:
         data = {
             "status" : "danger",
-            "message" : "this menu has added to your wishlist"
+            "message" : "menu ini telah ditambahkan ke list keinginan Anda"
         }
     else:
         db.wishlists.insert_one({
@@ -77,7 +77,7 @@ def destroy(menu_id) :
     
     data = {
         "status" : "success",
-        "message" : "menu successfully deleted from your wishlist"
+        "message" : "menu berhasil dihapus dari list keinginan Anda"
     }
 
     return jsonify(data)

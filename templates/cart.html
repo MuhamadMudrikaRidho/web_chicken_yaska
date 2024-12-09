@@ -3,12 +3,12 @@ block breadcrumb %}
 <div class="page-path">
   <div class="container">
     <div class="breadcrumbs-inner">
-      <h1 class="path-title">Cart</h1>
+      <h1 class="path-title">Keranjang</h1>
       <ul>
         <li>
           <a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a>
         </li>
-        <li><a class="current-page" href="#">Cart</a></li>
+        <li><a class="current-page" href="#">Keranjang</a></li>
       </ul>
     </div>
   </div>
@@ -16,7 +16,7 @@ block breadcrumb %}
 {% endblock %} {% block content %}
 <div class="rts-cart-section">
   <div class="container">
-    <h4 class="section-title">Product List</h4>
+    <h4 class="section-title">List Produk</h4>
     <div class="row justify-content-between">
       <div class="col-xl-7">
         <div class="cart-table-area">
@@ -54,9 +54,8 @@ block breadcrumb %}
               </div>
             </div>
           </div>
-          <a href="/order" id="order-btn" class="procced-btn">Order Now</a>
-          <a href="{{ url_for('menu.home') }}" class="continue-shopping"><i class="fal fa-long-arrow-left"></i> Continue
-            Shopping</a>
+          <a href="/order" id="order-btn" class="procced-btn">Pesan Sekarang</a>
+          <a href="{{ url_for('menu.home') }}" class="continue-shopping"><i class="fal fa-long-arrow-left"></i> Lanjutkan Berbelanja</a>
         </div>
       </div>
     </div>

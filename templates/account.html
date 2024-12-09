@@ -5,10 +5,10 @@
 <div class="page-path">
     <div class="container">
         <div class="breadcrumbs-inner">
-            <h1 class="path-title">Account</h1>
+            <h1 class="path-title">Akun</h1>
             <ul>
                 <li><a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a></li>
-                <li><a class="current-page" href="#">Account</a></li>
+                <li><a class="current-page" href="#">Akun</a></li>
             </ul>
         </div>
     </div>
@@ -41,17 +41,16 @@
             <div class="account-side-navigation">
                 <button class="filter-btn active" data-show=".dashboard"><i class="fal fa-chart-bar"></i>
                     Dashboard</button>
-                <button class="filter-btn" data-show=".orders"><i class="fal fa-shopping-cart"></i> Orders</button>
+                <button class="filter-btn" data-show=".orders"><i class="fal fa-shopping-cart"></i> Pesanan</button>
                 <button class="filter-btn" data-show=".address"><i class="fal fa-map-marker-alt"></i>
-                    Address</button>
-                <button class="filter-btn" data-show=".accountdtls"><i class="fal fa-user"></i> Account
-                    Details</button>
+                    Alamat</button>
+                <button class="filter-btn" data-show=".accountdtls"><i class="fal fa-user"></i> Detail Akun </button>
                 <a href="{{ url_for('wishlist.home') }}" class="filter-btn" data-show=".dashboard"><i
                         class="fal fa-shopping-basket"></i>
-                    Wishlist</a>
+                    List Keinginan</a>
                 <a href="{{ url_for('auth.logout') }}" class="filter-btn" data-show=".dashboard"><i
                         class="fal fa-long-arrow-left"></i>
-                    Logout</a>
+                    Keluar Akun</a>
             </div>
             <div class="account-main-area">
                 <div class="account-main dashboard filterd-items">
@@ -79,13 +78,13 @@
                         </div>
                         <div class="activity-item">
                             <div class="icon"><i class="fas fa-heart"></i></div>
-                            <span class="title">Wishlist</span>
+                            <span class="title">List Keinginan</span>
                             <span class="value">{{total_wishlist}}</span>
                         </div>
 
                         <a href="{{ url_for('auth.logout') }}" class="activity-item">
                             <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
-                            <span class="title">Logout</span>
+                            <span class="title">Keluar Akun</span>
                         </a>
                     </div>
                 </div>
@@ -95,11 +94,11 @@
                         <table class="table" id="orders-page">
                             <thead>
                                 <tr class="top-tr">
-                                    <th>Order ID</th>
-                                    <th>Date</th>
+                                    <th>ID Pesanan</th>
+                                    <th>Tanggal</th>
                                     <th>Status</th>
                                     <th>Total</th>
-                                    <th>Actions</th>
+                                    <th>Cek Pesanan</th>
                                 </tr>
                             </thead>
                             <tbody id="orders-data">
@@ -127,9 +126,9 @@
                                 <h2 class="mb--30">Alamat Pengiriman</h2>
                                 {% if shipping_address %}
                                 <address>
-                                    Name : {{ shipping_address['name'] }}<br>
-                                    Address: {{ shipping_address['address'] }}<br>
-                                    Phone: {{ shipping_address['phone'] }}
+                                    Nama : {{ shipping_address['name'] }}<br>
+                                    Alamat Jalan: {{ shipping_address['address'] }}<br>
+                                    Nomor HP: {{ shipping_address['phone'] }}
                                 </address>
                                 <button class="btn btn-danger btn-sm mb-3 mt-3" onclick="toggleEditForm()">Edit
                                     Alamat</button>
@@ -195,14 +194,14 @@
                 <div class="account-main accountdtls filterd-items hide">
                     <div class="row">
                         <div class="section-title">
-                            <h2>Account Details</h2>
+                            <h2>Detail Akun</h2>
                         </div>
 
                         <div class="card">
                             <div class="card-body">
                                 <form id="registerForm" method="POST" action="/account">
                                     <div class="form">
-                                        <label for="name" class="form-label">Full name</label>
+                                        <label for="name" class="form-label">Nama Lengkap</label>
                                         <input id="name" type="text" class="form-control" name="name"
                                             placeholder="Enter your new fullname" value="{{user_data['name']}}"
                                             required>
@@ -216,18 +215,18 @@
                                         <span id="emailError" class="error"></span>
                                     </div>
                                     <div class="form">
-                                        <label for="currPassword" class="form-label">Current Password</label>
+                                        <label for="currPassword" class="form-label">Kata Sandi Saat Ini</label>
                                         <input id="currPassword" type="password" class="form-control"
-                                            name="old_password" placeholder="Enter your current password" required>
+                                            name="old_password" placeholder="Masukkan Kata Sandi Saat Ini" required>
                                     </div>
                                     <div class="form">
-                                        <label for="password" class="form-label">New Password</label>
+                                        <label for="password" class="form-label">Kata Sandi Baru</label>
                                         <input id="password" type="password" class="form-control" name="new_password"
-                                            placeholder="Enter your new password" required>
+                                            placeholder="Masukkan Kata Sandi Baru Anda" required>
                                         <span id="passwordError" class="error"></span>
                                     </div>
                                     <div class="form mt--10">
-                                        <button type="submit" class="btn btn-danger">Update Account</button>
+                                        <button type="submit" class="btn btn-danger">Perbarui Akun</button>
                                     </div>
                                 </form>
                             </div>

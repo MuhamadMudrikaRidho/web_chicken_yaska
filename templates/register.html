@@ -3,12 +3,12 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
 <div class="page-path">
   <div class="container">
     <div class="breadcrumbs-inner">
-      <h1 class="path-title">Register</h1>
+      <h1 class="path-title">Daftar</h1>
       <ul>
         <li>
           <a class="home-page-link" href="/">Home <i class="fal fa-angle-right"></i></a>
         </li>
-        <li><a class="current-page" href="#">Register</a></li>
+        <li><a class="current-page" href="#">Daftar</a></li>
       </ul>
     </div>
   </div>
@@ -35,38 +35,38 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
       <div class="col-lg-6 col-md-12 ml-10">
         <div class="register-form">
           <div class="section-title text-center">
-            <h2>Registration</h2>
+            <h2>Pendaftaran</h2>
           </div>
           <div class="card">
             <div class="card-body">
               <form id="registerForm" action="{{ url_for('auth.register') }}" method="post">
                 <div class="form">
-                  <input type="text" class="form-control" id="name" placeholder="Name*" name="name" required />
+                  <input type="text" class="form-control" id="name" placeholder="Nama Lengkap" name="name" required />
                   <span id="nameError" class="error"></span>
                 </div>
                 <div class="form">
-                  <input type="text" class="form-control" id="username" placeholder="Username*" name="username"
+                  <input type="text" class="form-control" id="username" placeholder="Nama Pengguna" name="username"
                     required />
                   <span id="usernameError" class="error"></span>
                 </div>
                 <div class="form">
-                  <input type="email" class="form-control" id="email" placeholder="Email address*" name="email"
+                  <input type="email" class="form-control" id="email" placeholder="Alamat Email" name="email"
                     required />
                   <span id="emailError" class="error"></span>
                 </div>
                 <div class="form">
                   <div class="password-input">
-                    <input type="password" class="form-control" id="password" placeholder="Password*" name="password"
+                    <input type="password" class="form-control" id="password" placeholder="Kata Sandi" name="password"
                       required />
                     <span class="show-password-input"></span>
                   </div>
                   <span id="passwordError" class="error"></span>
                 </div>
                 <div class="form text-center">
-                  <button type="submit" class="btn">Register</button>
+                  <button type="submit" class="btn">Daftar</button>
                 </div>
                 <p class="text-center">
-                  Already have an account?
+                 Sudah Punya Akun?
                   <a class="fw-normal" href="{{ url_for('auth.login') }}">Login</a>
                 </p>
               </form>
