@@ -27,16 +27,21 @@ def home():
         old_password = request.form.get('old_password')
         new_password = request.form.get('new_password')
 
+        existing_user = db.users.find_one({"email": email, "username": {"$ne": username}})
+        if existing_user:
+            flash("Email is already in use by another account.", "danger")
+            return redirect(url_for('user.home'))
+
         if bcrypt.checkpw(old_password.encode('utf-8'), user_data['password'].encode('utf-8')):
             hashed_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
             db.users.update_one(
                 {"username": username},
                 {"$set": {
                     "password": hashed_new_password.decode('utf-8'),
-                    "name" : name,
-                    "username" : username_rec,
-                    "email" : email,
-                    }}
+                    "name": name,
+                    "username": username_rec,
+                    "email": email,
+                }}
             )
             flash("Account updated successfully!", "success")
         else:
