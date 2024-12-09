@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session, request, current_app, jsonify
+from flask import Blueprint, render_template, redirect, url_for, session, request, current_app, jsonify, flash
 import re
 import bcrypt
 
@@ -67,9 +67,11 @@ def register():
         existing_username = db.users.find_one({"username": username})
 
         if existing_username:
-            return "That username already exists", 400
+            flash('That username already exists', 'danger')
+            return redirect(url_for('auth.register'))
         if existing_user:
-            return "That email already exists", 400
+            flash('That email already exists', 'danger')
+            return redirect(url_for('auth.register'))
 
         if not existing_user and not existing_username:
             hashpass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
