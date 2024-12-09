@@ -87,9 +87,19 @@ def store():
     return jsonify({"status": "success", "message": "Order berhasil dibuat", "order_id": str(order_id)}), 201
 
 # Route untuk menampilkan halaman terima kasih
-@order_bp.route("/thankyou")
-def thank_you():
-    return render_template("thank-you.html")
+@order_bp.route("/thankyou/<order_id>")
+def thank_you(order_id):
+    db = current_app.config['DB']
+    order = db.orders.find_one({"_id" : ObjectId(order_id)})
+
+    print(order)
+
+    message = "Saat status pesanan sudah tersaji, segera ambil pesananmu ke outlet terdekat"
+
+    if (order['payment_method'] == "COD"):
+        message = "Pesananmu segera diproses dan akan diantarkan ke tempatmu"
+    
+    return render_template("thank-you.html", message=message)
 
 # Route untuk menampilkan semua pesanan
 @order_bp.route('/all')

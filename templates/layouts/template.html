@@ -8,8 +8,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}{% endblock %} - Chicken Yasaka</title>
   <!--================= Favicon =================-->
-  <link rel="apple-touch-icon" href="{{url_for('static', filename='assets/images/fav.png')}}">
-  <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static', filename='assets/images/fav.png')}}">
+  <link rel="apple-touch-icon" href="{{url_for('static', filename='assets/images/apple-touch-icon.png')}}">
+  <link rel="icon" type="image/png" sizes="32x32"
+    href="{{url_for('static', filename='assets/images/favicon-32x32.png')}}">
+  <link rel="icon" type="image/png" sizes="16x16"
+    href="{{url_for('static', filename='assets/images/favicon-16x16.png')}}">
+  <link rel="shortcut icon" type="image/x-icon" href="{{url_for('static', filename='assets/images/favico.ico')}}">]
+  <link rel="manifest" href="{{url_for('static', filename='assets/images/site.webmanifest')}}">
   <!--================= Bootstrap V5 CSS =================-->
   <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='assets/css/bootstrap.min.css')}}">
   <!--================= Font Awesome 5 CSS =================-->

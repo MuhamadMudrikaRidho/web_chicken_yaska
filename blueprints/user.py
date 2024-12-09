@@ -14,8 +14,16 @@ def home():
 
     user_data = db.users.find_one({"username": username})
     now = datetime.now().strftime('%Y-%m-%d')
+    orders = list(db.orders.find({"user": username}))
+    wishlists = list(db.wishlists.find({"user": username}))
+
+    total_orders = len(orders)
+    total_wishlist = len(wishlists)
 
     if request.method == "POST":
+        name = request.form.get('name')
+        username_rec = request.form.get('username')
+        email = request.form.get('email')
         old_password = request.form.get('old_password')
         new_password = request.form.get('new_password')
 
@@ -23,17 +31,20 @@ def home():
             hashed_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())
             db.users.update_one(
                 {"username": username},
-                {"$set": {"password": hashed_new_password.decode('utf-8')}}
+                {"$set": {
+                    "password": hashed_new_password.decode('utf-8'),
+                    "name" : name,
+                    "username" : username_rec,
+                    "email" : email,
+                    }}
             )
-            flash("Password updated successfully!", "success")
+            flash("Account updated successfully!", "success")
         else:
             flash("Old password is incorrect.", "danger")
         return redirect(url_for('user.home'))
 
-    # Fetch shipping address for the user
     shipping_address = user_data.get("shipping_address")
-
-    return render_template('account.html', user_data=user_data, now=now, shipping_address=shipping_address)
+    return render_template('account.html', user_data=user_data, now=now, shipping_address=shipping_address, total_orders=total_orders, total_wishlist=total_wishlist)
 
 @user_bp.route('/edit_address', methods=["POST"])
 def edit_address():
