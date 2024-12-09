@@ -37,7 +37,7 @@ def checkout():
         "address": "",
         "place_type": "",
         "phone": "",
-        "email": ""
+        "email": user_data['email']
     })
 
     return render_template("checkout.html", shipping_address=shipping_address)
@@ -56,10 +56,9 @@ def edit_address():
     address = request.form.get('address', '').strip()
     place_type = request.form.get('place_type', '').strip()
     phone = request.form.get('phone', '').strip()
-    email = request.form.get('email', '').strip()
 
     # Validasi input
-    if not all([name, address, phone, email]):
+    if not all([name, address, phone]):
         flash("Semua field wajib diisi!", "danger")
         return redirect(url_for('order.checkout'))
 
@@ -69,7 +68,6 @@ def edit_address():
         "address": address,
         "place_type": place_type,
         "phone": phone,
-        "email": email
     }
 
     db.users.update_one(
@@ -87,7 +85,11 @@ def store():
     username = session.get('username')
     data = request.json
     payment_method = data.get('paymentMethod')
+    delivery_charge = 0
+    if payment_method == "COD":
+        delivery_charge = 4000
     cart_items = list(db.carts.find({"user": username}))
+    address = data.get('address')
     now = datetime.now()
     time = now.strftime("%B %d, %Y")
 
@@ -105,9 +107,11 @@ def store():
     order = {
         "user": username,
         "items": cart_items,
-        "total_price": total_price,
+        "delivery_charge" : delivery_charge,
+        "total_price": total_price + delivery_charge,
         "payment_method": payment_method,
-        "status": "pending",
+        "address" : address,
+        "status": "diproses",
         "date": time
     }
 
@@ -160,4 +164,22 @@ def user_orders(username):
         "message": f"Pesanan milik {username} berhasil diambil",
         "data": converted_orders
     }
+    return jsonify(data), 200
+
+@order_bp.route('/<id>')
+def show(id):
+    db = current_app.config['DB']
+    order = list(db.orders.find({"_id": ObjectId(id)}))
+
+    if not order:
+        return jsonify({"status": "error", "message" : "order not found", "info" : "!order"}), 404
+    
+    converted_order = convert_ids_to_strings(order)
+
+    data = {
+        "status" : "success",
+        "message" : f"show order with ID {id}",
+        "data" : converted_order
+    }
+
     return jsonify(data), 200

@@ -5,7 +5,23 @@ $(document).ready(() => {
   getCartData();
   getWishlistData();
   getOrdersData(username);
+
 });
+
+const viewOrder = (id) => {
+  $(".anywere-home").addClass("bgshow");
+  $(`#order-${id}`).addClass("popup");
+}
+
+$(".anywere-home").on('click', function () {
+  $(".rts-newsletter-popup").removeClass("popup")
+  $(".anywere-home").removeClass("bgshow")
+});
+
+const closeViewOrder = (id) => {
+  $(`#order-${id}`).removeClass("popup")
+  $(".anywere-home").removeClass("bgshow")
+}
 
 function formatRupiah(number) {
   // Pastikan input adalah angka
@@ -332,8 +348,10 @@ const getCartData = async () => {
   const orderButton = $('#order-btn');
   const orderButtonGlobal = $('#order-btn-global');
 
-  cartBox.html('<p>Loading...</p>');
-  cartBoxGlobal.html('<p>Loading...</p>');
+  cartBox.html('<p>Loading Menu...</p>');
+  cartBoxGlobal.html('<p>Loading Menu...</p>');
+  totalPrice.html('<p>Loading Total Price...</p>');
+  totalPriceGlobal.html('<p>Loading Total Price...</p>');
   itemCheckout.empty();
   cartBox.empty();
   cartBoxGlobal.empty();
@@ -600,7 +618,8 @@ const deleteWishlistData = async (menu_id) => {
 
 const getOrdersData = (username) => {
 
-  const ordersData = $('#orders-data')
+  const ordersData = $('#orders-data');
+  const orderPopup = $('#order-popup')
 
   $.ajax({
     type: "GET",
@@ -615,10 +634,14 @@ const getOrdersData = (username) => {
         const orders = res.data;
         orders.forEach(order => {
           const id = order._id;
+          const menuItems = order.items;
           const totalItems = order.items.length;
           const totalPrice = order.total_price;
           const status = order.status;
           const date = order.date;
+          const payment = order.payment_method;
+          const delivery = order.delivery_charge;
+          const address = order.address;
 
           const temp_html = `
             <tr>
@@ -626,9 +649,57 @@ const getOrdersData = (username) => {
                 <td>${date}</td>
                 <td>${status}</td>
                 <td>Rp. ${formatRupiah(totalPrice)} for ${totalItems} menu</td>
-                <td><a href="#" class="btn-small d-block">View</a></td>
+                <td><button onclick="viewOrder('${id}')" class="btn-small d-block">View</button></td>
             </tr>
           `
+
+          const temp_html_order = `
+            <div class="rts-newsletter-popup" id="order-${id}">
+              <button onclick="closeViewOrder('${id}')" class="newsletter-close-btn"><i class="fal fa-times"></i></button>
+              <div class="newsletter-inner">
+                <div class="mb-2">
+                  <span>#${id}</span>
+                  <p style="margin: 0;">${date}</p>
+                </div>
+                <div class="mb-2">
+                  <p style="margin: 0;">Delivered to</p>
+                  <span>${address.address || "-"}</span>
+                </div>
+                <div class="mb-2">
+                  <p style="margin-bottom: 0;">Status Order</p>
+                  <h5>${status}</h5>
+                </div>
+                <div>
+                  <p style="margin: 0;">Payment Method</p>
+                  <h5>${payment}</h5>
+                </div>
+                <hr />
+                <div style="max-height: 200px; overflow: auto;">
+                ${menuItems.map((menu) => `
+                  <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                  <span>${menu.menu_name}</span>
+                  <p style="margin-bottom: 0;">${menu.quantity}x</p>
+                    </div>
+                    <span>Rp. ${formatRupiah(menu.price * menu.quantity)}</span>
+                    </div>
+                    `).join('')}
+                </div>
+                <hr />
+                <div>
+                  <div class="d-flex justify-content-between align-items-center mb-1">
+                    <p style="margin-bottom: 0;">Delivery Charge</p>
+                    <span>Rp. ${formatRupiah(delivery)}</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h5>Total</h5>
+                    <h5>Rp. ${formatRupiah(totalPrice)}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+          orderPopup.append(temp_html_order);
           ordersData.append(temp_html);
         });
       } else {
@@ -650,10 +721,34 @@ const checkout = () => {
     return;
   }
 
+  const name = $('#name').val();
+  const address = $('#address').val();
+  const placeType = $('#placeType').val();
+  const phone = $('#phone').val();
+  const email = $('#email').val();
+  const notes = $('#orderNotes').val();
+
+  if (selectedPaymentMethod == "COD") {
+    if (!name.length || !address.length || !phone.length) {
+      alert("Mohon isi data Anda untuk pengiriman");
+      return;
+    }
+  }
+
+
+  const addressData = {
+    name,
+    address,
+    placeType,
+    phone,
+    email,
+    notes
+  }
+
   $.ajax({
     type: "POST",
     url: "/order/checkout",
-    data: JSON.stringify({ paymentMethod: selectedPaymentMethod }),
+    data: JSON.stringify({ paymentMethod: selectedPaymentMethod, address: addressData }),
     contentType: "application/json",
     success: res => {
       alert(res.message);

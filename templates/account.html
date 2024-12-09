@@ -16,6 +16,11 @@
 {% endblock %}
 
 {% block content %}
+
+<div id="order-popup">
+
+</div>
+
 <div class="rts-account-section section-gap">
     <div class="container">
 
@@ -138,81 +143,75 @@
                                 <form id="edit-address-form" method="POST" action="{{ url_for('user.edit_address') }}">
                                     <div>
                                         <label for="name">Nama:</label>
-                                        <input type="text" name="name" id="name" 
-                                            value="{{ shipping_address['name'] if shipping_address else '' }}" 
+                                        <input type="text" name="name" id="name"
+                                            value="{{ shipping_address['name'] if shipping_address else '' }}"
                                             placeholder="Masukkan nama lengkap Anda" required>
                                     </div>
                                     <div>
                                         <label for="address">Alamat Jalan:</label>
-                                        <input type="text" name="address" id="address" 
-                                            value="{{ shipping_address['address'] if shipping_address else '' }}" 
+                                        <input type="text" name="address" id="address"
+                                            value="{{ shipping_address['address'] if shipping_address else '' }}"
                                             placeholder="Masukkan alamat jalan Anda" required>
                                     </div>
                                     <div>
                                         <label for="phone">Nomor HP:</label>
-                                        <input type="text" name="phone" id="phone" 
-                                            value="{{ shipping_address['phone'] if shipping_address else '' }}" 
+                                        <input type="text" name="phone" id="phone"
+                                            value="{{ shipping_address['phone'] if shipping_address else '' }}"
                                             placeholder="Masukkan nomor HP Anda" required>
                                     </div>
                                     <div>
                                         <label for="place_type">Tempat Tinggal:</label>
-                                        <input type="text" name="place_type" id="place_type" 
-                                            value="{{ shipping_address['place_type'] if shipping_address else '' }}" 
+                                        <input type="text" name="place_type" id="place_type"
+                                            value="{{ shipping_address['place_type'] if shipping_address else '' }}"
                                             placeholder="Rumah, Hotel, Apartemen, Kantor, dll.">
-                                    </div>
-                                    <div>
-                                        <label for="email">Alamat Email:</label>
-                                        <input type="email" name="email" id="email" 
-                                            value="{{ shipping_address['email'] if shipping_address else '' }}" 
-                                            placeholder="Masukkan alamat email Anda" required>
                                     </div>
                                     <button type="submit" class="btn-small btn-red">Simpan Alamat</button>
                                     <button type="button" class="btn-small" onclick="toggleEditForm()">Batalkan</button>
-                                </form>                      
-<script>
-    // Script untuk toggle form edit/tambah alamat
-    function toggleEditForm() {
-        const form = document.getElementById('edit-address-form');
-        form.classList.toggle('hide');
-    }
-</script>
-<style>
-    .hide {
-        display: none;
-    }
+                                </form>
+                                <script>
+                                    // Script untuk toggle form edit/tambah alamat
+                                    function toggleEditForm() {
+                                        const form = document.getElementById('edit-address-form');
+                                        form.classList.toggle('hide');
+                                    }
+                                </script>
+                                <style>
+                                    .hide {
+                                        display: none;
+                                    }
 
-    .show {
-        display: block;
-    }
+                                    .show {
+                                        display: block;
+                                    }
 
-    .btn-red {
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+                                    .btn-red {
+                                        background-color: red;
+                                        color: white;
+                                        border: none;
+                                        padding: 5px 10px;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                        font-size: 14px;
+                                    }
 
-    .btn-red:hover {
-        background-color: darkred;
-    }
+                                    .btn-red:hover {
+                                        background-color: darkred;
+                                    }
 
-    .btn-edit-red {
-        background-color: red;
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 14px;
-    }
+                                    .btn-edit-red {
+                                        background-color: red;
+                                        color: white;
+                                        border: none;
+                                        padding: 5px 10px;
+                                        border-radius: 4px;
+                                        cursor: pointer;
+                                        font-size: 14px;
+                                    }
 
-    .btn-edit-red:hover {
-        background-color: darkred;
-    }
-</style>
+                                    .btn-edit-red:hover {
+                                        background-color: darkred;
+                                    }
+                                </style>
 
                             </div>
                         </div>

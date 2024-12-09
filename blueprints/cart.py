@@ -60,6 +60,7 @@ def store(menu_id) :
     else:
         db.carts.insert_one({
             'menu_id': ObjectId(menu_id),
+            'menu_name' : menu['name'],
             'price' : menu['price'],
             'quantity': int(quantity),
             'user' : user
