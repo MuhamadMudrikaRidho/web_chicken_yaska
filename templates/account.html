@@ -129,7 +129,6 @@
                                 <address>
                                     {{ shipping_address['name'] }}<br>
                                     {{ shipping_address['address'] }}<br>
-                                    {{ shipping_address['city'] }}, {{ shipping_address['country'] }}<br>
                                     Phone: {{ shipping_address['phone'] }}
                                 </address>
                                 <button class="btn-small btn-edit-red" onclick="toggleEditForm()">Edit</button>
@@ -140,7 +139,7 @@
                                 {% endif %}
 
                                 <!-- Form untuk edit/tambah alamat -->
-                                <form id="edit-address-form" method="POST" action="{{ url_for('user.edit_address') }}">
+                                <form id="edit-address-form" class="hide" method="POST" action="/account/edit_address">
                                     <div>
                                         <label for="name">Nama:</label>
                                         <input type="text" name="name" id="name"
@@ -171,8 +170,8 @@
                                 <script>
                                     // Script untuk toggle form edit/tambah alamat
                                     function toggleEditForm() {
-                                        const form = document.getElementById('edit-address-form');
-                                        form.classList.toggle('hide');
+                                        const form = $('#edit-address-form');
+                                        form.slideToggle();
                                     }
                                 </script>
                                 <style>

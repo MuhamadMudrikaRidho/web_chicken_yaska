@@ -37,46 +37,10 @@ def checkout():
         "address": "",
         "place_type": "",
         "phone": "",
-        "email": user_data['email']
     })
+    email = user_data.get('email')
 
-    return render_template("checkout.html", shipping_address=shipping_address)
-
-# Route untuk memperbarui alamat pengiriman
-@order_bp.route("/edit_address", methods=["POST"])
-def edit_address():
-    db = current_app.config['DB']
-    username = session.get('username')
-
-    if not username:
-        return redirect(url_for('auth.login'))
-
-    # Ambil data dari form
-    name = request.form.get('name', '').strip()
-    address = request.form.get('address', '').strip()
-    place_type = request.form.get('place_type', '').strip()
-    phone = request.form.get('phone', '').strip()
-
-    # Validasi input
-    if not all([name, address, phone]):
-        flash("Semua field wajib diisi!", "danger")
-        return redirect(url_for('order.checkout'))
-
-    # Update shipping address di database
-    new_shipping_address = {
-        "name": name,
-        "address": address,
-        "place_type": place_type,
-        "phone": phone,
-    }
-
-    db.users.update_one(
-        {"username": username},
-        {"$set": {"shipping_address": new_shipping_address}}
-    )
-
-    flash("Alamat pengiriman berhasil diperbarui!", "success")
-    return redirect(url_for('order.checkout'))
+    return render_template("checkout.html", shipping_address=shipping_address, email=email)
 
 # Route untuk menyimpan pesanan
 @order_bp.route("/checkout", methods=["POST"])

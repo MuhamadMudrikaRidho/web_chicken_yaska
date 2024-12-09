@@ -43,25 +43,20 @@ def edit_address():
     if not username:
         return redirect(url_for('auth.login'))
 
-    # Get form data
     name = request.form.get('name', '').strip()
     address = request.form.get('address', '').strip()
     phone = request.form.get('phone', '').strip()
     place_type = request.form.get('place_type', '').strip()
-    email = request.form.get('email', '').strip()
 
-    # Validate data
-    if not all([name, address, phone, email]):
+    if not all([name, address, phone]):
         flash("Semua field wajib diisi!", "danger")
         return redirect(url_for('user.home'))
 
-    # Update shipping address in the database
     shipping_address = {
         "name": name,
         "address": address,
         "phone": phone,
         "place_type": place_type,
-        "email": email
     }
 
     db.users.update_one(

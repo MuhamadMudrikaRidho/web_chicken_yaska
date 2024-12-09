@@ -27,6 +27,12 @@ doc = [
     "username" : "buyer",
     "email" : "buyer@gmail.com",
     "password" : buyerPass.decode('utf-8'),
+    "shipping_address" : {
+        "name" : "Buyer",
+        "address" : "Jl. Buyer",
+        "phone": "080218302",
+        "place_type" : "Rumah",
+    },
     "isAdmin" : False
   },
   {
@@ -34,6 +40,12 @@ doc = [
       "username" : "username",
       "email" : "admin@gmail.com",
       "password" : adminPass.decode('utf-8'),
+      "shipping_address": {
+          "name" : "Admin",
+          "address" : "Jl. Admin",
+          "phone": "080218302",
+          "place_type": "Kantor",
+      },
       "isAdmin" : True
   }
 ]
