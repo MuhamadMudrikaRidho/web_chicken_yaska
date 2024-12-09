@@ -17,6 +17,20 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
 <!--Register-area start-->
 <div class="login-area">
   <div class="container">
+
+    <div class="flash-messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
+
     <div class="row justify-content-center">
       <div class="col-lg-6 col-md-12 ml-10">
         <div class="register-form">
@@ -25,17 +39,20 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
           </div>
           <div class="card">
             <div class="card-body">
-              <form action="{{ url_for('auth.register') }}" method="post">
+              <form id="registerForm" action="{{ url_for('auth.register') }}" method="post">
                 <div class="form">
                   <input type="text" class="form-control" id="name" placeholder="Name*" name="name" required />
+                  <span id="nameError" class="error"></span>
                 </div>
                 <div class="form">
                   <input type="text" class="form-control" id="username" placeholder="Username*" name="username"
                     required />
+                  <span id="usernameError" class="error"></span>
                 </div>
                 <div class="form">
                   <input type="email" class="form-control" id="email" placeholder="Email address*" name="email"
                     required />
+                  <span id="emailError" class="error"></span>
                 </div>
                 <div class="form">
                   <div class="password-input">
@@ -43,12 +60,13 @@ block navlogin %}active1{% endblock%} {% block breadcrumb %}
                       required />
                     <span class="show-password-input"></span>
                   </div>
+                  <span id="passwordError" class="error"></span>
                 </div>
                 <div class="form text-center">
                   <button type="submit" class="btn">Register</button>
                 </div>
                 <p class="text-center">
-                  Sudah punya akun?
+                  Already have an account?
                   <a class="fw-normal" href="{{ url_for('auth.login') }}">Login</a>
                 </p>
               </form>
