@@ -69,18 +69,18 @@
                     <div class="activity-box">
                         <div class="activity-item">
                             <div class="icon"><i class="fas fa-box-check"></i></div>
-                            <span class="title">Pesanan Aktif</span>
-                            <span class="value">33</span>
+                            <span class="title">Pesanan</span>
+                            <span class="value">{{total_orders}}</span>
                         </div>
                         <div class="activity-item">
                             <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
                             <span class="title">Alamat</span>
-                            <span class="value">Taman Cikande, Kab.Tangerang</span>
+                            <span class="value">{{ shipping_address['address'] }}</span>
                         </div>
                         <div class="activity-item">
-                            <div class="icon"><i class="fas fa-user"></i></div>
-                            <span class="title">Account Details</span>
-                            <span class="value">33</span>
+                            <div class="icon"><i class="fas fa-heart"></i></div>
+                            <span class="title">Wishlist</span>
+                            <span class="value">{{total_wishlist}}</span>
                         </div>
 
                         <a href="{{ url_for('auth.logout') }}" class="activity-item">
@@ -224,29 +224,19 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <!-- Menampilkan Data Pengguna -->
-                                <div class="form">
-                                    <label class="form-label">Full Name</label>
-                                    <p class="form-value">{{ user_data['name'] if user_data else 'No data available'
-                                        }}
-                                    </p>
-                                </div>
-                                <div class="form">
-                                    <label class="form-label">Username</label>
-                                    <p class="form-value">{{ user_data['username'] if user_data else 'No data
-                                        available'
-                                        }}
-                                    </p>
-                                </div>
-                                <div class="form">
-                                    <label class="form-label">Email</label>
-                                    <p class="form-value">{{ user_data['email'] if user_data else 'No data
-                                        available' }}
-                                    </p>
-                                </div>
-
-                                <!-- Form untuk Mengubah Password -->
                                 <form method="POST" action="/account">
+                                    <div class="form">
+                                        <label class="form-label">Full name</label>
+                                        <input type="text" class="form-control" name="name"
+                                            placeholder="Enter your new fullname" value="{{user_data['name']}}"
+                                            required>
+                                    </div>
+                                    <div class="form">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email"
+                                            placeholder="Enter your current password" value="{{user_data['email']}}"
+                                            required>
+                                    </div>
                                     <div class="form">
                                         <label class="form-label">Current Password</label>
                                         <input type="password" class="form-control" name="old_password"
@@ -258,7 +248,7 @@
                                             placeholder="Enter your new password" required>
                                     </div>
                                     <div class="form mt--10">
-                                        <button type="submit" class="btn btn-danger">Update Password</button>
+                                        <button type="submit" class="btn btn-danger">Update Account</button>
                                     </div>
                                 </form>
                             </div>

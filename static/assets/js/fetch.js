@@ -752,7 +752,8 @@ const checkout = () => {
     contentType: "application/json",
     success: res => {
       alert(res.message);
-      window.location.href = '/order/thankyou'
+      alert(res.order_id)
+      window.location.href = `/order/thankyou/${res.order_id}`
     },
     error: err => {
       if (err.responseJSON.info == "!login") {
