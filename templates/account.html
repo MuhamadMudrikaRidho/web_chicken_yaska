@@ -106,6 +106,7 @@
 
                             </tbody>
                         </table>
+                        <hr style="width: 600px; color: white;" />
                     </div>
                 </div>
                 <div class="account-main address filterd-items hide">
@@ -118,54 +119,56 @@
                                     Kab.Tangerang<br>
                                     <br>
                                 </address>
-                                <p class="mb--10">New York</p>
-                                <a href="#" class="btn-small">Edit</a>
+                                <p class="mb--10">Jabodetabek</p>
                             </div>
                         </div>
                         <div class="col-xl-5 col-md-5">
                             <div class="shipping-address">
-                                <h4 class="mb--30">Alamat Pengiriman</h4>
+                                <h2 class="mb--30">Alamat Pengiriman</h2>
                                 {% if shipping_address %}
                                 <address>
-                                    {{ shipping_address['name'] }}<br>
-                                    {{ shipping_address['address'] }}<br>
+                                    Name : {{ shipping_address['name'] }}<br>
+                                    Address: {{ shipping_address['address'] }}<br>
                                     Phone: {{ shipping_address['phone'] }}
                                 </address>
-                                <button class="btn-small btn-edit-red" onclick="toggleEditForm()">Edit</button>
+                                <button class="btn btn-danger btn-sm mb-3 mt-3" onclick="toggleEditForm()">Edit
+                                    Alamat</button>
 
                                 {% else %}
-                                <p>Tidak ditemukan alamat pengiriman. Harap tambahkan alamat.</p>
-                                <button class="btn-small" onclick="toggleEditForm()">Tambahkan Alamat</button>
+                                <p class="mb--30">Tidak ditemukan alamat pengiriman. Harap tambahkan alamat.</p>
+                                <button class="btn btn-danger btn-sm mb-3 mt-3" onclick="toggleEditForm()">Tambahkan
+                                    Alamat</button>
                                 {% endif %}
 
                                 <!-- Form untuk edit/tambah alamat -->
                                 <form id="edit-address-form" class="hide" method="POST" action="/account/edit_address">
-                                    <div>
-                                        <label for="name">Nama:</label>
-                                        <input type="text" name="name" id="name"
+                                    <div class="form mb-2">
+                                        <label class="form-label" for="name">Nama:</label>
+                                        <input class="form-control" type="text" name="name" id="name"
                                             value="{{ shipping_address['name'] if shipping_address else '' }}"
                                             placeholder="Masukkan nama lengkap Anda" required>
                                     </div>
-                                    <div>
-                                        <label for="address">Alamat Jalan:</label>
-                                        <input type="text" name="address" id="address"
+                                    <div class="form mb-2">
+                                        <label class="form-label" for="address">Alamat Jalan:</label>
+                                        <input class="form-control" type="text" name="address" id="address"
                                             value="{{ shipping_address['address'] if shipping_address else '' }}"
                                             placeholder="Masukkan alamat jalan Anda" required>
                                     </div>
-                                    <div>
-                                        <label for="phone">Nomor HP:</label>
-                                        <input type="text" name="phone" id="phone"
+                                    <div class="form mb-2">
+                                        <label class="form-label" for="phone">Nomor HP:</label>
+                                        <input class="form-control" type="text" name="phone" id="phone"
                                             value="{{ shipping_address['phone'] if shipping_address else '' }}"
                                             placeholder="Masukkan nomor HP Anda" required>
                                     </div>
-                                    <div>
-                                        <label for="place_type">Tempat Tinggal:</label>
-                                        <input type="text" name="place_type" id="place_type"
+                                    <div class="form mb-2">
+                                        <label class="form-label" for="place_type">Tempat Tinggal:</label>
+                                        <input class="form-control" type="text" name="place_type" id="place_type"
                                             value="{{ shipping_address['place_type'] if shipping_address else '' }}"
                                             placeholder="Rumah, Hotel, Apartemen, Kantor, dll.">
                                     </div>
-                                    <button type="submit" class="btn-small btn-red">Simpan Alamat</button>
-                                    <button type="button" class="btn-small" onclick="toggleEditForm()">Batalkan</button>
+                                    <button type="submit" class="btn btn-danger btn-sm">Simpan Alamat</button>
+                                    <button type="button" class="btn btn-secondary btn-sm"
+                                        onclick="toggleEditForm()">Batalkan</button>
                                 </form>
                                 <script>
                                     // Script untuk toggle form edit/tambah alamat
@@ -182,38 +185,11 @@
                                     .show {
                                         display: block;
                                     }
-
-                                    .btn-red {
-                                        background-color: red;
-                                        color: white;
-                                        border: none;
-                                        padding: 5px 10px;
-                                        border-radius: 4px;
-                                        cursor: pointer;
-                                        font-size: 14px;
-                                    }
-
-                                    .btn-red:hover {
-                                        background-color: darkred;
-                                    }
-
-                                    .btn-edit-red {
-                                        background-color: red;
-                                        color: white;
-                                        border: none;
-                                        padding: 5px 10px;
-                                        border-radius: 4px;
-                                        cursor: pointer;
-                                        font-size: 14px;
-                                    }
-
-                                    .btn-edit-red:hover {
-                                        background-color: darkred;
-                                    }
                                 </style>
 
                             </div>
                         </div>
+                        <hr style="width: 600px; color: white;" />
                     </div>
                 </div>
                 <div class="account-main accountdtls filterd-items hide">
@@ -224,28 +200,31 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <form method="POST" action="/account">
+                                <form id="registerForm" method="POST" action="/account">
                                     <div class="form">
-                                        <label class="form-label">Full name</label>
-                                        <input type="text" class="form-control" name="name"
+                                        <label for="name" class="form-label">Full name</label>
+                                        <input id="name" type="text" class="form-control" name="name"
                                             placeholder="Enter your new fullname" value="{{user_data['name']}}"
                                             required>
+                                        <span id="nameError" class="error"></span>
                                     </div>
                                     <div class="form">
-                                        <label class="form-label">Email</label>
-                                        <input type="email" class="form-control" name="email"
+                                        <label for="email" class="form-label">Email</label>
+                                        <input id="email" type="email" class="form-control" name="email"
                                             placeholder="Enter your current password" value="{{user_data['email']}}"
                                             required>
+                                        <span id="emailError" class="error"></span>
                                     </div>
                                     <div class="form">
-                                        <label class="form-label">Current Password</label>
-                                        <input type="password" class="form-control" name="old_password"
-                                            placeholder="Enter your current password" required>
+                                        <label for="currPassword" class="form-label">Current Password</label>
+                                        <input id="currPassword" type="password" class="form-control"
+                                            name="old_password" placeholder="Enter your current password" required>
                                     </div>
                                     <div class="form">
-                                        <label class="form-label">New Password</label>
-                                        <input type="password" class="form-control" name="new_password"
+                                        <label for="password" class="form-label">New Password</label>
+                                        <input id="password" type="password" class="form-control" name="new_password"
                                             placeholder="Enter your new password" required>
+                                        <span id="passwordError" class="error"></span>
                                     </div>
                                     <div class="form mt--10">
                                         <button type="submit" class="btn btn-danger">Update Account</button>
@@ -253,6 +232,7 @@
                                 </form>
                             </div>
                         </div>
+                        <hr style="width: 600px; color: white;" />
                     </div>
                 </div>
             </div>

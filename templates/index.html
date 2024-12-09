@@ -12,12 +12,10 @@
               <h2 class="widget-title">All Categories <i class="rt-angle-down"></i></h2>
               <nav>
                 <ul>
-                  <li><a href="{{ url_for('menu.home') }}">Ayam Fillet <i class="rt rt-arrow-right-long"></i></a></li>
-                  <li><a href="{{ url_for('menu.home') }}">Ayam Juicy <i class="rt rt-arrow-right-long"></i></a></li>
-                  <li><a href="{{ url_for('menu.home') }}">Ayam Spicy <i class="rt rt-arrow-right-long"></i></a></li>
-                  <li><a href="{{ url_for('menu.home') }}">Paket Hemat <i class="rt rt-arrow-right-long"></i></a></li>
-                  <li><a href="{{ url_for('menu.home') }}">Minuman Segar <i class="rt rt-arrow-right-long"></i></a></li>
-
+                  {% for category in categories %}
+                  <li><a href="{{ url_for('menu.home') }}">{{ category }} <i class="rt rt-arrow-right-long"></i></a>
+                  </li>
+                  {% endfor %}
                 </ul>
               </nav>
             </div>

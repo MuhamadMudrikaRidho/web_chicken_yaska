@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app
 from datetime import datetime
 import bcrypt
+import re
 
 user_bp = Blueprint("user", __name__, url_prefix="/account")
 
@@ -31,6 +32,14 @@ def home():
         if existing_user:
             flash("Email is already in use by another account.", "danger")
             return redirect(url_for('user.home'))
+
+        password_regex = r"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$"
+        if not re.match(password_regex, new_password):
+            return (
+                "Password must be at least 8 characters long and contain at least one uppercase letter, "
+                "one lowercase letter, and one number.",
+                400
+            )
 
         if bcrypt.checkpw(old_password.encode('utf-8'), user_data['password'].encode('utf-8')):
             hashed_new_password = bcrypt.hashpw(new_password.encode('utf-8'), bcrypt.gensalt())

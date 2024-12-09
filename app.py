@@ -44,7 +44,12 @@ def is_logged_in():
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+
+    db = app.config['DB']
+    
+    categories = db.menu.distinct('category') 
+    
+    return render_template('index.html', categories=categories)
 
 @app.route('/about')
 def about():
