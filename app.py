@@ -8,7 +8,10 @@ from blueprints.user import user_bp
 from blueprints.cart import cart_bp
 from blueprints.wishlist import wishlist_bp
 from blueprints.order import order_bp
-from blueprints.admin import admin_bp
+from blueprints.admin.admin import admin_bp
+from blueprints.admin.menu import admin_menu_bp
+from blueprints.admin.orders import admin_orders_bp
+from blueprints.admin.users import admin_users_bp
 
 
 import os
@@ -30,6 +33,9 @@ if ENV == "development":
 
 client = MongoClient(app.config['MONGODB_URI'])
 app.config['DB'] = client[app.config['DB_NAME']]
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static/uploads')
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(menu_bp)
@@ -38,6 +44,9 @@ app.register_blueprint(cart_bp)
 app.register_blueprint(wishlist_bp)
 app.register_blueprint(order_bp)
 app.register_blueprint(admin_bp)
+app.register_blueprint(admin_menu_bp)
+app.register_blueprint(admin_orders_bp)
+app.register_blueprint(admin_users_bp)
 
 app.template_filter('format_rupiah')(format_rupiah)
 

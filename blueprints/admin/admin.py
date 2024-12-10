@@ -59,43 +59,6 @@ def dashboard():
         total_menu=total_menu
     )
 
-
-@admin_bp.route('/menu', methods=["GET", "POST"])
-def menu() :
-    if request.method == "POST":
-        return jsonify({"status" : "success"})
-    
-    db = current_app.config['DB']
-    menus = list(db.menu.find({}))
-    
-    for menu in menus :
-        menu["_id"] = str(menu["_id"])
-    
-    return render_template('admin/menu.html', menus=menus)
-
-@admin_bp.route('/orders', methods=["GET", "POST"])
-def order() :
-
-    db = current_app.config['DB']
-    orders = list(db.orders.find({}))
-    total_menu = sum(len(order['items']) for order in orders)
-    converted_orders = convert_ids_to_strings(orders)
-    
-    return render_template('admin/orders.html', orders=converted_orders, total_menu=total_menu)
-
-@admin_bp.route('/users', methods=["GET", "POST"])
-def user():
-    db = current_app.config['DB']
-    users = list(db.users.find({}))
-
-    for user in users:
-        user['_id'] = str(user['_id'])
-
-    for user in users:
-        user['shipping_address'] = user.get('shipping_address', 'No address available')
-
-    return render_template('admin/users.html', users=users)
-
 @admin_bp.route("/sales-chart-data")
 def sales_chart_data():
     db = current_app.config['DB']

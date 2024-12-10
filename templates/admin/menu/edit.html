@@ -1,0 +1,88 @@
+{% extends "admin/layouts/template.html" %}
+{% block title %}Menu{% endblock %}
+{% block navMenu %}active{% endblock %}
+{% block heading %}Menu{%endblock%}
+{% block breadcrumb %}Menu{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-info">
+      <div class="card-header">
+        <h3 class="card-title">Ubah Menu "{{menu.name}}"</h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <form action="/admin/menu/{{menu._id}}/edit" method="POST" enctype="multipart/form-data">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="name">Nama</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan Nama"
+              value="{{menu.name}}" required>
+          </div>
+          <div class="form-group">
+            <label for="category">Kategori</label>
+            <input type="text" class="form-control" id="category" name="category" placeholder="Masukkan Kategori"
+              value="{{menu.category}}" required>
+          </div>
+          <div class="form-group">
+            <label for="price">Harga</label>
+            <input type="number" class="form-control" id="price" name="price" placeholder="Masukkan Harga"
+              value="{{menu.price}}" required>
+          </div>
+          <div class="form-group">
+            <label for="image">Gambar</label>
+            <div class="input-group">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="image" name="image" onchange="previewImage(event)">
+                <label class="custom-file-label" for="image">Choose file</label>
+              </div>
+              <div class="input-group-append">
+                <span class="input-group-text">Upload</span>
+              </div>
+            </div>
+            <div class="mt-3">
+              <img id="image-preview" src="{{ url_for('static', filename=menu.image) }}" alt="Preview Gambar"
+                style="display: block; max-height: 200px;">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description">Deskripsi</label>
+            <textarea class="form-control" rows="3" id="description" name="description" placeholder="Masukkan Deskripsi"
+              required>{{menu.description}}</textarea>
+          </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-info">Ubah</button>
+          <a href="/admin/menu/" class="btn btn-secondary">Batal</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% block script %}
+<script>
+  function previewImage(event) {
+    const input = event.target;
+    const preview = document.getElementById('image-preview');
+
+    // Cek apakah ada file yang dipilih
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        preview.src = e.target.result; // Atur src elemen img dengan data URL
+        preview.style.display = 'block'; // Tampilkan gambar
+      };
+
+      reader.readAsDataURL(input.files[0]); // Baca file sebagai data URL
+    }
+  }
+</script>
+{% endblock %}
+
+
+{% endblock %}
