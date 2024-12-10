@@ -23,6 +23,9 @@ def login():
         login_user = db.users.find_one({'email': email})
         if login_user and bcrypt.checkpw(password.encode('utf-8'), login_user['password'].encode('utf-8')):
             session['username'] = login_user['username']
+            session['isAdmin'] = login_user['isAdmin']
+            if login_user['isAdmin'] :
+                return redirect(url_for('admin.dashboard'))
             return redirect(url_for('menu.home')) 
         return render_template('login.html', message={'info': "Email atau Kata Sandi Tidak Valid", 'type': "danger"})
     return render_template('login.html')
@@ -75,7 +78,7 @@ def register():
 
         if not existing_user and not existing_username:
             hashpass = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-            doc = {"name": name, "username": username, "email": email, "password": hashpass.decode('utf-8')}
+            doc = {"name": name, "username": username, "email": email, "password": hashpass.decode('utf-8'), "isAdmin": False}
             db.users.insert_one(doc)
             return redirect(url_for('auth.login'))
 

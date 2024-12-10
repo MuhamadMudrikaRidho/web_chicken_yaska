@@ -22,6 +22,19 @@ buyerPass = bcrypt.hashpw("buyer".encode('utf-8'), bcrypt.gensalt())
 adminPass = bcrypt.hashpw("admin".encode('utf-8'), bcrypt.gensalt())
 
 doc = [
+    {
+      "name" : "Admin",
+      "username" : "username",
+      "email" : "admin@gmail.com",
+      "password" : adminPass.decode('utf-8'),
+      "shipping_address": {
+          "name" : "Admin",
+          "address" : "Jl. Admin",
+          "phone": "080218302",
+          "place_type": "Kantor",
+      },
+      "isAdmin" : True
+  },
   {
     "name" : "Buyer",
     "username" : "buyer",
@@ -35,19 +48,6 @@ doc = [
     },
     "isAdmin" : False
   },
-  {
-      "name" : "Admin",
-      "username" : "username",
-      "email" : "admin@gmail.com",
-      "password" : adminPass.decode('utf-8'),
-      "shipping_address": {
-          "name" : "Admin",
-          "address" : "Jl. Admin",
-          "phone": "080218302",
-          "place_type": "Kantor",
-      },
-      "isAdmin" : True
-  }
 ]
 
 db.users.insert_many(doc)

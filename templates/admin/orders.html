@@ -1,0 +1,60 @@
+{% extends "admin/layouts/template.html" %}
+{% block title %}Orders{% endblock %}
+{% block navOrders %}active{% endblock %}
+{% block heading %}Orders{%endblock%}
+{% block breadcrumb %}Orders{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Semua Pesanan</h3>
+        <div class="card-tools">
+          <a href="/admin/order/create" class="btn btn-primary">Tambah Pesanan</a>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive p-0">
+        <table class="table table-hover text-nowrap">
+          <thead>
+            <tr>
+              <th style="width: 15%;">ID</th>
+              <th style="width: 10%;">Pembeli</th>
+              <th style="width: 10%;">Tanggal Pembelian</th>
+              <th style="width: 10%;">Total Harga</th>
+              <th style="width: 10%;">Metode Pembayaran</th>
+              <th style="width: 10%;">Status</th>
+              <th style="width: 10%;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in orders %}
+            <tr>
+              <td>#{{order._id}}</td>
+              <td>{{order.user}}</td>
+              <td>{{order.date}}</td>
+              <td>Rp. {{order.total_price | format_rupiah}}</td>
+              <td>{{order.payment_method}}</td>
+              <td><span
+                  class="badge {{ 'badge-success' if order.status == 'selesai' else ('badge-warning' if order.status == 'diantar' else ('badge-info' if order.status == 'tersaji' else 'badge-secondary')) }}">{{order.status}}</span>
+              </td>
+              <td class="project-actions text-center">
+                <a class="btn btn-primary btn-sm" href="#">
+                  <i class="fas fa-folder">
+                  </i>
+                  View
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+</div>
+
+{% endblock %}

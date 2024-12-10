@@ -8,6 +8,7 @@ from blueprints.user import user_bp
 from blueprints.cart import cart_bp
 from blueprints.wishlist import wishlist_bp
 from blueprints.order import order_bp
+from blueprints.admin import admin_bp
 
 
 import os
@@ -36,6 +37,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(cart_bp)
 app.register_blueprint(wishlist_bp)
 app.register_blueprint(order_bp)
+app.register_blueprint(admin_bp)
 
 app.template_filter('format_rupiah')(format_rupiah)
 
