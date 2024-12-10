@@ -23,7 +23,7 @@
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-          From
+          Dari
           <address>
             <strong>Admin, Chicken Yasaka.</strong><br>
             Taman Cikande<br>
@@ -34,7 +34,8 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          To
+          Ke
+          {% if order.payment_method == "COD" %}
           <address>
             <strong>{{order.address.name}}</strong><br>
             {{order.address.address}}<br>
@@ -42,6 +43,12 @@
             Phone: {{order.address.phone}}<br>
             Email: {{order.address.email}}
           </address>
+          {% else %}
+          <address>
+            <strong>{{order.user}}</strong><br />
+            Bayar di Outlet
+          </address>
+          {% endif %}
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
