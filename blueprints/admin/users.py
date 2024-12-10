@@ -37,8 +37,7 @@ def index() :
 
     for user in users:
         user['_id'] = str(user['_id'])
-
-    for user in users:
+        user['total_orders'] = db.orders.count_documents({"user": user['username'], "status" : "selesai"})
         user['shipping_address'] = user.get('shipping_address', 'No address available')
 
     return render_template('admin/users/index.html', users=users)

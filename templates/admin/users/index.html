@@ -19,10 +19,11 @@
         <table class="table table-hover text-nowrap">
           <thead>
             <tr>
-              <th style="width: 20%;">Nama</th>
+              <th style="width: 15%;">Nama</th>
               <th style="width: 10%;">Username</th>
               <th style="width: 15%;">Email</th>
               <th style="width: 10%;">Alamat</th>
+              <th style="width: 10%;">Total Pesanan</th>
               <th style="width: 10%;">IsAdmin</th>
               <th style="width: 15%;"></th>
             </tr>
@@ -36,6 +37,7 @@
               <td>{{user.shipping_address.address if user.shipping_address.address else "pengguna belum menambahkan
                 alamat"}}
               </td>
+              <td>{{user.total_orders}}</td>
               <td><span class="badge {{ 'badge-primary' if user.isAdmin else 'badge-secondary'}}">{{'Admin' if
                   user.isAdmin else 'Pengguna biasa'}}</span></td>
               <td class="project-actions text-center">

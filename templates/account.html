@@ -82,10 +82,17 @@
                             <span class="value">{{total_wishlist}}</span>
                         </div>
 
+                        {% if user_data.isAdmin %}
+                        <a href="/admin" class="activity-item">
+                            <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
+                            <span class="title">Pergi ke dashboard admin</span>
+                        </a>
+                        {% else %}
                         <a href="{{ url_for('auth.logout') }}" class="activity-item">
                             <div class="icon"><i class="fas fa-sign-out-alt"></i></div>
                             <span class="title">Keluar Akun</span>
                         </a>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="account-main orders filterd-items hide">

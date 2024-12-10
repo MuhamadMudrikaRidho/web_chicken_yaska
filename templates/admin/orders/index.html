@@ -11,7 +11,7 @@
       <div class="card-header">
         <h3 class="card-title">Semua Pesanan</h3>
         <div class="card-tools">
-          <a href="/admin/order/create" class="btn btn-primary">Tambah Pesanan</a>
+          <a href="/admin/orders/create" class="btn btn-primary">Tambah Pesanan</a>
         </div>
       </div>
       <!-- /.card-header -->
@@ -40,7 +40,7 @@
                   class="badge {{ 'badge-success' if order.status == 'selesai' else ('badge-warning' if order.status == 'diantar' else ('badge-info' if order.status == 'tersaji' else 'badge-secondary')) }}">{{order.status}}</span>
               </td>
               <td class="project-actions text-center">
-                <a class="btn btn-primary btn-sm" href="#">
+                <a class="btn btn-primary btn-sm" href="/admin/orders/{{order._id}}">
                   <i class="fas fa-folder">
                   </i>
                   Lihat

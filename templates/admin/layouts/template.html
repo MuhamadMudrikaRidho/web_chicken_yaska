@@ -39,6 +39,8 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ url_for('static', filename='admin/plugins/summernote/summernote-bs4.min.css') }}">
+
+  {% block style %}{%endblock%}
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -199,14 +201,17 @@
                   <h5>
                     {% if category == "success" %}
                     <i class="icon fas fa-check"></i>
+                    Success!
                     {% elif category == "error" or category == "danger" %}
                     <i class="icon fas fa-times"></i>
+                    Error!
                     {% elif category == "warning" %}
                     <i class="icon fas fa-exclamation-triangle"></i>
+                    Warning!
                     {% elif category == "info" %}
                     <i class="icon fas fa-info"></i>
+                    Info!
                     {% endif %}
-                    Alert!
                   </h5>
                   {{ message | safe }}
                 </div>

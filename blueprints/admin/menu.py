@@ -67,7 +67,7 @@ def index():
             image.save(file_saveto)
         else:
             flash("Format file tidak valid", "danger")
-            return jsonify({"status": "error", "message": "Invalid file format"}), 400
+            return render_template('admin/menu/create.html')
 
         # Validasi lainnya
         if not all([name, category, price, description]):

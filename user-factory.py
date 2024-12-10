@@ -24,7 +24,7 @@ adminPass = bcrypt.hashpw("admin".encode('utf-8'), bcrypt.gensalt())
 doc = [
     {
       "name" : "Admin",
-      "username" : "username",
+      "username" : "admin",
       "email" : "admin@gmail.com",
       "password" : adminPass.decode('utf-8'),
       "shipping_address": {

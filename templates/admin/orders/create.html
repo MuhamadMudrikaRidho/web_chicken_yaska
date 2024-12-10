@@ -1,0 +1,68 @@
+{% extends "admin/layouts/template.html" %}
+{% block title %}Orders{% endblock %}
+{% block navOrders %}active{% endblock %}
+{% block heading %}Orders{%endblock%}
+{% block breadcrumb %}Orders{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Tambah Pesanan Baru</h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <form action="/admin/orders" method="POST">
+        <div class="card card-default my-3">
+          <div class="card-header">
+            <h3 class="card-title">Menu</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>Pilih Menu dan Atur Quantity</label>
+                  <div>
+                    {% for menu in menus %}
+                    <div class="d-flex align-items-center mb-2">
+                      <input type="checkbox" name="menu_id[]" value="{{ menu._id }}" class="mr-2"
+                        id="menu-{{menu._id}}">
+                      <label class="mr-3" for="menu-{{menu._id}}">{{ menu.name }} (Rp {{ menu.price | format_rupiah
+                        }})</label>
+                      <input type="number" name="quantity_{{ menu._id }}" class="form-control w-25" placeholder="Jumlah"
+                        min="1" value="1">
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                <!-- /.form-group -->
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+          </div>
+          <!-- /.card-body -->
+        </div>
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary">Simpan</button>
+          <a href="/admin/orders/" class="btn btn-secondary">Batal</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
