@@ -55,12 +55,34 @@
             <div class="account-main-area">
                 <div class="account-main dashboard filterd-items">
                     <div class="account-profile-area">
-                        <div class="profile-dp"><img src="assets/images/blog/img-3.jpg" alt="profile-dp"></div>
+                        <!-- Area Foto Profil -->
+                        <div class="profile-dp">
+                            <!-- Menampilkan foto profil pengguna atau gambar default -->
+                            <img 
+                                src="{{ user_data.get('profile_pic', url_for('static', filename='assets/images/blog/img-3.jpg')) }}" 
+                                alt="profile-dp" 
+                                style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover;">
+                        </div>
+                    
+                        <!-- Informasi Pengguna -->
                         <div class="d-block">
                             <span class="profile-name"><span>Hi,</span> {{ user_data['username'] }} </span>
-                            <input id="username-info" type="hidden" name="username" value="{{user_data['username']}}">
                             <span class="profile-date d-block">{{ now }}</span>
                         </div>
+                    
+                        <!-- Form Unggah Foto Profil -->
+                        <form action="{{ url_for('user.upload_profile_pic') }}" method="POST" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="profile_pic">Upload Foto Profil:</label>
+                                <input 
+                                    type="file" 
+                                    name="profile_pic" 
+                                    id="profile_pic" 
+                                    accept="image/png, image/jpeg, image/jpg" 
+                                    required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Unggah</button>
+                        </form>
                     </div>
                     <p>Dari halaman akun Anda, Anda dapat melihat pesanan terkini, mengelola alamat pengiriman dan
                         penagihan, serta mengedit kata sandi dan detail akun Anda.</p>
@@ -191,6 +213,7 @@
                                     .show {
                                         display: block;
                                     }
+                                    
                                 </style>
 
                             </div>
