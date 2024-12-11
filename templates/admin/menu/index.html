@@ -17,6 +17,7 @@
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
         <table class="table table-hover text-nowrap">
+          {% if menus %}
           <thead>
             <tr>
               <th style="width: 10%;">Foto</th>
@@ -42,8 +43,10 @@
                   </div>
                   <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-outline-light"
-                      onclick="deleteMenu('{{menu._id}}')">Hapus</button>
+                    <form method="post">
+                      <input class="btn btn-outline-light" type="submit" value="Hapus"
+                        formaction="/admin/menu/{{menu._id}}/destroy">
+                    </form>
                   </div>
                 </div>
                 <!-- /.modal-content -->
@@ -75,6 +78,11 @@
             </tr>
             {% endfor %}
           </tbody>
+          {% else %}
+          <thead>
+            <th>Admin belum menambahkan menu apapun</th>
+          </thead>
+          {% endif %}
         </table>
       </div>
       <!-- /.card-body -->

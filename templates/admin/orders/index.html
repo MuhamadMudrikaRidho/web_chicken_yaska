@@ -17,6 +17,7 @@
       <!-- /.card-header -->
       <div class="card-body table-responsive p-0">
         <table class="table table-hover text-nowrap">
+          {% if orders %}
           <thead>
             <tr>
               <th style="width: 15%;">ID Pesanan</th>
@@ -49,6 +50,11 @@
             </tr>
             {% endfor %}
           </tbody>
+          {% else %}
+          <thead>
+            <th>Belum ada pesanan apapun</th>
+          </thead>
+          {%endif %}
         </table>
       </div>
       <!-- /.card-body -->

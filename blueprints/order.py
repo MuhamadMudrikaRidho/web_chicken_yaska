@@ -91,11 +91,10 @@ def store():
 def thank_you(order_id):
     db = current_app.config['DB']
     order = db.orders.find_one({"_id" : ObjectId(order_id)})
-
-    print(order)
-
-    message = "Saat status pesanan sudah tersaji, segera ambil pesananmu ke outlet terdekat"
-
+    if not order :
+        return jsonify({"status" : "error", "message" : "order not found"}), 404
+    
+    message = "Saat status pesanan sudah tersaji, segera ambil pesananmu ke outlet"
     if (order['payment_method'] == "COD"):
         message = "Pesananmu segera diproses dan akan diantarkan ke tempatmu"
     

@@ -1,0 +1,57 @@
+{% extends "admin/layouts/template.html" %}
+{% block title %}Users{% endblock %}
+{% block navUsers %}active{% endblock %}
+{% block heading %}Users{%endblock%}
+{% block breadcrumb %}Users{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Ubah Pengguna "{{user.name}}"</h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <form action="/admin/users/{{user._id}}/edit" method="POST">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="name">Nama</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Masukkan Nama"
+              value="{{user.name}}" required>
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username"
+              value="{{user.username}}" required disabled>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Masukkan Email"
+              value="{{user.email}}" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password">
+          </div>
+          <div class="form-group">
+            <label>Jadikan sebagai</label>
+            <select class="form-control" name="isAdmin" id="isAdmin">
+              <option value="admin" {{"selected" if user.isAdmin else "" }}>Admin</option>
+              <option value="basic" {{"selected" if not user.isAdmin else "" }}>Pengguna biasa</option>
+            </select>
+          </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary">Simpan</button>
+          <a href="/admin/users/" class="btn btn-secondary">Batal</a>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

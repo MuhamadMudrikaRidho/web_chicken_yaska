@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, current_app, request, session, redirect, url_for, jsonify
+from flask import Blueprint, render_template, current_app, session, redirect, url_for
 from bson import ObjectId
 
 admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
