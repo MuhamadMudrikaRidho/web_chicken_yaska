@@ -57,7 +57,8 @@ def home():
             flash("Old password is incorrect.", "danger")
         return redirect(url_for('user.home'))
 
-    shipping_address = user_data.get("shipping_address")
+    shipping_address = user_data.get('shipping_address') or {"address": "Belum menambahkan alamat"}
+
     return render_template('account.html', user_data=user_data, now=now, shipping_address=shipping_address, total_orders=total_orders, total_wishlist=total_wishlist)
 
 @user_bp.route('/edit_address', methods=["POST"])
