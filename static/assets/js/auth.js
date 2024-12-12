@@ -2,7 +2,7 @@ $(document).ready(function () {
   $('#name').on('input', function () {
     var name = $(this).val();
     if (name.length < 2 || !/^[a-zA-Z\s]+$/.test(name)) {
-      $('#nameError').text('Name must be at least 2 characters and only contain letters and spaces.');
+      $('#nameError').text('Nama harus minimal 2 karakter dan hanya mengandung huruf dan spasi.');
     } else {
       $('#nameError').text('');
     }
@@ -11,7 +11,7 @@ $(document).ready(function () {
   $('#username').on('input', function () {
     var username = $(this).val();
     if (username.length < 3 || !/^[a-zA-Z0-9_]+$/.test(username)) {
-      $('#usernameError').text('Username must be at least 3 characters and can only contain letters, numbers, and underscores.');
+      $('#usernameError').text('Nama pengguna harus minimal 3 karakter dan hanya boleh berisi huruf, angka, dan garis bawah.');
     } else {
       $('#usernameError').text('');
     }
@@ -21,7 +21,7 @@ $(document).ready(function () {
     var email = $(this).val().toLowerCase();
     var emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
     if (!emailRegex.test(email)) {
-      $('#emailError').text('Invalid email format.');
+      $('#emailError').text('Format email tidak valid.');
     } else {
       $('#emailError').text('');
     }
@@ -31,7 +31,7 @@ $(document).ready(function () {
     var password = $(this).val();
     var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     if (!passwordRegex.test(password)) {
-      $('#passwordError').text('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.');
+      $('#passwordError').text('Kata sandi harus minimal 8 karakter dan mengandung setidaknya satu huruf besar, satu huruf kecil, dan satu angka.');
     } else {
       $('#passwordError').text('');
     }
@@ -40,7 +40,7 @@ $(document).ready(function () {
   $('#registerForm').on('submit', function (event) {
     if ($('#nameError').text() || $('#usernameError').text() || $('#emailError').text() || $('#passwordError').text()) {
       event.preventDefault();
-      alert("Please fix the errors before submitting.");
+      alert("Harap perbaiki kesalahan sebelum mengirimkan.");
     }
   });
 });
