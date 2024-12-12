@@ -131,7 +131,8 @@
               {% if 'username' in session %}
               <a href="/account" class="account"><i class="rt-user-2"></i></a>
               {% if request.path == "/account/" %}
-              <!-- Konten untuk halaman /account -->
+              {% else %}
+              {% if request.path == "/cart/" %}
               {% else %}
               <div class="cart action-item me-3">
                 <div class="cart-nav">
@@ -143,6 +144,9 @@
                   </div>
                 </div>
               </div>
+              {% endif %}
+              {% if request.path == "/wishlist/" %}
+              {% else %}
               <div class="cart action-item">
                 <div class="cart-nav">
                   <div class="wishlist-icon icon">
@@ -152,6 +156,7 @@
                   </div>
                 </div>
               </div>
+              {% endif %}
               {% endif %}
               {% else %}
               <a href="{{ url_for('auth.login') }}" class="menu-item {%block navlogin%}{%endblock%}">Login</i></a>
