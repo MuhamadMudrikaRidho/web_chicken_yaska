@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app, send_from_directory
+from flask import Blueprint, render_template, request, redirect, url_for, session, flash, current_app, send_from_directory, jsonify
 from datetime import datetime
 import bcrypt
 import re
@@ -27,6 +27,8 @@ def home():
         return redirect(url_for('auth.login'))
 
     user_data = db.users.find_one({"username": username})
+    if not user_data :
+        return jsonify({"status" : "error", "message" : "user tidak ditemukan"}), 404
     now = datetime.now().strftime("%B %d, %Y")
     orders = list(db.orders.find({"user": username}))
     wishlists = list(db.wishlists.find({"user": username}))
