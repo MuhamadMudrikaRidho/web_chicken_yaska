@@ -55,8 +55,9 @@
             <div class="account-main-area">
                 <div class="account-main dashboard filterd-items">
                     <div class="account-profile-area">
-                        <div class="profile-dp">
-                            <img src="{{ user_data.get('profile_pic', url_for('static', filename='assets/images/profile/default.jpg')) }}"
+                        <div class="profile-dp" style="cursor: pointer;">
+                            <img id="profileImage"
+                                src="{{ user_data.get('profile_pic', url_for('static', filename='assets/images/profile/default.jpg')) }}"
                                 alt="profile-dp" style="width: 60px; height: 60px; object-fit: cover;">
                         </div>
 
@@ -65,14 +66,11 @@
                             <span class="profile-date d-block">{{ now }}</span>
                         </div>
 
-                        <form action="{{ url_for('user.upload_profile_pic') }}" method="POST"
-                            enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="profile_pic">Upload Foto Profil:</label>
-                                <input type="file" name="profile_pic" id="profile_pic"
-                                    accept="image/png, image/jpeg, image/jpg" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Unggah</button>
+                        <form id="profileForm" action="{{ url_for('user.upload_profile_pic') }}" method="POST"
+                            enctype="multipart/form-data" style="display: none;">
+                            <input type="file" id="profileInput" name="profile_pic" style="display: none;">
+                            <button type="submit" class="btn btn-primary mt-2 ms-5">Update Foto</button>
+                            <button type="button" id="cancelUpdate" class="btn btn-secondary mt-2">Batal</button>
                         </form>
                     </div>
                     <p>Dari halaman akun Anda, Anda dapat melihat pesanan terkini, mengelola alamat pengiriman dan
@@ -164,7 +162,7 @@
                                 <form id="edit-address-form" class="hide" method="POST" action="/account/edit_address">
                                     <div class="form mb-2">
                                         <label class="form-label" for="name">Nama:</label>
-                                        <input class="form-control" type="text" name="name" id="name"
+                                        <input class="form-control" type="text" name="name" id="address-name"
                                             value="{{ shipping_address['name'] if shipping_address else '' }}"
                                             placeholder="Masukkan nama lengkap Anda" required>
                                     </div>

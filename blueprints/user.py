@@ -12,6 +12,7 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+
 @user_bp.route('/uploads/<path:filename>')
 def uploaded_file(filename):
     upload_folder = current_app.config['UPLOAD_FOLDER']
@@ -133,6 +134,7 @@ def upload_profile_pic():
         )
         flash("Foto profil berhasil diperbarui!", "success")
     else:
+        print(image)
         flash("File yang diunggah tidak valid. Pastikan format file PNG, JPG, atau JPEG.", "danger")
 
     return redirect(url_for('user.home'))
