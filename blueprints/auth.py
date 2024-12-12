@@ -18,7 +18,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
         if not email or not password:
-            return render_template('login.html', message={'info': "Provide both email and password", 'type': "danger"})
+            return render_template('login.html', message={'info': "Berikan email dan kata sandi", 'type': "danger"})
 
         login_user = db.users.find_one({'email': email})
         if login_user and bcrypt.checkpw(password.encode('utf-8'), login_user['password'].encode('utf-8')):
