@@ -18,6 +18,18 @@
 {% block content %}
 <div class="rts-product-details-section section-gap">
   <div class="container">
+    <div class="flash-messages">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
     <div class="details-product-area mb--70">
       <div class="product-thumb-area">
         <div class="cursor"></div>
@@ -32,10 +44,8 @@
         <div class="product-status">
           <span class="product-catagory">{{menu.category}}</span>
           <div class="rating-stars-group">
-            <div class="rating-star"><i class="fas fa-star"></i></div>
-            <div class="rating-star"><i class="fas fa-star"></i></div>
-            <div class="rating-star"><i class="fas fa-star-half-alt"></i></div>
-            <span>10 Reviews</span>
+            <div class="rating-star" id="stars"></div>
+            <span>{{total_reviews}} Ulasan</span>
           </div>
         </div>
         <h2 class="product-title">{{menu.name}} <!-- <span class="stock">In Stock</span> --></h2>
@@ -62,8 +72,9 @@
       </div>
     </div>
     <div class="product-full-details-area">
+      {% if not total_reviews %}
       <div class="details-filter-bar2">
-        <p class="details-filter filter-btn active">Ulasan (0)</p>
+        <p class="details-filter filter-btn active">Ulasan ({{total_reviews}})</p>
       </div>
       <div class="full-details dls-three filterd-items">
         <div class="full-details-inner">
@@ -74,46 +85,60 @@
                 <h2 class="section-title">
                   Jadilah yang pertama mengulas <strong> <a href="/menu/{{menu._id}}">"{{menu.name}}"</a></strong>
                 </h2>
-                <h4 class="sect-title">Alamat email Anda tidak akan dipublikasikan. Kolom yang wajib diisi ditandai dengan * </h4>
+                <h4 class="sect-title">Alamat email Anda tidak akan dipublikasikan. Kolom yang wajib diisi ditandai
+                  dengan * </h4>
                 <div class="reveiw-form-main mb-10">
                   <div class="contact-form">
-                    <div class="row">
-                      <div class="col-lg-6 col-sm-12">
-                        <div class="input-box text-input mb-20">
-                          <textarea name="Message" id="validationDefault01" cols="30" rows="10"
-                            placeholder="Your Review*" required></textarea>
-                        </div>
-                      </div>
-                      <div class="col-lg-6 col-sm-12">
-                        <div class="col-lg-12">
-                          <div class="input-box mb-20">
-                            <input type="text" id="validationDefault02" placeholder="Name*" required>
+                    <form action="/menu/submit-review/{{menu._id}}" method="POST">
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                          <div class="input-box text-input mb-20">
+                            <textarea name="review" id="review" cols="30" rows="10" placeholder="Your Review*"
+                              required></textarea>
                           </div>
                         </div>
-                        <div class="col-lg-12">
-                          <div class="input-box mail-input mb-20">
-                            <input type="text" id="validationDefault03" placeholder="E-mail*" required>
-                          </div>
-                        </div>
-                        <div class="col-lg-12">
-                          <div class="rating">
-                            <p>Nilai Anda:</p>
-                            <div class="rating-icon">
-                              <span class="one"><a href="#"> <i class="fal fa-star"></i></a></span>
-                              <span class="two"><a href="#"> <i class="fal fa-star"></i></a></span>
-                              <span class="three"><a href="#"> <i class="fal fa-star"></i></a></span>
-                              <span class="four"><a href="#"> <i class="fal fa-star"></i></a></span>
-                              <span class="five"><a href="#"> <i class="fal fa-star"></i></a></span>
+                        <div class="col-lg-6 col-sm-12">
+                          <div class="col-lg-12">
+                            <div class="input-box mb-20">
+                              <input type="text" id="name" name="name" placeholder="Nama*"
+                                value="{{user['name'] if user else ''}}" required>
                             </div>
                           </div>
-                        </div>
-                        <div class="col-12 mb-15">
-                          <button class="form-btn form-btn4">
-                            Kirim <i class="fal fa-long-arrow-right"></i>
-                          </button>
+                          <div class="col-lg-12">
+                            <div class="input-box mail-input mb-20">
+                              <input type="email" id="email" name="email" placeholder="E-mail*"
+                                value="{{user['email'] if user else ''}}" required>
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="rating">
+                              <p>Nilai Anda:</p>
+                              <div class="rating-icon" id="rating-icons">
+                                <span style="color: red; cursor: pointer;" data-value="1"><i
+                                    class="fal fa-star"></i></span>
+                                <span style="color: red; cursor: pointer;" data-value="2"><i
+                                    class="fal fa-star"></i></span>
+                                <span style="color: red; cursor: pointer;" data-value="3"><i
+                                    class="fal fa-star"></i></span>
+                                <span style="color: red; cursor: pointer;" data-value="4"><i
+                                    class="fal fa-star"></i></span>
+                                <span style="color: red; cursor: pointer;" data-value="5"><i
+                                    class="fal fa-star"></i></span>
+                              </div>
+                              <input type="hidden" name="rating" id="rating" required>
+                              <input type="text" name="username" id="username" value="{{user.username}}" hidden>
+                              <small class="text-danger" id="rating-error" style="display: none;">Harap pilih
+                                rating!</small>
+                            </div>
+                          </div>
+                          <div class="col-12 mb-15">
+                            <button class="form-btn form-btn4" type="submit">
+                              Kirim <i class="fal fa-long-arrow-right"></i>
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
@@ -121,9 +146,228 @@
           </div>
         </div>
       </div>
+      {% else %}
+      <div class="details-filter-bar2">
+        <p class="details-filter filter-btn active" style="cursor: pointer;" onclick="showReview()">Lihat
+          ({{total_reviews}}) Ulasan</p>
+      </div>
+      <div class="row" style="display: none;" id="reviews">
+        <div class="col-lg-12">
+          {% for review in reviews %}
+          <div class="review-section mb-5">
+            <div class="d-md-flex g-2">
+              <div class="reviewer" class="me-5" style="width: 10%">
+                <img
+                  src="{{ url_for('static', filename=review['user']['profile_pic'] or 'assets/images/profile/default.jpg')}}"
+                  alt="reviewer" style="width: 100px; height: 100px; object-fit: cover;">
+              </div>
+              <div style="width: 90%">
+                <div>
+                  <div class="mb-3">
+                    <h3>{{ review.get('name') }} &nbsp;{% if review['user']['username'] == user['username'] %}<i
+                        class="fas fa-pencil-alt" style="cursor: pointer; color: gray; font-size: 16px;"
+                        onclick="toggleEdit('{{user._id}}', '{{review.review}}')"></i> {% endif %}</h3>
+                    <p class="description text-sm"><i class="fal fa-calendar-alt"></i>
+                      {{review.get('date')}}</p>
+                    <em style="color: lightgray">{{ review.get('isEdit', '')}}</em>
+                  </div>
+                </div>
+                <div id="review-{{review['user']['_id']}}">
+                  <p class="description">{{review.get('review')}}</p>
+                  <div class="rating-icon my-3">
+                    {% for _ in range(review.get('rating')) %}
+                    <span style="color: red;" class="one"><i class="fas fa-star"></i></span>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="reveiw-form-main" id="form-edit-{{review['user']['_id']}}" style="display: none;">
+                  <div class="contact-form">
+                    <form action="/menu/update-review/{{review._id}}/{{menu._id}}" method="POST">
+                      <div class="input-box text-input">
+                        <div class="mb-3">
+                          <textarea class="form-control" name="review" rows="3"
+                            required>{{review.get('review')}}</textarea>
+                        </div>
+                        <div class="rating">
+                          <div class="rating-icon" id="rating-icons-{{review['user']['_id']}}">
+                            <span style="color: red; cursor: pointer;" data-value="1"><i class="fal fa-star"></i></span>
+                            <span style="color: red; cursor: pointer;" data-value="2"><i class="fal fa-star"></i></span>
+                            <span style="color: red; cursor: pointer;" data-value="3"><i class="fal fa-star"></i></span>
+                            <span style="color: red; cursor: pointer;" data-value="4"><i class="fal fa-star"></i></span>
+                            <span style="color: red; cursor: pointer;" data-value="5"><i class="fal fa-star"></i></span>
+                          </div>
+                          <input type="hidden" name="rating" id="rating-{{review['user']['_id']}}"
+                            value="{{review.get('rating', 0)}}" required>
+                        </div>
+                        <input type="hidden" name="username" value="{{review['user']['username']}}">
+                        <button type="submit" class="btn btn-success mt-3">Ubah</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <script>
+                function toggleEdit(user_id, review) {
+                  const reviewData = $(`#review-${user_id}`);
+                  const formEdit = $(`#form-edit-${user_id}`);
+                  reviewData.slideToggle()
+                  formEdit.slideToggle();
+                  formEdit.find('textarea').val(review)
+
+
+                  const currentRating = parseInt($('#rating-' + user_id).val(), 10)
+                  const stars = $('#rating-icons-' + user_id + ' span');
+
+
+                  stars.find('i').removeClass('fas').addClass('fal');
+
+
+                  stars.slice(0, currentRating).find('i').removeClass('fal').addClass('fas');
+
+
+                  stars.on('click', function () {
+                    const ratingValue = $(this).data('value');
+                    const ratingInput = $('#rating-' + user_id);
+
+
+                    ratingInput.val(ratingValue);
+
+
+                    stars.find('i').removeClass('fas').addClass('fal');
+
+
+                    stars.slice(0, ratingValue).find('i').removeClass('fal').addClass('fas');
+                  });
+                }
+              </script>
+            </div>
+            <hr />
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <script>
+        const showReview = () => {
+          const reviews = $('#reviews')
+          reviews.slideToggle();
+        }
+      </script>
+      <div class="full-details dls-three filterd-items mt-5">
+        <div class="full-details-inner">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 mr-10">
+              <div class="reveiw-form">
+                {% if reviewed %}
+                <h4 class="sect-title">Terimakasih telah memberikan ulasan, semoga kami bisa meningkatkan menu kami!
+                </h4>
+                {% else %}
+                <h4 class="sect-title">Berikan ulasan anda sekarang. Kolom yang wajib diisi ditandai
+                  dengan * </h4>
+                <div class="reveiw-form-main mb-10">
+                  <div class="contact-form">
+                    <form action="/menu/submit-review/{{menu._id}}" method="POST">
+                      <div class="row">
+                        <div class="col-lg-6 col-sm-12">
+                          <div class="input-box text-input mb-20">
+                            <textarea name="review" id="review" cols="30" rows="10" placeholder="Your Review*"
+                              required></textarea>
+                          </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12">
+                          <div class="col-lg-12">
+                            <div class="input-box mb-20">
+                              <input type="text" id="name" name="name" placeholder="Nama*"
+                                value="{{user['name'] if user else ''}}" required>
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="input-box mail-input mb-20">
+                              <input type="email" id="email" name="email" placeholder="E-mail*"
+                                value="{{user['email'] if user else ''}}" required>
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <div class="rating">
+                              <p>Nilai Anda:</p>
+                              <div class="rating-icon" id="rating-icons">
+                                <span style="color: red; cursor: pointer;" data-value="1"><i
+                                    class="fal fa-star"></i></span>
+                                <span style="color: red; cursor: pointer;" data-value="2"><i
+                                    class="fal fa-star"></i></span>
+                                <span style="color: red; cursor: pointer;" data-value="3"><i
+                                    class="fal fa-star"></i></span>
+                                <span style="color: red; cursor: pointer;" data-value="4"><i
+                                    class="fal fa-star"></i></span>
+                                <span style="color: red; cursor: pointer;" data-value="5"><i
+                                    class="fal fa-star"></i></span>
+                              </div>
+                              <input type="hidden" name="rating" id="rating" required>
+                              <input type="text" name="username" id="username" value="{{user.username}}" hidden>
+                              <small class="text-danger" id="rating-error" style="display: none;">Harap pilih
+                                rating!</small>
+                            </div>
+                          </div>
+                          <div class="col-12 mb-15">
+                            <button class="form-btn form-btn4" type="submit">
+                              Kirim <i class="fal fa-long-arrow-right"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>
 
 <div class="rts-account-section"></div>
+
+{% block script %}
+
+<script>
+  $.ajax({
+    url: '/menu/average-rating/{{menu._id}}',
+    method: 'GET',
+    success: function (data) {
+      const averageRating = data.average;
+      const totalReviews = data.total_reviews;
+
+      const starsContainer = $('#stars');
+      const reviewsCount = $('#reviews-count');
+
+      const fullStars = Math.floor(averageRating);
+      const halfStar = averageRating % 1 >= 0.5 ? 1 : 0;
+      const emptyStars = 5 - fullStars - halfStar;
+
+      starsContainer.empty();
+
+      for (let i = 0; i < fullStars; i++) {
+        starsContainer.append('<i class="fas fa-star"></i>');
+      }
+
+      if (halfStar) {
+        starsContainer.append('<i class="fas fa-star-half-alt"></i>');
+      }
+
+      for (let i = 0; i < emptyStars; i++) {
+        starsContainer.append('<i class="far fa-star"></i>');
+      }
+
+    },
+    error: function (error) {
+      console.error('Error fetching average rating:', error.responseText);
+    }
+  });
+
+</script>
+
+{% endblock %}
 {% endblock %}

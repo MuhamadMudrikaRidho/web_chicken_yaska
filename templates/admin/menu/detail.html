@@ -37,7 +37,10 @@
         </div>
       </div>
       <div class="col-12 col-sm-6">
-        <h3 class="my-3">{{menu.name}}</h3>
+        <div class="d-flex justify-content-between align-items-center">
+          <h3 class="my-3">{{menu.name}}</h3>
+          <a href="/menu/{{menu._id}}" class="btn btn-success">Lihat menu di halaman depan</a>
+        </div>
         <p>{{menu.description}}</p>
 
         <hr>

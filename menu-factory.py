@@ -19,6 +19,7 @@ db.menu.drop()
 db.carts.drop()
 db.wishlists.drop()
 db.orders.drop()
+db.reviews.drop()
 
 doc = [
   {"image": "uploads/menu/favyasaka.jpg",

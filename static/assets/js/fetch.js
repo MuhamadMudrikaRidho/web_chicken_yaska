@@ -765,38 +765,3 @@ const checkout = () => {
     }
   });
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-  const profileImage = document.getElementById('profileImage');
-  const profileInput = document.getElementById('profileInput');
-  const profileForm = document.getElementById('profileForm');
-  const cancelUpdate = document.getElementById('cancelUpdate');
-
-  let originalProfileSrc = profileImage.src; // Simpan gambar asli
-
-  // Klik foto profil untuk memicu input file
-  document.querySelector('.profile-dp').addEventListener('click', () => {
-    profileInput.click();
-  });
-
-  // Tampilkan preview gambar setelah memilih file
-  profileInput.addEventListener('change', () => {
-    const file = profileInput.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        profileImage.src = e.target.result; // Update preview
-      };
-      reader.readAsDataURL(file);
-
-      profileForm.style.display = 'block'; // Munculkan tombol update
-    }
-  });
-
-  // Batalkan perubahan gambar
-  cancelUpdate.addEventListener('click', () => {
-    profileImage.src = originalProfileSrc; // Kembalikan ke gambar asli
-    profileInput.value = ''; // Reset input file
-    profileForm.style.display = 'none'; // Sembunyikan tombol
-  });
-});

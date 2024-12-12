@@ -57,7 +57,7 @@
                     <div class="account-profile-area">
                         <div class="profile-dp" style="cursor: pointer;">
                             <img id="profileImage"
-                                src="{{ user_data.get('profile_pic', url_for('static', filename='assets/images/profile/default.jpg')) }}"
+                                src="{{ url_for('static', filename=user_data.get('profile_pic', 'assets/images/profile/default.jpg'))}}"
                                 alt="profile-dp" style="width: 60px; height: 60px; object-fit: cover;">
                         </div>
 
