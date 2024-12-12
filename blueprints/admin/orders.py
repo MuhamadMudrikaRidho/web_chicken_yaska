@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, current_app, request, session, redirect, url_for, flash
+from flask import Blueprint, render_template, current_app, request, session, redirect, url_for, flash, jsonify
 from bson import ObjectId
 from datetime import datetime
 
@@ -116,6 +116,8 @@ def store() :
 def show(order_id) :
     db = current_app.config['DB']
     order = db.orders.find_one({'_id' : ObjectId(order_id)})
+    if not order :
+        return jsonify({"status" : "error", "message" : "pesanan tidak ditemukan"}), 404
     converted_order = convert_ids_to_strings(order)
 
     menu_items = converted_order['items']
@@ -135,6 +137,8 @@ def update(order_id) :
 def print(order_id) :
     db = current_app.config['DB']
     order = db.orders.find_one({'_id' : ObjectId(order_id)})
+    if not order : 
+        return jsonify({"status" : "error", "message" : "pesanan tidak ditemukan"}), 404
     converted_order = convert_ids_to_strings(order)
 
     menu_items = converted_order['items']

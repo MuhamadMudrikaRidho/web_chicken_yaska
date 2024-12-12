@@ -1,6 +1,13 @@
 {% extends "layouts/template.html" %}
+{% block meta %}
+<meta property="og:title" content="Chicken Yasaka | Account Detail" />
+<meta property="og:description"
+    content="Account Detail | Selamat datang di Chicken Yasaka, tempat di mana kelezatan ayam goreng bertemu dengan rasa yang luar biasa! Kami menyajikan ayam goreng renyah di luar, juicy di dalam, dengan bumbu spesial yang menggoda selera. Di Chicken Yasaka, kami hanya menggunakan bahan berkualitas dan selalu siap memberikan pengalaman makan terbaik, baik dine-in, take-away, atau delivery. Nikmati kelezatan ayam terbaik, hanya di Chicken Yasaka!" />
+<meta property="og:image" content="{{url_for('static', filename='assets/images/YASAKA.jpg')}}" />
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:url" content="{{ request.url }}" />
+{% endblock %}
 {% block title %}Account{% endblock %}
-
 {% block breadcrumb %}
 <div class="page-path">
     <div class="container">
@@ -16,11 +23,6 @@
 {% endblock %}
 
 {% block content %}
-
-<div id="order-popup">
-
-</div>
-
 <div class="rts-account-section section-gap">
     <div class="container">
 
@@ -92,6 +94,12 @@
                             <div class="icon"><i class="fas fa-heart"></i></div>
                             <span class="title">List Keinginan</span>
                             <span class="value">{{total_wishlist}}</span>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="icon"><a href="/cart"><i class="fas fa-shopping-basket"></i></a></div>
+                            <span class="title">Keranjang</span>
+                            <span class="value">{{total_carts}}</span>
                         </div>
 
                         {% if user_data.isAdmin %}

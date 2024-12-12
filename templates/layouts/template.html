@@ -6,6 +6,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block meta %}
+
+  {% endblock %}
   <title>{% block title %}{% endblock %} - Chicken Yasaka</title>
   <!--================= Favicon =================-->
   <link rel="apple-touch-icon" href="{{url_for('static', filename='assets/images/apple-touch-icon.png')}}">
@@ -127,14 +130,20 @@
               </div>
               {% if 'username' in session %}
               <a href="/account" class="account"><i class="rt-user-2"></i></a>
-              <div class="cart action-item">
+              {% if request.path == "/account/" %}
+              <!-- Konten untuk halaman /account -->
+              {% else %}
+              <div class="cart action-item me-3">
                 <div class="cart-nav">
-                  <div class="cart-icon icon"><a href="#0"><i aria-hidden="true"
-                        class="fas fa-shopping-basket"></i></a><span class="wishlist-dot icon-dot"
-                      id="cart-items-total-global">0</span></div>
+                  <div class="cart-icon icon">
+                    <a href="#0">
+                      <i aria-hidden="true" class="fas fa-shopping-basket"></i>
+                    </a>
+                    <span class="wishlist-dot icon-dot" id="cart-items-total-global">0</span>
+                  </div>
                 </div>
               </div>
-              <div class="cart action-item ms-3">
+              <div class="cart action-item">
                 <div class="cart-nav">
                   <div class="wishlist-icon icon">
                     <a href="/wishlist">
@@ -143,6 +152,7 @@
                   </div>
                 </div>
               </div>
+              {% endif %}
               {% else %}
               <a href="{{ url_for('auth.login') }}" class="menu-item {%block navlogin%}{%endblock%}">Login</i></a>
               {% endif %}

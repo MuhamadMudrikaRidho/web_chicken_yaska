@@ -98,7 +98,7 @@ def thank_you(order_id):
     if (order['payment_method'] == "COD"):
         message = "Pesananmu segera diproses dan akan diantarkan ke tempatmu"
     
-    return render_template("thank-you.html", message=message)
+    return render_template("thank-you.html", message=message, order_id=order_id)
 
 # Route untuk menampilkan semua pesanan
 @order_bp.route('/all')

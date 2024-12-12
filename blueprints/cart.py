@@ -51,6 +51,8 @@ def store(menu_id) :
     db = current_app.config['DB']
     quantity = request.form.get('quantity')
     menu = db.menu.find_one({'_id' : ObjectId(menu_id)})
+    if not menu : 
+        return jsonify({"status" : "error", "message" : "menu tidak ditemukan"}), 404
     cart = db.carts.find_one({'menu_id': menu['_id'], "user" : user})
     if cart:
         db.carts.update_one(

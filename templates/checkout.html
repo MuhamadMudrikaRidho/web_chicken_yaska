@@ -1,5 +1,14 @@
-{% extends "layouts/template.html" %} {% block title %}Checkout{% endblock %} {%
-block content %}
+{% extends "layouts/template.html" %}
+{% block meta %}
+<meta property="og:title" content="Chicken Yasaka | Checkout" />
+<meta property="og:description"
+  content="Checkout | Selamat datang di Chicken Yasaka, tempat di mana kelezatan ayam goreng bertemu dengan rasa yang luar biasa! Kami menyajikan ayam goreng renyah di luar, juicy di dalam, dengan bumbu spesial yang menggoda selera. Di Chicken Yasaka, kami hanya menggunakan bahan berkualitas dan selalu siap memberikan pengalaman makan terbaik, baik dine-in, take-away, atau delivery. Nikmati kelezatan ayam terbaik, hanya di Chicken Yasaka!" />
+<meta property="og:image" content="{{url_for('static', filename='assets/images/YASAKA.jpg')}}" />
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:url" content="{{ request.url }}" />
+{% endblock %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
 <div class="rts-checkout-section">
   <div class="container">
     <div class="row justify-content-between mb-20">

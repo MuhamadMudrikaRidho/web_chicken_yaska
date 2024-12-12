@@ -88,7 +88,8 @@ def edit(user_id) :
 
     db = current_app.config['DB']
     user = db.users.find_one({"_id" : ObjectId(user_id)})
-
+    if not user :
+        return jsonify({"status" : "error", "message" : "pengguna tidak ditemukan"}), 404
     return render_template('admin/users/edit.html', user=user)
 
 @admin_users_bp.route('/<user_id>/edit', methods=["POST"])

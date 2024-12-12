@@ -381,7 +381,7 @@ const getCartData = async () => {
           const temp_html_global = `
             <div class="product-item">
             <div class="product-detail">
-              <div class="product-thumb"><img src="/static/${image}" alt="product-thumb">
+              <div class="product-thumb"><img src="/static/${image}" alt="cart-${name}-image" loading="lazy">
               </div>
               <div class="item-wrapper">
                 <span class="product-name">${name}</span>
@@ -414,7 +414,7 @@ const getCartData = async () => {
               <tr>
                 <td>
                   <div class="product-thumb"><img src="/static/${image}"
-                      alt="product-thumb" style="width: 200px; height: 200px; border-radius: 7px;">
+                      alt="cart-${name}-image" loading="lazy" style="width: 200px; height: 200px; border-radius: 7px;">
                   </div>
                 </td>
                 <td>
@@ -550,7 +550,7 @@ const getWishlistData = () => {
             <tr>
                 <td class="first-td"><button onclick="deleteWishlistData('${id}')" class="remove-btn"><i class="fal fa-times"></i></button></td>
                 <td class="first-child"><a href="/menu/${id}"><img src="/static/${image}"
-                            style="height: 100px; width: 100px;" alt=""></a>
+                            style="height: 100px; width: 100px;" alt="wishlist-${name}-image" loading="lazy"></a>
                     <a href="/menu/${id}" class="pretitle">${name}</a>
                 </td>
                 <td><span class="product-price">Rp. ${formatRupiah(price)}</span></td>

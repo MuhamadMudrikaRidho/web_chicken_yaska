@@ -92,7 +92,7 @@ def store_review(menu_id) :
     date = datetime.now().strftime("%B %d, %Y")
 
     if not rating :
-        flash("Mohon masukkan nilaimu menilai seberapa puas kamu dengan menu ini", "danger")
+        flash("Mohon masukkan nilaimu, untuk menilai seberapa puas kamu dengan menu ini", "danger")
         return redirect(f'/menu/{menu_id}')
 
     doc = {

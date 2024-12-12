@@ -32,9 +32,11 @@ def home():
     now = datetime.now().strftime("%B %d, %Y")
     orders = list(db.orders.find({"user": username}))
     wishlists = list(db.wishlists.find({"user": username}))
+    carts = list(db.carts.find({"user" : username}))
 
     total_orders = len(orders)
     total_wishlist = len(wishlists)
+    total_carts = len(carts)
 
     if request.method == "POST":
         name = request.form.get('name')
@@ -72,7 +74,7 @@ def home():
 
     shipping_address = user_data.get('shipping_address') or {}
 
-    return render_template('account.html', user_data=user_data, now=now, shipping_address=shipping_address, total_orders=total_orders, total_wishlist=total_wishlist)
+    return render_template('account.html', user_data=user_data, now=now, shipping_address=shipping_address, total_orders=total_orders, total_wishlist=total_wishlist, total_carts=total_carts)
 
 @user_bp.route('/edit_address', methods=["POST"])
 def edit_address():

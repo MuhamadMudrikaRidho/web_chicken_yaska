@@ -99,6 +99,8 @@ def show(menu_id) :
 
     db = current_app.config['DB']
     menu = db.menu.find_one({'_id' : ObjectId(menu_id)})
+    if not menu :
+        return jsonify({"status" : "error", "message" : "menu tidak ditemukan"}), 404
   
     return render_template('admin/menu/detail.html', menu=menu)
   
@@ -112,6 +114,8 @@ def edit(menu_id) :
 
     db = current_app.config['DB']
     menu = db.menu.find_one({'_id' : ObjectId(menu_id)})
+    if not menu : 
+        return jsonify({"status" : "error", "message" : "menu tidak ditemukan"}), 404
     menu['_id'] = str(menu['_id'])
     return render_template('admin/menu/edit.html', menu=menu)
 
@@ -165,6 +169,8 @@ def update(menu_id):
 def destroy(menu_id):
     db = current_app.config['DB']
     menu = db.menu.find_one({"_id": ObjectId(menu_id)})
+    if not menu :
+        return jsonify({"status" : "error", "message" : "menu tidak ditemukan"}), 404
 
     if menu:
         image_path = menu.get('image')

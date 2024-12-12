@@ -1,4 +1,11 @@
 {% extends "layouts/template.html" %}
+{% block meta %}
+<meta property="og:title" content="Chicken Yasaka | Detail {{menu.name}}" />
+<meta property="og:description" content="{{menu.description}}" />
+<meta property="og:image" content="{{ url_for('static', filename=menu.image) }}" />
+<meta name="robots" content="index,follow">
+<meta property="og:url" content="{{ request.url }}" />
+{% endblock %}
 {% block title %}{{menu.name}}{% endblock %}
 {% block navmenu %}active1{% endblock %}
 {% block breadcrumb %}
@@ -35,7 +42,7 @@
         <div class="cursor"></div>
         <div class="thumb-wrapper one filterd-items figure">
           <div class="product-thumb">
-            <img src="{{ url_for('static', filename=menu.image) }}" alt="product-thumb"
+            <img src="{{ url_for('static', filename=menu.image) }}" alt="menu-{{menu.name}}-detail-image"
               style="width: 400px; height: 500px; object-fit: cover;">
           </div>
         </div>
@@ -159,7 +166,7 @@
               <div class="reviewer" class="me-5" style="width: 10%">
                 <img
                   src="{{ url_for('static', filename=review['user']['profile_pic'] or 'assets/images/profile/default.jpg')}}"
-                  alt="reviewer" style="width: 100px; height: 100px; object-fit: cover;">
+                  alt="reviewer-{{review['name']}}" style="width: 100px; height: 100px; object-fit: cover;">
               </div>
               <div style="width: 90%">
                 <div>
