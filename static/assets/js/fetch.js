@@ -667,9 +667,13 @@ const getOrdersData = (username) => {
                   <p style="margin-bottom: 0;">Status Order</p>
                   <h5>${status}</h5>
                 </div>
-                <div>
+                <div class="mb-2">
                   <p style="margin: 0;">Payment Method</p>
                   <h5>${payment}</h5>
+                </div>
+                <div>
+                  <p style="margin: 0;">Notes</p>
+                  <h5>${address.notes ? address.notes : "-"}</h5>
                 </div>
                 <hr />
                 <div style="max-height: 200px; overflow: auto;">

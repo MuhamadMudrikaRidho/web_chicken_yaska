@@ -103,7 +103,11 @@
       <div class="row">
         <!-- accepted payments column -->
         <div class="col-6">
-          <p class="lead">Payment Methods:</p> {{order.payment_method}}
+          <div class="div mb-3">
+            <p class="lead" style="margin-bottom: 2px;">Notes:</p>
+            <span>{{order.address.notes if order.address.notes else "-"}}</span>
+          </div>
+          <p class="lead" style="margin-bottom: 2px;">Payment Methods:</p> {{order.payment_method}}
         </div>
         <!-- /.col -->
         <div class="col-6">
