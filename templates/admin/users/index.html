@@ -6,10 +6,10 @@
 {% block content %}
 
 <div class="card card-solid">
+  <a href="create" class="btn btn-primary">Tambah Pengguna Baru</a>
   <div class="card-body pb-0">
     <div class="row">
       {% for user in users %}
-
       <div class="modal fade" id="modal-delete-user-{{user._id}}">
         <div class="modal-dialog">
           <div class="modal-content bg-danger">

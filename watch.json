@@ -1,0 +1,16 @@
+{
+  "install": {
+    "include": [
+      "requirements.txt"
+    ]
+  },
+  "restart": {
+    "include": [
+      "*.py",
+      "*.html",
+      "*.css",
+      "*.js"
+    ]
+  },
+  "throttle": 300
+}
