@@ -32,14 +32,14 @@ def convert_ids_to_strings(document):
         return document
     
 @admin_users_bp.route("/")
-def index() :
+def index():
     db = current_app.config['DB']
     users = list(db.users.find({}))
 
     for user in users:
         user['_id'] = str(user['_id'])
-        user['total_orders'] = db.orders.count_documents({"user": user['username'], "status" : "selesai"})
-        user['shipping_address'] = user.get('shipping_address', 'No address available')
+        user['total_orders'] = db.orders.count_documents({"user": user['username'], "status": "selesai"})
+        user['address'] = user.get('shipping_address', "user belum menambahkan alamat")
 
     return render_template('admin/users/index.html', users=users)
 
@@ -53,7 +53,6 @@ def store() :
     isAdmin = False  
     if request.form.get('isAdmin') == "admin" :
         isAdmin = True
-          
 
     doc = {
         "name" : name,
@@ -69,9 +68,19 @@ def store() :
 
     return redirect('/admin/users')
 
+@admin_users_bp.route('/<username>')
+def show(username) :
+
+    db = current_app.config["DB"]
+    user = db.users.find_one({"username" : username})
+    if not user :
+        return jsonify({"status" : "error", "message" : "pengguna tidak ditemukan"}), 404
+    user['_id'] = str(user['_id'])
+    shipping_address = user.get('shipping_address') or {}
+    return render_template('admin/users/detail.html', user=user, shipping_address=shipping_address)
+
 @admin_users_bp.route('/create')
 def create() :
-
     return render_template('admin/users/create.html')
 
 @admin_users_bp.route('/<user_id>/edit')
@@ -98,7 +107,6 @@ def update(user_id) :
     isAdmin = False
     if request.form.get('isAdmin') == "admin" :
         isAdmin = True
-          
 
     doc = {
         "name" : name,

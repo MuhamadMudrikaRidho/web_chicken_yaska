@@ -1,0 +1,121 @@
+{% extends "admin/layouts/template.html" %}
+{% block title %}Users{% endblock %}
+{% block navUsers %}active{% endblock %}
+{% block heading %}Users{%endblock%}
+{% block breadcrumb %}Users{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-3">
+
+    <!-- Profile Image -->
+    <div class="card card-info card-outline">
+      <div class="card-body box-profile">
+        <div class="text-center">
+          <img class="profile-user-img img-fluid img-circle"
+            src="{{ url_for('static', filename=user.get('profile_pic', 'assets/images/profile/default.jpg'))}}"
+            alt="User profile picture" style="width: 100px; height: 100px; object-fit: cover;">
+        </div>
+
+        <h3 class="profile-username text-center">{{user.name}}</h3>
+
+        <p class="text-muted text-center">{{"Admin" if user.get('isAdmin') else "Pengguna Biasa"}}</p>
+
+        <ul class="list-group list-group-unbordered mb-3">
+          <li class="list-group-item">
+            <b>Username</b>
+            <a class="float-right">{{user.username}}</a>
+          </li>
+          <li class="list-group-item">
+            <b>Email</b> <a class="float-right">{{user.email}}</a>
+          </li>
+          <li class="list-group-item">
+            <b>Alamat</b> <a class="float-right">{{shipping_address.get('address', 'Pengguna belum menambahkan
+              alamat')}}</a>
+          </li>
+        </ul>
+        <button onclick="openForm()" class="btn btn-info btn-block"><b>Ubah data pengguna</b></button>
+      </div>
+
+      <script>
+        const openForm = () => {
+          const updateForm = $('#update-form');
+          updateForm.slideToggle();
+        }
+      </script>
+
+      <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+  </div>
+  <!-- /.col -->
+  <div class="col-md-9">
+    <div class="card">
+      <div class="card-header p-2 bg-info">
+        <ul class="nav nav-pills d-flex align-items-center justify-content-between">
+          <li class="nav-item"><a href="/admin/users" class="nav-link text-light"><i class="fas fa-arrow-left"></i>
+              &nbsp; Kembali ke
+              daftar user</a>
+          </li>
+        </ul>
+      </div><!-- /.card-header -->
+      <div class="card-body" style="display: none;" id="update-form">
+        <div class="tab-content">
+          <div class="active tab-pane" id="settings">
+            <form action="/admin/users/{{user._id}}/edit" method="POST" class="form-horizontal">
+              <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Nama</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="name" placeholder="Nama" name="name"
+                    value="{{user.get('name')}}" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="email" placeholder="Email" name="email"
+                    value="{{user.get('email')}}" required>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="username" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="username" placeholder="Username"
+                    value="{{user.get('username')}}" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="password" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="isAdmin" class="col-sm-2 col-form-label">Jadikan sebagai</label>
+                <div class="col-sm-10">
+                  <select class="form-control" name="isAdmin" id="isAdmin" {{ "disabled" if
+                    user.username==admin.username else "" }}>
+                    <option value="admin" {{"selected" if user.isAdmin else "" }}>Admin</option>
+                    <option value="basic" {{"selected" if not user.isAdmin else "" }}>Pengguna biasa</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="offset-sm-2 col-sm-10">
+                  <button type="submit" class="btn btn-info">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /.tab-pane -->
+        </div>
+        <!-- /.tab-content -->
+      </div><!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.col -->
+</div>
+
+{% endblock %}

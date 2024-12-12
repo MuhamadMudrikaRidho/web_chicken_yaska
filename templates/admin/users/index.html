@@ -5,91 +5,76 @@
 {% block breadcrumb %}Users{% endblock %}
 {% block content %}
 
-<div class="row">
-  <div class="col-12">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">Semua Pengguna</h3>
-        <div class="card-tools">
-          <a href="/admin/users/create" class="btn btn-primary">Tambah Pengguna</a>
+<div class="card card-solid">
+  <div class="card-body pb-0">
+    <div class="row">
+      {% for user in users %}
+
+      <div class="modal fade" id="modal-delete-user-{{user._id}}">
+        <div class="modal-dialog">
+          <div class="modal-content bg-danger">
+            <div class="modal-header">
+              <h4 class="modal-title">Hapus User</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Anda yakin ingin menghapus pengguna {{user.name}}?</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
+              <form method="post">
+                <input class="btn btn-outline-light" type="submit" value="Hapus"
+                  formaction="/admin/users/{{user._id}}/destroy">
+              </form>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+        <div class="card bg-light d-flex flex-fill">
+          <div class="card-header text-muted border-bottom-0">
+            {{ "Admin" if user.get('isAdmin') else "Pengguna biasa" }}
+          </div>
+          <div class="card-body pt-0">
+            <div class="row">
+              <div class="col-7">
+                <h2 class="lead"><b>{{ user.get('name') }}</b></h2>
+                <p class="text-muted text-sm"><b>Username: </b>{{user.get('username')}}</p>
+                <ul class="ml-4 mb-0 fa-ul text-muted">
+                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Address:
+                    {{user['address']['address'] or "Pengguna belum menambahkan alamat"}}</li>
+                  <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Email:
+                    {{user['email']}}</li>
+                </ul>
+              </div>
+              <div class="col-5 text-center">
+                <img src="{{ url_for('static', filename=user.get('profile_pic', 'assets/images/profile/default.jpg'))}}"
+                  alt="user-avatar" class="img-circle img-fluid"
+                  style="object-fit: cover; width: 150px; height: 150px;">
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="text-right">
+              <button onclick="makeSureModal('{{user._id}}')" class="btn btn-sm bg-danger">
+                <i class="fas fa-trash"></i>
+              </button>
+              <a href="{{user.get('username')}}" class="btn btn-sm btn-primary">
+                <i class="fas fa-user"></i> Lihat Profil
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-      <!-- /.card-header -->
-      <div class="card-body table-responsive p-0">
-        <table class="table table-hover text-nowrap">
-          <thead>
-            <tr>
-              <th style="width: 15%;">Nama</th>
-              <th style="width: 10%;">Username</th>
-              <th style="width: 15%;">Email</th>
-              <th style="width: 10%;">Alamat</th>
-              <th style="width: 10%;">Total Pesanan</th>
-              <th style="width: 10%;">IsAdmin</th>
-              <th style="width: 15%;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for user in users %}
-            <div class="modal fade" id="modal-delete-user-{{user._id}}">
-              <div class="modal-dialog">
-                <div class="modal-content bg-danger">
-                  <div class="modal-header">
-                    <h4 class="modal-title">Hapus User</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <p>Anda yakin ingin menghapus pengguna {{user.name}}?</p>
-                  </div>
-                  <div class="modal-footer justify-content-between">
-                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
-                    <form method="post">
-                      <input class="btn btn-outline-light" type="submit" value="Hapus"
-                        formaction="/admin/users/{{user._id}}/destroy">
-                    </form>
-                  </div>
-                </div>
-                <!-- /.modal-content -->
-              </div>
-              <!-- /.modal-dialog -->
-            </div>
-            <tr>
-              <td>{{user.name}}</td>
-              <td>{{user.username}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.shipping_address.address if user.shipping_address.address else "pengguna belum menambahkan
-                alamat"}}
-              </td>
-              <td>{{user.total_orders}}</td>
-              <td><span class="badge {{ 'badge-primary' if user.isAdmin else 'badge-secondary'}}">{{'Admin' if
-                  user.isAdmin else 'Pengguna biasa'}}</span></td>
-              <td class="project-actions text-center">
-                <a class="btn btn-primary btn-sm" href="#">
-                  <i class="fas fa-folder">
-                  </i>
-                  Lihat
-                </a>
-                <a class="btn btn-info btn-sm" href="/admin/users/{{user._id}}/edit">
-                  <i class="fas fa-pencil-alt">
-                  </i>
-                  Ubah
-                </a>
-                <button class="btn btn-danger btn-sm" onclick="makeSureModal('{{user._id}}')">
-                  <i class="fas fa-trash">
-                  </i>
-                  Hapus
-                </button>
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      <!-- /.card-body -->
+      {% endfor %}
     </div>
-    <!-- /.card -->
   </div>
+  <!-- /.card-body -->
 </div>
 
 {% endblock %}
