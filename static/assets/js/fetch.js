@@ -652,7 +652,7 @@ const getOrdersData = (username) => {
           `
 
           const temp_html_order = `
-            <div class="rts-newsletter-popup" id="order-${id}">
+            <div class="rts-newsletter-popup" style="height: 85%; overflow: auto;" id="order-${id}">
               <button onclick="closeViewOrder('${id}')" class="newsletter-close-btn"><i class="fal fa-times"></i></button>
               <div class="newsletter-inner">
                 <div class="mb-2">
