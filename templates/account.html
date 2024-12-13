@@ -231,7 +231,7 @@
 
                         <div class="card">
                             <div class="card-body">
-                                <form id="registerForm" method="POST" action="/account">
+                                <form id="registerForm" method="POST" action="{{ url_for('user.home') }}">
                                     <div class="form">
                                         <label for="name" class="form-label">Nama Lengkap</label>
                                         <input id="name" type="text" class="form-control" name="name"

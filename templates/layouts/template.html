@@ -115,19 +115,6 @@
               </div>
             </div>
             <div class="header-action-items header-action-items1">
-              <div class="search-part">
-                <div class="search-icon action-item icon"><i class="rt-search"></i></div>
-                <div class="search-input-area">
-                  <div class="container">
-                    <div class="search-input-inner">
-                      <div class="input-div">
-                        <input id="searchInput1" class="search-input" type="text" placeholder="Search by keyword or #">
-                      </div>
-                      <div class="search-close-icon"><i class="rt-xmark"></i></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
               {% if 'username' in session %}
               <a href="/account" class="account"><i class="rt-user-2"></i></a>
               {% if request.path == "/account/" %}
@@ -231,40 +218,20 @@
           <li class="firstlvl">
             <a class="mm-link" href="/about">About</a>
           </li>
+          {% if 'username' in session %}
           <li class="firstlvl">
-            <a class="mm-link" href="/login">Login</a>
+            <a class="mm-link" href="/account">Account</a>
           </li>
+          <li class="firstlvl">
+            <a class="mm-link" href="/auth/logout">Logout</a>
+          </li>
+          {% else %}
+          <li class="firstlvl">
+            <a class="mm-link" href="/auth/login">Login</a>
+          </li>
+          {% endif %}
         </ul>
       </nav>
-      <div class="header-action-items header-action-items1 header-action-items-side">
-        <div class="search-part">
-          <div class="search-icon action-item icon"><i class="rt-search"></i></div>
-          <div class="search-input-area">
-            <div class="container">
-              <div class="search-input-inner">
-                <div class="input-div">
-                  <div class="search-input-icon"><i class="rt-search mr--10"></i></div>
-                  <input class="search-input" type="text" placeholder="Search by keyword or #">
-                </div>
-                <div class="search-close-icon"><i class="rt-xmark"></i></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {% if login %}
-        <div class="cart action-item">
-          <div class="cart-nav">
-            <div class="cart-icon icon"><i class="rt-cart"></i><span class="wishlist-dot icon-dot">3</span>
-            </div>
-          </div>
-        </div>
-        <div class="wishlist action-item">
-          <div class="favourite-icon icon"><i class="rt-heart"></i><span class="cart-dot icon-dot">0</span>
-          </div>
-        </div>
-        <a href="login.html" class="account"><i class="rt-user-2"></i></a>
-        {% endif %}
-      </div>
       <!-- side-mobile-menu end -->
     </aside>
 

@@ -13,7 +13,7 @@
       </div>
       <!-- /.card-header -->
       <!-- form start -->
-      <form action="/admin/orders" method="POST">
+      <form action="{{ url_for('admin_orders.store') }}" method="POST">
         <div class="card card-default my-3">
           <div class="card-header">
             <h3 class="card-title">Menu</h3>
