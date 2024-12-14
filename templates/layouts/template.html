@@ -219,9 +219,23 @@
             <a class="mm-link" href="/about">About</a>
           </li>
           {% if 'username' in session %}
-          <li class="firstlvl">
-            <a class="mm-link" href="/account">Account</a>
+          {% if request.path == "/account/" %}
+          {% else %}
+          <li class="has-dropdown firstlvl">
+            <a class="mm-link">Account <i class="rt-angle-down"></i></a>
+            <ul class="sub-menu">
+              <li><a href="/account">Dashboard</a></li>
+              {% if request.path == "/cart/" %}
+              {% else %}
+              <li><a href="/cart">Cart</a></li>
+              {% endif %}
+              {% if request.path == "/wishlist/" %}
+              {% else %}
+              <li><a href="/wishlist">Wishlist</a></li>
+              {% endif %}
+            </ul>
           </li>
+          {% endif %}
           <li class="firstlvl">
             <a class="mm-link" href="/auth/logout">Logout</a>
           </li>
