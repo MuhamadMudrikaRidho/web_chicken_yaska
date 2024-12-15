@@ -19,7 +19,10 @@
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Tutup</button>
-        <button type="button" class="btn btn-outline-light" onclick="deleteMenu('{{menu._id}}')">Hapus</button>
+        <form method="post">
+          <input class="btn btn-outline-light" type="submit" value="Hapus"
+            formaction="/admin/menu/{{menu._id}}/destroy">
+        </form>
       </div>
     </div>
     <!-- /.modal-content -->
