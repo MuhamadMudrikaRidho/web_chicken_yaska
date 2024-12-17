@@ -61,9 +61,15 @@
           </div>
           <div class="card-footer">
             <div class="text-right">
+              {% if user.username == admin.username %}
+              <button onclick="makeSureModal('{{user._id}}')" class="btn btn-sm bg-danger" disabled>
+                <i class="fas fa-trash"></i>
+              </button>
+              {% else %}
               <button onclick="makeSureModal('{{user._id}}')" class="btn btn-sm bg-danger">
                 <i class="fas fa-trash"></i>
               </button>
+              {% endif %}
               <a href="{{user.get('username')}}" class="btn btn-sm btn-primary">
                 <i class="fas fa-user"></i> Lihat Profil
               </a>
