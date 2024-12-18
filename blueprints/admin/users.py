@@ -129,6 +129,7 @@ def destroy(user_id) :
     db.users.delete_one({"_id" : ObjectId(user_id)})
     db.wishlists.delete_many({"user" : user['username']})
     db.carts.delete_many({"user" : user['username']})
+    db.reviews.delete_many({"user" : user['username']})
 
     flash(f"user dengan id {user_id} berhasil dihapus", "success")
     return redirect('/admin/users')
