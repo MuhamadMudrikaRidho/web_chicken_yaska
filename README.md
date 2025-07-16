@@ -62,7 +62,6 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal A
         ```
 
 4.  **Install semua dependensi yang dibutuhkan:**
-    > **Catatan**: Pastikan Anda sudah membuat file `requirements.txt` dengan menjalankan `pip freeze > requirements.txt` di terminal proyek Anda.
     ```bash
     pip install -r requirements.txt
     ```
