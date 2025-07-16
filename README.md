@@ -41,7 +41,7 @@ Ikuti langkah-langkah berikut untuk menjalankan proyek ini di lingkungan lokal A
 
 1.  **Clone repositori ini:**
     ```bash
-    git clone [https://github.com/MuhamadMudrikaRidho/web_chicken_yaska.git](https://github.com/MuhamadMudrikaRidho/web_chicken_yaska.git)
+    git clone https://github.com/MuhamadMudrikaRidho/web_chicken_yaska.git
     ```
 
 2.  **Masuk ke direktori proyek:**
